@@ -32,6 +32,7 @@ For KRR model, You need to provide the following parameters
 ```
 
 * **AIQD model:**
+
         * Providing input file, an array or a list of input parameters (In this case, the user needs to normalized the data him/her-self.
 
 ```
