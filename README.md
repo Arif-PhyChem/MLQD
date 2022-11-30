@@ -12,32 +12,22 @@ We provide three Machine Learning (ML) methods in our package MLQD
 * Optimization of the hyperparameters in CNN and KRR models  
 
 ## Dynamics Propagation <a name="propagation"></a>
-We provide already trained QD models which can be found here [coming soon], you can download them and test the code. If You wanna train your own model, then go to [Model training on your data](#training) 
+(***Go to example folder for ready made scripts***)
+We provide already trained QD models which can be found here [coming soon], you can download them and test the code. If You wanna train your own model, then go to [Model training on your data](#training).
+
+* **KRR model:**
+For KRR model, You need to provide the following parameters
+* Spin-boson (SB) model:
+```param={ 'time': 20, # propagation time in picoseconds (ps)
+        'time_step': 0.1, # time-step for time-propagation (you are restricted to the time-step used in the training data)
+        'QDmodel': 'useQDmodel', # default option useQDmodel
+        'MLmodelType': 'OSTL',  # default option OSTL
+        # 'XfileIn': 'x_input',   # Donot include *.npy extension, not optional, In case of useQDmodel, if you provide input as file, the delimiter (each column should be seperater) should a space.  
+        'systemType': 'SB', # not optional  
+        'QDmodelIn': 'trained_models/ostl_sb_model-8483-tloss-3.226e-07-vloss-1.040e-06.hdf5',  # not optional for useQDmodel
+        }
+```
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## Model Training on your own data <a name="training"></a>
+## Model training on your own data <a name="training"></a>
