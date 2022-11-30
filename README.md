@@ -47,6 +47,20 @@ For KRR model, You need to provide the following parameters
         'QDmodelIn': 'KRR_SB_model',    # str:  (Not Optional for useQDmodel), provide the name of the trained ML                                            model
         }
 ```
+*If a user just wants to providing just parameters
+
+```
+        param={ 
+        'initState': 1,                 # Int:  Initial state with Initial Excitation case (only required in FMO complex case, Default is '1')
+        'n_states': 2,                  # Int:  Number of states (SB) or sites (FMO), default 2 (SB) and 7 (FMO).
+        'time': 20,                     # float: Propagation time in picoseconds (ps)
+        'time_step': 0.1,               # float: Time-step for time-propagation (you are not restricted to the time-step used in the training data, however better                                             stick to that for good accuracy)
+        'QDmodel': 'useQDmodel',        # st: In MLQD, the dafault option is useQDmodel tells the MLQD to propagate dynamics with an existing trained model
+        'MLmodelType': 'AIQD',          # st:  In MLQD, passing the type of model we wanna use, here AIQD. The default option is OSTL
+        'systemType': 'SB',             # str:  (Not optional)  Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
+        'QDmodelIn': 'KRR_SB_model',    # str:  (Not Optional for useQDmodel), provide the name of the trained ML                                            model
+        }
+```
 
 
 ## Model training on your own data <a name="training"></a>
