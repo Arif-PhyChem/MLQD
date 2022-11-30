@@ -15,4 +15,29 @@ We provide three Machine Learning (ML) methods in our package MLQD
 We provide already trained QD models which can be found here [coming soon], you can download them and test the code. If You wanna train your own model, then go to [Model training on your data](#training) 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Model Training on your own data <a name="training"></a>
