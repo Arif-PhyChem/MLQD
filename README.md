@@ -13,7 +13,7 @@ We provide three Machine Learning (ML) methods in our package MLQD
 
 ## Dynamics Propagation <a name="propagation"></a>
 (***Go to example folder for ready made scripts***)
-We provide already trained QD models which can be found here [coming soon], you can download them and test the code. If You wanna train your own model, then go to [Model training on your data](#training).
+We provide already trained QD models which can be found here [coming soon], you can download them and test the code. If You wanna train your own model, then go to [Model training on your own data](#training).
 
 * **KRR model:**
 For KRR model, You need to provide the following parameters
