@@ -54,7 +54,7 @@ For KRR model, You need to provide the following parameters
 ```
 
 * **AIQD model:**
-        *Providing input file, an array or a list of input parameters (In this case, the user needs to normalized the data him/her-self.*
+        Providing input file, an array or a list of input parameters (In this case, the user needs to normalized the data him/her-self). AIQD use a logistic function to normalize the dimension of time, i.e.,  $f(t) = a/(1 + b \exp(-(t + c)/d))$ where $a, b, c \text(and) d$ are constants.  Check out the Supplementary Figure 3 of our AIQD Papar paper https://www.nature.com/articles/s41467-022-29621-w.
 
 ```
         param={ 
@@ -64,7 +64,12 @@ For KRR model, You need to provide the following parameters
         'time_step': 0.1,               # float: Time-step for time-propagation (you are not restricted to the time-step used in the training data, however better  stick to that for good accuracy)
         'QDmodel': 'useQDmodel',        # string: In MLQD, the dafault option is useQDmodel tells the MLQD to propagate dynamics with an existing trained model
         'MLmodelType': 'AIQD',          # string: Type of model we wanna use, here AIQD. The default option is OSTL
-         'XfileIn': 'x_input',          # str (name of a file) or name of an array or list:  A short time trajectory (equal to the length the input-model was trained on). Here 'x_input' is a txt file where this short-time trajectory is saved. You can also just define a list or an array and pass the name of the array (XfileIn = x_input).  In x-input file, the data should be row wise.  
+        'XfileIn': 'x_input',           # str (name of a file) or name of an array or list:  A short time trajectory (equal to the length the input-model was trained on). Here 'x_input' is a txt file where this short-time trajectory is saved. You can also just define a list or an array and pass the name of the array (XfileIn = x_input).  In x-input file, the data should be row wise.
+        'numLogf': 1.0                  # int: Number of Logistic function for the normalization of time dimension. Default value is 1.0.    
+        `LogCa` : 1.0                   # float: Coefficient "a" in the logistic function, default values is 1.0 (you may not provide it)
+        `LogCb` : 15.0                  # float: Coefficient "b" in the logistic function, default values is 15.0 (you may not provide it)
+        `LogCc` : -1.0                  # float: Coefficient "a" in the logistic function, default values is -1.0 (you may not provide it)
+        `LogCd` : 1.0                   # float: Coefficient "d" in the logistic function, default values is 1.0 (you may not provide it)
         'systemType': 'SB',             # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'QDmodelIn': 'KRR_SB_model',    # str: (Not Optional for useQDmodel), provide the name of the trained ML model
         }
@@ -77,6 +82,11 @@ A user can also just provide simulation parameters (Characteristic frequency, Sy
         'n_states': 2,                  # Int:  Number of states (SB) or sites (FMO). Default is 2 (SB) and 7 (FMO).
         'time': 20,                     # float: Propagation time in picoseconds (ps)
         'time_step': 0.1,               # float: Time-step for time-propagation (you are not restricted to the time-step used in the training data, however better stick to that for good accuracy)
+         'numLogf': 1.0                  # int: Number of Logistic function for the normalization of time dimension. Default value is 1.0. Check out the Supplementary Figure 3 of our AIQD Papar paper https://www.nature.com/articles/s41467-022-29621-w.   
+        `LogCa` : 1.0                   # float: Coefficient "a" in the logistic function, default values is 1.0 (you may not provide it)
+        `LogCb` : 15.0                  # float: Coefficient "b" in the logistic function, default values is 15.0 (you may not provide it)
+        `LogCc` : -1.0                  # float: Coefficient "a" in the logistic function, default values is -1.0 (you may not provide it)
+        `LogCd` : 1.0                   # float: Coefficient "d" in the logistic function, default values is 1.0 (you may not provide it)
         'energyDiff': 1.0               # float: Energy difference between the two states (in the unit of (a.u.)). Only required in SB model
         'Delta': 1.0                    # float: The tunneling matrix element (in the unit of (a.u.)). Only required in SB model
         'gamma': 100,                   # float: Characteristic frequency (in cm^-1 for the provided trained FMO models, in (a.u.) for spin-boson model)
@@ -94,6 +104,8 @@ A user can also just provide simulation parameters (Characteristic frequency, Sy
         'QDmodelIn': 'AIQD_FMO_model',  # str: (Not Optional for useQDmodel), provide the name of the trained ML                                            model
         }
 ```
+
+* **OSTL model**
 
 
 ## Model training on your own data <a name="training"></a> [[Go to Top](#Top)]
