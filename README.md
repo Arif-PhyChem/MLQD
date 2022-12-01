@@ -76,7 +76,7 @@ For KRR model, You need to provide the following parameters
         }
 ```
 
-  * **Case-2:** A user can also just provide simulation parameters (Characteristic frequency, System-bath coupling strengt, Temperature etc.) and MLQD will predict the correspinding dynamics. 
+   * **Case-2:** A user can also just provide simulation parameters (Characteristic frequency, System-bath coupling strengt, Temperature etc.) and MLQD will predict the correspinding dynamics. 
 
 
 ```
