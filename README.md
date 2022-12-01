@@ -22,15 +22,15 @@ Activate the environment
 
 Install the following required dependencies
 
-*tensorflow*  ```conda install -c conda-forge tensorflow``` 
+* tensorflow  ```conda install -c conda-forge tensorflow``` 
 
-*Keras* ```conda install -c conda-forge keras```  (though tensorflow also has keras, but we installing it explicitly) 
+* Keras ```conda install -c conda-forge keras```  (though tensorflow also has keras, but we installing it explicitly) 
 
-*hyperopt* ```conda install -c conda-forge hyperopt```
+* hyperopt ```conda install -c conda-forge hyperopt```
 
-*hyperas*  ```conda install -c conda-forge hyperas```
+* hyperas  ```conda install -c conda-forge hyperas```
 
-*MLatom* ```pip install MLatom```
+* MLatom ```pip install MLatom```
 
 ## Dynamics Propagation <a name="propagation"></a>
 (***Go to example folder for ready made scripts***)
