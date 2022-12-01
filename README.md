@@ -61,7 +61,7 @@ I. **Case-1:** If a user wants to provide parameters for propagation in a file, 
 
 ```
         param={ 
-        'n_states': 2,                  # Int:  Number of states (SB) or sites (FMO), default 2 (SB) and 7 (FMO).
+        'n_states': 2,                  # int:  Number of states (SB) or sites (FMO), default 2 (SB) and 7 (FMO).
         'time': 20,                     # float: Propagation time in picoseconds (ps) for FMO complex and in (a.u.) for spin-boson model
         'time_step': 0.05,               # float: Time-step for time-propagation (you are not restricted to the time-step used in the training data, however better  stick to that for good accuracy). Default values are 0.05 (spin-boson model) and 0.005ps for FMO complex.
         'QDmodel': 'useQDmodel',        # string: In MLQD, the dafault option is useQDmodel tells the MLQD to propagate dynamics with an existing trained model
@@ -81,7 +81,7 @@ I. **Case-1:** If a user wants to provide parameters for propagation in a file, 
 
 ```
         param={ 
-        'initState': 1,                 # Int:  Initial state with Initial Excitation case (only required in FMO complex case, Default is '1')
+        'initState': 1,                 # int:  Initial state with Initial Excitation case (only required in FMO complex case, Default is '1')
         'n_states': 2,                  # Int:  Number of states (SB) or sites (FMO). Default is 2 (SB) and 7 (FMO).
         'time': 20,                     # float: Propagation time in picoseconds (ps)  for FMO complex and in (a.u.) for spin-boson model
         'time_step': 0.1,               # float: Time-step for time-propagation (you are not restricted to the time-step used in the training data, however better stick to that for good accuracy) Default values are 0.05 (spin-boson model) and 0.005ps for FMO complex
@@ -117,7 +117,7 @@ If a user wants to provide parameters for propagation in a file, in the shape of
 
 ```
         param={ 
-        'n_states': 2,                  # Int:  Number of states (SB) or sites (FMO), default 2 (SB) and 7 (FMO).
+        'n_states': 2,                  # int:  Number of states (SB) or sites (FMO), default 2 (SB) and 7 (FMO).
         'time': 20,                     # float: Propagation time in picoseconds (ps)  for FMO complex and in (a.u.) for spin-boson model
         'time_step': 0.1,               # float: Time-step for time-propagation (you are not restricted to the time-step used in the training data, however better  stick to that for good accuracy). Default values are 0.05 (spin-boson model) and 0.005ps for FMO complex
         'QDmodel': 'useQDmodel',        # string: In MLQD, the dafault option is useQDmodel tells the MLQD to propagate dynamics with an existing trained model
@@ -138,8 +138,8 @@ If a user wants to provide parameters for propagation in a file, in the shape of
 A user can also just provide simulation parameters (Characteristic frequency, System-bath coupling strengt, Temperature etc.) and MLQD will predict the correspinding dynamics. 
 ```
         param={ 
-        'initState': 1,                 # Int:  Initial state with Initial Excitation case (only required in FMO complex case, Default is '1')
-        'n_states': 2,                  # Int:  Number of states (SB) or sites (FMO). Default is 2 (SB) and 7 (FMO).
+        'initState': 1,                 # int:  Initial state with Initial Excitation case (only required in FMO complex case, Default is '1')
+        'n_states': 2,                  # int:  Number of states (SB) or sites (FMO). Default is 2 (SB) and 7 (FMO).
         'time': 20,                     # float: Propagation time in picoseconds (ps)  for FMO complex and in (a.u.) for spin-boson model
         'time_step': 0.005,             # float: Time-step for time-propagation (OSTL does not use it, however will use it in the output file). Default values are 0.05 (spin-boson model) and 0.005ps for FMO complex
         'energyDiff': 1.0               # float: Energy difference between the two states (in the unit of (a.u.)). Only required in SB model
@@ -187,10 +187,10 @@ For KRR model, You need to provide the following parameters
         }
 ```
 * **AIQD**
-Just to emphasize, you data files should be in the same format as was adopted in out [QDDSET-1: A Quantum Dissipative Dynamics Dataset](https://github.com/Arif-PhyChem/QDDSET "Named link title")
+Just to emphasize, the data files should be in the same format as was adopted in out [QDDSET-1: A Quantum Dissipative Dynamics Dataset](https://github.com/Arif-PhyChem/QDDSET "Named link title")
 ```
         param={ 
-        'n_states': 2,                  # Int:  Number of states (SB) or sites (FMO), default 2 (SB) and 7 (FMO).
+        'n_states': 2,                  # int:  Number of states (SB) or sites (FMO), default 2 (SB) and 7 (FMO).
         'time': 50,                     # float: Propagation time in picoseconds (ps) for FMO complex and in (a.u.) for spin-boson model
         'time_step': 0.005,             # float: Time-step for time-propagation (you are not restricted to the time-step used in the training data, however better  stick to that for good accuracy). Default values are 0.05 (spin-boson model) and 0.005ps for FMO complex.
         'QDmodel': 'createQDmodel',     # string: createQDmodel, the dafault option is useQDmodel
@@ -204,7 +204,29 @@ Just to emphasize, you data files should be in the same format as was adopted in
         `LogCd` : 1.0                   # float: Coefficient "d" in the logistic function, default values is 1.0 (you may not provide it)
         'systemType': 'FMO',            # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'hyperParam': True,             # bool: Default is False, we can pass True (optimize the hyper parameters) or False (don't optimize and run with the default structure)
-        'dataPath': 'data/fmo'           # str: Data path
-        'QDmodelout': 'AIQD_SB_model',   # str: (Optional), providing a name to save the model at
+        'dataPath': 'data/fmo'          # str: Data path
+        'QDmodelout': 'AIQD_SB_model',  # str: (Optional), providing a name to save the model at
+        }
+```
+* **OSTL**
+Just to emphasize, the data files should be in the same format as was adopted in out [QDDSET-1: A Quantum Dissipative Dynamics Dataset](https://github.com/Arif-PhyChem/QDDSET "Named link title")
+```
+        param={ 
+        'n_states': 2,                  # int:  Number of states (SB) or sites (FMO), default 2 (SB) and 7 (FMO).
+        'time': 50,                     # float: Propagation time in picoseconds (ps) for FMO complex and in (a.u.) for spin-boson model
+        'time_step': 0.005,             # float: Time-step for time-propagation (you are not restricted to the time-step used in the training data, however better  stick to that for good accuracy). Default values are 0.05 (spin-boson model) and 0.005ps for FMO complex.
+        'QDmodel': 'createQDmodel',     # string: createQDmodel, the dafault option is useQDmodel
+        'MLmodelType': 'AIQD',          # string: Type of model. The default option is OSTL
+        'XfileIn': 'x_data',            # str: Optional, npy file) The prepared X file will be saved at the provided file name 
+        'YfileIn': 'y_data',            # str: Optional, npy file) The prepared Y file will be saved at the provided file name 
+        'numLogf': 1.0                  # int: Number of Logistic function for the normalization of time dimension. Default value is 1.0.    
+        `LogCa` : 1.0                   # float: Coefficient "a" in the logistic function, default values is 1.0 (you may not provide it)
+        `LogCb` : 15.0                  # float: Coefficient "b" in the logistic function, default values is 15.0 (you may not provide it)
+        `LogCc` : -1.0                  # float: Coefficient "a" in the logistic function, default values is -1.0 (you may not provide it)
+        `LogCd` : 1.0                   # float: Coefficient "d" in the logistic function, default values is 1.0 (you may not provide it)
+        'systemType': 'FMO',            # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
+        'hyperParam': True,             # bool: Default is False, we can pass True (optimize the hyper parameters) or False (don't optimize and run with the default structure)
+        'dataPath': 'data/fmo'          # str: Data path
+        'QDmodelout': 'AIQD_SB_model',  # str: (Optional), providing a name to save the model at
         }
 ```
