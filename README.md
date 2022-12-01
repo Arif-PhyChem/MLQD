@@ -108,10 +108,9 @@ I. **Case-1:** If a user wants to provide parameters for propagation in a file, 
 ```
 
 * **OSTL model** (Recommended for fast and smooth propagation of dyanmics)
-*
 For OSTL, the input is the same as AIQD except in OSTL, we just don't use the logistic functions here
 
-I. **Case-I:**
+        I. **Case-I:**
 If a user wants to provide parameters for propagation in a file, in the shape of an array or in the form of a list. (In this case, the user needs to normalized the data him/herself).
 
 ```
@@ -133,7 +132,7 @@ If a user wants to provide parameters for propagation in a file, in the shape of
         }
 ```
 
-II. **Case-2**
+        II. **Case-2**
 A user can also just provide simulation parameters (Characteristic frequency, System-bath coupling strengt, Temperature etc.) and MLQD will predict the correspinding dynamics. 
 ```
         param={ 
