@@ -11,6 +11,19 @@ We provide three Machine Learning (ML) methods in our package MLQD
 * Transforming data into input files X and Y
 * Optimization of the hyperparameters in CNN and KRR models  
 
+**Install and dependencies**
+Create a conda environment 
+```conda create --name mlqd```
+Activate the environment
+```conda activate mlqd```
+Install the following required dependencies
+
+*tensorflow*  ```conda install -c conda-forge tensorflow``` 
+*Keras* ```conda install -c conda-forge keras```  (though tensorflow also has keras, but we installing it explicitly) 
+*hyperopt* ```conda install -c conda-forge hyperopt```
+*hyperas*  ```conda install -c conda-forge hyperas```
+*MLatom* ```pip install MLatom```
+
 ## Dynamics Propagation <a name="propagation"></a>
 (***Go to example folder for ready made scripts***)
 We provide already trained QD models which can be found here [coming soon], you can download them and test the code. If You wanna train your own model, then go to [Model training on your own data](#training).
