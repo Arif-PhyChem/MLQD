@@ -67,11 +67,11 @@ I. **Case-1:** If a user wants to provide parameters for propagation in a file, 
         'QDmodel': 'useQDmodel',        # string: In MLQD, the dafault option is useQDmodel tells the MLQD to propagate dynamics with an existing trained model
         'MLmodelType': 'AIQD',          # string: Type of model we wanna use, here AIQD. The default option is OSTL
         'XfileIn': 'x_input',           # str: Input parameters should be in the same format as the model was trained on. Here "x_input" can be a txt file ('XfileIn': 'x_input'). It can be a list or an array and in this case you need to pass the name of the array or list (XfileIn = x_input). 
-        'numLogf': 1.0                  # int: Number of Logistic function for the normalization of time dimension. Default value is 1.0.    
-        `LogCa` : 1.0                   # float: Coefficient "a" in the logistic function, default values is 1.0 (you may not provide it)
-        `LogCb` : 15.0                  # float: Coefficient "b" in the logistic function, default values is 15.0 (you may not provide it)
-        `LogCc` : -1.0                  # float: Coefficient "a" in the logistic function, default values is -1.0 (you may not provide it)
-        `LogCd` : 1.0                   # float: Coefficient "d" in the logistic function, default values is 1.0 (you may not provide it)
+        'numLogf': 1.0,                  # int: Number of Logistic function for the normalization of time dimension. Default value is 1.0.    
+        `LogCa` : 1.0,                   # float: Coefficient "a" in the logistic function, default values is 1.0 (you may not provide it)
+        `LogCb` : 15.0,                  # float: Coefficient "b" in the logistic function, default values is 15.0 (you may not provide it)
+        `LogCc` : -1.0,                  # float: Coefficient "a" in the logistic function, default values is -1.0 (you may not provide it)
+        `LogCd` : 1.0,                   # float: Coefficient "d" in the logistic function, default values is 1.0 (you may not provide it)
         'systemType': 'SB',             # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'QDmodelIn': 'AIQD_SB_model',    # str: (Not Optional for useQDmodel), provide the name of the trained ML model
         'QDtrajOut': 'Qd_trajectory'    # str: (Optional), File name where the trajectory should be saved
@@ -85,18 +85,18 @@ I. **Case-1:** If a user wants to provide parameters for propagation in a file, 
         'n_states': 2,                  # Int:  Number of states (SB) or sites (FMO). Default is 2 (SB) and 7 (FMO).
         'time': 20,                     # float: Propagation time in picoseconds (ps)  for FMO complex and in (a.u.) for spin-boson model
         'time_step': 0.1,               # float: Time-step for time-propagation (you are not restricted to the time-step used in the training data, however better stick to that for good accuracy) Default values are 0.1 (KRR SB), 0.05 (AIQD and OSTL for spin-boson model) and 0.005ps for FMO complex
-         'numLogf': 1.0                  # int: Number of Logistic function for the normalization of time dimension. Default value is 1.0.   
-        `LogCa` : 1.0                   # float: Coefficient "a" in the logistic function, default values is 1.0 (you may not provide it)
-        `LogCb` : 15.0                  # float: Coefficient "b" in the logistic function, default values is 15.0 (you may not provide it)
-        `LogCc` : -1.0                  # float: Coefficient "a" in the logistic function, default values is -1.0 (you may not provide it)
-        `LogCd` : 1.0                   # float: Coefficient "d" in the logistic function, default values is 1.0 (you may not provide it)
-        'energyDiff': 1.0               # float: Energy difference between the two states (in the unit of (a.u.)). Only required in SB model
-        'Delta': 1.0                    # float: The tunneling matrix element (in the unit of (a.u.)). Only required in SB model
+         'numLogf': 1.0,                 # int: Number of Logistic function for the normalization of time dimension. Default value is 1.0.   
+        `LogCa` : 1.0,                   # float: Coefficient "a" in the logistic function, default values is 1.0 (you may not provide it)
+        `LogCb` : 15.0,                  # float: Coefficient "b" in the logistic function, default values is 15.0 (you may not provide it)
+        `LogCc` : -1.0,                  # float: Coefficient "a" in the logistic function, default values is -1.0 (you may not provide it)
+        `LogCd` : 1.0,                   # float: Coefficient "d" in the logistic function, default values is 1.0 (you may not provide it)
+        'energyDiff': 1.0,               # float: Energy difference between the two states (in the unit of (a.u.)). Only required in SB model
+        'Delta': 1.0,                    # float: The tunneling matrix element (in the unit of (a.u.)). Only required in SB model
         'gamma': 100,                   # float: Characteristic frequency (in cm^-1 for the provided trained FMO models, in (a.u.) for spin-boson model)
         'lamb': 10,                     # float: System-bath coupling strength  (in cm^-1 for the provided trained FMO models, in (a.u.) for spin-boson model)
         'temp': 300,                    # float: temperature in K  (in Kilven for the provided trained FMO models, in (a.u.) for spin-boson model)
-        'energyNorm': 1.0               # float: Normalizer for energy difference. Default value is 1.0 (adopted in the provided trained models)
-        'DeltaNorm': 1.0                # float: Normalizer for Delta. Default value is 1.0 (adopted in the provided trained models)
+        'energyNorm': 1.0,               # float: Normalizer for energy difference. Default value is 1.0 (adopted in the provided trained models)
+        'DeltaNorm': 1.0,                # float: Normalizer for Delta. Default value is 1.0 (adopted in the provided trained models)
         'gammaNorm': 500,               # float: Normalizer for Characteristic frequency. Default value is 500 in the case of FMO complex and 10 in the case of spin-boson model. The same values are also adopted in the provided trained models  
         'lambNorm': 520,                # float: Normalizer for System-bath coupling strength. Default value is 520 (FMO complex) and 1 (SB model). The same values are also adopted in the provided trained models 
         'tempNorm': 500,                # float: Normalizer for temperature. Default value is 510 (FMO complex) and 1 (SB model). The same values are also adopted in the provided trained models.
@@ -123,11 +123,11 @@ If a user wants to provide parameters for propagation in a file, in the shape of
         'QDmodel': 'useQDmodel',        # string: In MLQD, the dafault option is useQDmodel tells the MLQD to propagate dynamics with an existing trained model
         'MLmodelType': 'AIQD',          # string: Type of model we wanna use, here AIQD. The default option is OSTL
         'XfileIn': 'x_input',           # str: Input parameters should be in the same format as the model was trained on. Here "x_input" can be a txt file ('XfileIn': 'x_input'). It can be a list or an array and in this case you need to pass the name of the array or list (XfileIn = x_input). 
-        'numLogf': 1.0                  # int: Number of Logistic function for the normalization of time dimension. Default value is 1.0.    
-        `LogCa` : 1.0                   # float: Coefficient "a" in the logistic function, default values is 1.0 (you may not provide it)
-        `LogCb` : 15.0                  # float: Coefficient "b" in the logistic function, default values is 15.0 (you may not provide it)
-        `LogCc` : -1.0                  # float: Coefficient "a" in the logistic function, default values is -1.0 (you may not provide it)
-        `LogCd` : 1.0                   # float: Coefficient "d" in the logistic function, default values is 1.0 (you may not provide it)
+        'numLogf': 1.0,                  # int: Number of Logistic function for the normalization of time dimension. Default value is 1.0.    
+        `LogCa` : 1.0,                   # float: Coefficient "a" in the logistic function, default values is 1.0 (you may not provide it)
+        `LogCb` : 15.0,                  # float: Coefficient "b" in the logistic function, default values is 15.0 (you may not provide it)
+        `LogCc` : -1.0,                  # float: Coefficient "a" in the logistic function, default values is -1.0 (you may not provide it)
+        `LogCd` : 1.0,                   # float: Coefficient "d" in the logistic function, default values is 1.0 (you may not provide it)
         'systemType': 'SB',             # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'QDmodelIn': 'OSTL_SB_model',    # str: (Not Optional for useQDmodel), provide the name of the trained ML model
         'QDtrajOut': 'Qd_trajectory'    # str: (Optional), File name where the trajectory should be saved
@@ -142,13 +142,13 @@ A user can also just provide simulation parameters (Characteristic frequency, Sy
         'n_states': 2,                  # int:  Number of states (SB) or sites (FMO). Default is 2 (SB) and 7 (FMO).
         'time': 20,                     # float: Propagation time in picoseconds (ps)  for FMO complex and in (a.u.) for spin-boson model
         'time_step': 0.005,             # float: Time-step for time-propagation (OSTL does not use it, however will use it in the output file). Default values are 0.1 (KRR SB), 0.05 (AIQD and OSTL for spin-boson model) and 0.005ps for FMO complex
-        'energyDiff': 1.0               # float: Energy difference between the two states (in the unit of (a.u.)). Only required in SB model
-        'Delta': 1.0                    # float: The tunneling matrix element (in the unit of (a.u.)). Only required in SB model
+        'energyDiff': 1.0,               # float: Energy difference between the two states (in the unit of (a.u.)). Only required in SB model
+        'Delta': 1.0,                    # float: The tunneling matrix element (in the unit of (a.u.)). Only required in SB model
         'gamma': 100,                   # float: Characteristic frequency (in cm^-1 for the provided trained FMO models, in (a.u.) for spin-boson model)
         'lamb': 10,                     # float: System-bath coupling strength  (in cm^-1 for the provided trained FMO models, in (a.u.) for spin-boson model)
         'temp': 300,                    # float: temperature in K  (in Kilven for the provided trained FMO models, in (a.u.) for spin-boson model)
-        'energyNorm': 1.0               # float: Normalizer for energy difference. Default value is 1.0 (adopted in the provided trained models)
-        'DeltaNorm': 1.0                # float: Normalizer for Delta. Default value is 1.0 (adopted in the provided trained models)
+        'energyNorm': 1.0,               # float: Normalizer for energy difference. Default value is 1.0 (adopted in the provided trained models)
+        'DeltaNorm': 1.0,                # float: Normalizer for Delta. Default value is 1.0 (adopted in the provided trained models)
         'gammaNorm': 500,               # float: Normalizer for Characteristic frequency. Default value is 500 in the case of FMO complex and 10 in the case of spin-boson model. The same values are also adopted in the provided trained models  
         'lambNorm': 520,                # float: Normalizer for System-bath coupling strength. Default value is 520 (FMO complex) and 1 (SB model). The same values are also adopted in the provided trained models 
         'tempNorm': 500,                # float: Normalizer for temperature. Default value is 510 (FMO complex) and 1 (SB model). The same values are also adopted in the provided trained models.
@@ -175,15 +175,15 @@ For KRR model, You need to provide the following parameters
         'MLmodelType': 'KRR',           # str: The type of model. Here KRR and the default option is OSTL
         'XfileIn': 'x_train',           # str: (Optional, txt file) The prepared X file will be saved at the provided file name 
         'YfileIn': 'y_train',           # str: (Optional, txt file) The prepared Y file will be saved at the provided file name
-        'dataPath': 'data/sb'           # str: Data path
+        'dataPath': 'data/sb' ,          # str: Data path
         'dataCol': 1,                   # int: Default is 1, we may have multiple columns in our data files, mention a single column (KRR model works only for single output)
-        'dtype': 'real'                 # str: Default is real. If the data in complex and if we pass 'real', it will prepare data only for real part and if we pass 'imag' is mentioned, only imaginary data will be considered. 
-        'xlength': 81                   # int:  Default is 81. Length of the short trajectory which will be used as an input
-        'hyperParam': True              # bool: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default values)
-        'krrSigma': 4.0                 # float: If you pass False to hyperParam, then we need to provide a value for hyperparameter Sigma in Gaussian kernel. Otherwise the model will run with the default value. 
-        'krrLamb': 0.00000001           # float: If you pass False to hyperParam, then we need to provide a value for hyper parameter Lambda in KRR. Otherwise the model will run with the default value.
+        'dtype': 'real',                 # str: Default is real. If the data in complex and if we pass 'real', it will prepare data only for real part and if we pass 'imag' is mentioned, only imaginary data will be considered. 
+        'xlength': 81,                   # int:  Default is 81. Length of the short trajectory which will be used as an input
+        'hyperParam': True,              # bool: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default values)
+        'krrSigma': 4.0,                 # float: If you pass False to hyperParam, then we need to provide a value for hyperparameter Sigma in Gaussian kernel. Otherwise the model will run with the default value. 
+        'krrLamb': 0.00000001,           # float: If you pass False to hyperParam, then we need to provide a value for hyper parameter Lambda in KRR. Otherwise the model will run with the default value.
         'systemType': 'SB',             # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
-        'QDmodelout': 'KRR_SB_model',   # str: (Optional), providing a name to save the model at
+        'QDmodelout': 'KRR_SB_model'   # str: (Optional), providing a name to save the model at
         }
 ```
 * **AIQD**
@@ -198,15 +198,15 @@ Just to emphasize, the data files should be in the same format as was adopted in
         'MLmodelType': 'AIQD',          # string: Type of model. The default option is OSTL
         'XfileIn': 'x_data',            # str: Optional, npy file) The prepared X file will be saved at the provided file name 
         'YfileIn': 'y_data',            # str: Optional, npy file) The prepared Y file will be saved at the provided file name 
-        'numLogf': 1.0                  # int: Number of Logistic function for the normalization of time dimension. Default value is 1.0.    
-        `LogCa` : 1.0                   # float: Coefficient "a" in the logistic function, default values is 1.0 (you may not provide it)
-        `LogCb` : 15.0                  # float: Coefficient "b" in the logistic function, default values is 15.0 (you may not provide it)
-        `LogCc` : -1.0                  # float: Coefficient "a" in the logistic function, default values is -1.0 (you may not provide it)
-        `LogCd` : 1.0                   # float: Coefficient "d" in the logistic function, default values is 1.0 (you may not provide it)
+        'numLogf': 1.0,                  # int: Number of Logistic function for the normalization of time dimension. Default value is 1.0.    
+        `LogCa` : 1.0,                   # float: Coefficient "a" in the logistic function, default values is 1.0 (you may not provide it)
+        `LogCb` : 15.0,                  # float: Coefficient "b" in the logistic function, default values is 15.0 (you may not provide it)
+        `LogCc` : -1.0,                  # float: Coefficient "a" in the logistic function, default values is -1.0 (you may not provide it)
+        `LogCd` : 1.0,                   # float: Coefficient "d" in the logistic function, default values is 1.0 (you may not provide it)
         'systemType': 'FMO',            # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'hyperParam': True,             # bool: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default structure)
         'dataPath': 'data/fmo'          # str: Data path
-        'QDmodelout': 'AIQD_SB_model',  # str: (Optional), providing a name to save the model at
+        'QDmodelout': 'AIQD_SB_model'  # str: (Optional), providing a name to save the model at
         }
 ```
 * **OSTL**
@@ -222,7 +222,7 @@ Just to emphasize, the data files should be in the same format as was adopted in
         'systemType': 'FMO',            # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'hyperParam': True,             # bool: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default structure)
         'dataPath': 'data/fmo'          # str: Data path
-        'QDmodelout': 'AIQD_SB_model',  # str: (Optional), providing a name to save the model at
+        'QDmodelout': 'AIQD_SB_model'  # str: (Optional), providing a name to save the model at
         }
 ```
 
@@ -238,11 +238,11 @@ For KRR model, You need to provide the following parameters
         'MLmodelType': 'KRR',           # str: The type of model. Here KRR and the default option is OSTL
         'XfileIn': 'x_train',           # str: (Not Optional, txt file) The X file 
         'YfileIn': 'y_train',           # str: (Not Optional, txt file) The Y file
-        'hyperParam': True              # bool: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default values)
-        'krrSigma': 4.0                 # float: If you pass False to hyperParam, then we need to provide a value for hyperparameter Sigma in Gaussian kernel. Otherwise the model will run with the default value. 
-        'krrLamb': 0.00000001           # float: If you pass False to hyperParam, then we need to provide a value for hyperparameter Lambda in KRR. Otherwise the model will run with the default value.
+        'hyperParam': True,              # bool: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default values)
+        'krrSigma': 4.0,                 # float: If you pass False to hyperParam, then we need to provide a value for hyperparameter Sigma in Gaussian kernel. Otherwise the model will run with the default value. 
+        'krrLamb': 0.00000001,           # float: If you pass False to hyperParam, then we need to provide a value for hyperparameter Lambda in KRR. Otherwise the model will run with the default value.
         'systemType': 'SB',             # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
-        'QDmodelout': 'KRR_SB_model',   # str: (Optional), providing a name to save the model at
+        'QDmodelout': 'KRR_SB_model'   # str: (Optional), providing a name to save the model at
         }
 ```
 
@@ -257,7 +257,7 @@ Just to emphasize, the data files should be in the same format as was adopted in
         'XfileIn': 'x_data',            # str: (Not Optional, txt file) The X file 
         'YfileIn': 'y_data',            # str: (Not Optional, txt file) The Y file  
         'hyperParam': True,             # bool: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default structure)
-        'QDmodelout': 'AIQD_SB_model',  # str: (Optional), providing a name to save the model at
+        'QDmodelout': 'AIQD_SB_model'  # str: (Optional), providing a name to save the model at
         }
 ```
 * **OSTL**
@@ -272,6 +272,6 @@ Just to emphasize, the data files should be in the same format as was adopted in
         'YfileIn': 'y_data',            # str: (Not Optional, txt file) The X file 
         'systemType': 'FMO',            # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'hyperParam': True,             # bool: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default structure)
-        'QDmodelout': 'AIQD_SB_model',  # str: (Optional), providing a name to save the model at
+        'QDmodelout': 'AIQD_SB_model'  # str: (Optional), providing a name to save the model at
         }
 ```
