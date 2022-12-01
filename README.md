@@ -54,7 +54,8 @@ For KRR model, You need to provide the following parameters
 ```
 
 * **AIQD model:**
-        * **Case -1:** If a user wants to provide parameters for propagation in a file, in the shape of an array or in the form of a list. (In this case, the user needs to normalized the data him/herself). AIQD uses a logistic function to normalize the dimension of time, i.e.,  $f(t) = a/(1 + b \exp(-(t + c)/d))$ where $a, b, c$ and  $d$ are constants.  Check out the Supplementary Figure 3 of our AIQD Papar [Predicting the future of excitation energy transfer in light-harvesting complex with artificial intelligence-based quantum dynamics](https://doi.org/10.1038/s41467-022-29621-w "Named link title") 
+
+     * **Case -1:** If a user wants to provide parameters for propagation in a file, in the shape of an array or in the form of a list. (In this case, the user needs to normalized the data him/herself). AIQD uses a logistic function to normalize the dimension of time, i.e.,  $f(t) = a/(1 + b \exp(-(t + c)/d))$ where $a, b, c$ and  $d$ are constants.  Check out the Supplementary Figure 3 of our AIQD Papar [Predicting the future of excitation energy transfer in light-harvesting complex with artificial intelligence-based quantum dynamics](https://doi.org/10.1038/s41467-022-29621-w "Named link title") 
 
 ```
         param={ 
