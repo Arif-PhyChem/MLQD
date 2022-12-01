@@ -6,7 +6,7 @@ We provide three Machine Learning (ML) methods in our package MLQD
 
 **MLQD provides**
 
-* Propagation of dynamics with the existing trained models
+* Propagation of dynamics with the existing trained models [Click here](#propagation)
 * Training a convolutional neural networks (CNN) model and KRR model on the data
 * Transforming data into input files X and Y
 * Optimization of the hyperparameters in CNN and KRR models  
