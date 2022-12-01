@@ -226,7 +226,7 @@ Just to emphasize, the data files should be in the same format as was adopted in
         }
 ```
 
-### Training a model without preparation of training data <a name="nopreparation"></a>
+### Training a model without preparation of training data <a name="nopreparation"></a> [[Go to Top](#Top)]
 
 Let suppose we already have our prepared training data then 
 * **KRR**
