@@ -73,7 +73,7 @@ I. **Case-1:** If a user wants to provide parameters for propagation in a file, 
         `LogCc` : -1.0                  # float: Coefficient "a" in the logistic function, default values is -1.0 (you may not provide it)
         `LogCd` : 1.0                   # float: Coefficient "d" in the logistic function, default values is 1.0 (you may not provide it)
         'systemType': 'SB',             # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
-        'QDmodelIn': 'KRR_SB_model',    # str: (Not Optional for useQDmodel), provide the name of the trained ML model
+        'QDmodelIn': 'AIQD_SB_model',    # str: (Not Optional for useQDmodel), provide the name of the trained ML model
         }
 ```
    II. **Case-2:** A user can also just provide simulation parameters (Characteristic frequency, System-bath coupling strengt, Temperature etc.) and MLQD will predict the correspinding dynamics. 
@@ -129,7 +129,7 @@ If a user wants to provide parameters for propagation in a file, in the shape of
         `LogCc` : -1.0                  # float: Coefficient "a" in the logistic function, default values is -1.0 (you may not provide it)
         `LogCd` : 1.0                   # float: Coefficient "d" in the logistic function, default values is 1.0 (you may not provide it)
         'systemType': 'SB',             # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
-        'QDmodelIn': 'KRR_SB_model',    # str: (Not Optional for useQDmodel), provide the name of the trained ML model
+        'QDmodelIn': 'OSTL_SB_model',    # str: (Not Optional for useQDmodel), provide the name of the trained ML model
         }
 ```
 
@@ -140,12 +140,7 @@ A user can also just provide simulation parameters (Characteristic frequency, Sy
         'initState': 1,                 # Int:  Initial state with Initial Excitation case (only required in FMO complex case, Default is '1')
         'n_states': 2,                  # Int:  Number of states (SB) or sites (FMO). Default is 2 (SB) and 7 (FMO).
         'time': 20,                     # float: Propagation time in picoseconds (ps)  for FMO complex and in (a.u.) for spin-boson model
-        'time_step': 0.1,               # float: Time-step for time-propagation (you are not restricted to the time-step used in the training data, however better stick to that for good accuracy)
-         'numLogf': 1.0                  # int: Number of Logistic function for the normalization of time dimension. Default value is 1.0.   
-        `LogCa` : 1.0                   # float: Coefficient "a" in the logistic function, default values is 1.0 (you may not provide it)
-        `LogCb` : 15.0                  # float: Coefficient "b" in the logistic function, default values is 15.0 (you may not provide it)
-        `LogCc` : -1.0                  # float: Coefficient "a" in the logistic function, default values is -1.0 (you may not provide it)
-        `LogCd` : 1.0                   # float: Coefficient "d" in the logistic function, default values is 1.0 (you may not provide it)
+        'time_step': 0.1,               # float: Time-step for time-propagation (OSTL does not use it, however will use it in the output file)
         'energyDiff': 1.0               # float: Energy difference between the two states (in the unit of (a.u.)). Only required in SB model
         'Delta': 1.0                    # float: The tunneling matrix element (in the unit of (a.u.)). Only required in SB model
         'gamma': 100,                   # float: Characteristic frequency (in cm^-1 for the provided trained FMO models, in (a.u.) for spin-boson model)
@@ -158,9 +153,9 @@ A user can also just provide simulation parameters (Characteristic frequency, Sy
         'tempNorm': 500,                # float: Normalizer for temperature. Default value is 510 (FMO complex) and 1 (SB model). The same values are also adopted in the provided trained models.
       
         'QDmodel': 'useQDmodel',        # st: In MLQD, the dafault option is useQDmodel tells the MLQD to propagate dynamics with an existing trained model
-        'MLmodelType': 'AIQD',          # st: The type of model we wanna use, here AIQD. The default option is OSTL
+        'MLmodelType': 'OSTL',          # st: The type of model we wanna use, here AIQD. The default option is OSTL
         'systemType': 'FMO',            # str: (Not optional)  Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
-        'QDmodelIn': 'AIQD_FMO_model',  # str: (Not Optional for useQDmodel), provide the name of the trained ML                                            model
+        'QDmodelIn': 'OSTL_FMO_model',  # str: (Not Optional for useQDmodel), provide the name of the trained ML                                            model
         }
 ```
 
