@@ -193,7 +193,7 @@ Just to emphasize, the data files should be in the same format as was adopted in
         param={ 
         'n_states': 7,                  # int:  Number of states (SB) or sites (FMO), default 2 (SB) and 7 (FMO).
         'time': 50,                     # float: Propagation time in picoseconds (ps) for FMO complex and in (a.u.) for spin-boson model
-        'time_step': 0.005,             # float: Time-step for time-propagation (you are not restricted to the time-step used in the training data, however better  stick to that for good accuracy). Default values are 0.05 (spin-boson model) and 0.005ps for FMO complex.
+        'time_step': 0.005,             # float: Time-step for time-propagation. Default values are 0.05 (spin-boson model) and 0.005ps for FMO complex.
         'QDmodel': 'createQDmodel',     # string: createQDmodel, the dafault option is useQDmodel
         'MLmodelType': 'AIQD',          # string: Type of model. The default option is OSTL
         'XfileIn': 'x_data',            # str: Optional, npy file) The prepared X file will be saved at the provided file name 
@@ -215,8 +215,6 @@ Just to emphasize, the data files should be in the same format as was adopted in
 ```
         param={ 
         'n_states': 7,                  # int:  Number of states (SB) or sites (FMO), default 2 (SB) and 7 (FMO).
-        'time': 50,                     # float: Propagation time in picoseconds (ps) for FMO complex and in (a.u.) for spin-boson model
-        'time_step': 0.005,             # float: Time-step for time-propagation (you are not restricted to the time-step used in the training data, however better  stick to that for good accuracy). Default values are 0.05 (spin-boson model) and 0.005ps for FMO complex.
         'QDmodel': 'createQDmodel',     # string: createQDmodel, the dafault option is useQDmodel
         'MLmodelType': 'OSTL',          # string: Type of model. The default option is OSTL
         'XfileIn': 'x_data',            # str: Optional, npy file) The prepared X file will be saved at the provided file name 
