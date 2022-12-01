@@ -8,7 +8,7 @@ We provide three Machine Learning (ML) methods in our package MLQD
 
 * Propagation of dynamics with the existing trained models [[Click here](#propagation)]
 * Training a convolutional neural networks (CNN) model and KRR model on the data [[Click here](#training)]
-* Transforming data into input files X and Y
+* Transforming data into input files X and Y [[Click here](#preparing)]
 * Optimization of the hyperparameters in CNN and KRR models  
 
 ### Installation and dependencies
@@ -164,7 +164,7 @@ A user can also just provide simulation parameters (Characteristic frequency, Sy
 ## Model training on your own data <a name="training"></a> [[Go to Top](#Top)]
 Here we will show how to train data on you data. If you don't have your own data, you can go to our recently released dataset [QDDSET-1: A Quantum Dissipative Dynamics Dataset](https://github.com/Arif-PhyChem/QDDSET "Named link title") and download the data. If you don't want to train own model and want to use our provided ready made trained models, click here [Coming soon] and how to to propagate dynamics with it, go to [Dynamics Propagation](#propagation) 
 
-### Training a model along with the preparation of training data
+### Training a model along with the preparation of training data <a name="preparation"></a>
 
 * **KRR**
 
@@ -223,5 +223,25 @@ Just to emphasize, the data files should be in the same format as was adopted in
         'hyperParam': True,             # bool: Default is False, we can pass True (optimize the hyper parameters) or False (don't optimize and run with the default structure)
         'dataPath': 'data/fmo'          # str: Data path
         'QDmodelout': 'AIQD_SB_model',  # str: (Optional), providing a name to save the model at
+        }
+```
+
+### Training a model without preparation of training data <a name="preparation"></a>
+
+Let suppose we already have our prepared training data then 
+* **KRR**
+
+For KRR model, You need to provide the following parameters
+```
+        param={ 
+        'QDmodel': 'createQDmodel',     # str: create QD model. The dafault option is useQDmodel
+        'MLmodelType': 'KRR',           # str: The type of model. Here KRR and the default option is OSTL
+        'XfileIn': 'x_train',           # str: (Not Optional, txt file) The X file 
+        'YfileIn'; 'y_train',           # str: (Not Optional, txt file) The Y file
+        'hyperParam': True              # bool: Default is False, we can pass True (optimize the hyper parameters) or False (don't optimize and run with the default values)
+        'krrSigma': 4.0                 # float: If you pass False to hyperParam, then we need to provide a value for hyper parameter Sigma in Gaussian kernel. Otherwise the model will run with the default value. 
+        'krrLamb': 0.00000001           # float: If you pass False to hyperParam, then we need to provide a value for hyper parameter Lambda in KRR. Otherwise the model will run with the default value.
+        'systemType': 'SB',             # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
+        'QDmodelout': 'KRR_SB_model',   # str: (Optional), providing a name to save the model at
         }
 ```
