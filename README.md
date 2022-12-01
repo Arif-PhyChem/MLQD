@@ -40,6 +40,7 @@ First import ```quant_dyn``` class from ```evolution.py```
 ``` from evolution import quant_dyn ```
 
 * **KRR model:**
+
 For KRR model, You need to provide the following parameters
 ```
         param={ 
@@ -107,8 +108,11 @@ I. **Case-1:** If a user wants to provide parameters for propagation in a file, 
 ```
 
 * **OSTL model** (Recommended for fast and smooth propagation of dyanmics)
+*
 For OSTL, the input is the same as AIQD except in OSTL, we don't use the logistic functions 
-I. **Case-I:** If a user wants to provide parameters for propagation in a file, in the shape of an array or in the form of a list. (In this case, the user needs to normalized the data him/herself).
+
+I. **Case-I:**
+If a user wants to provide parameters for propagation in a file, in the shape of an array or in the form of a list. (In this case, the user needs to normalized the data him/herself).
 
 ```
         param={ 
