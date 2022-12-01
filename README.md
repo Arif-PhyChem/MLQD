@@ -8,7 +8,7 @@ We provide three Machine Learning (ML) methods in our package MLQD
 
 * Propagation of dynamics with the existing trained models [[Click here](#propagation)]
 * Training a convolutional neural networks (CNN) model and KRR model on the data [[Click here](#training)]
-* Transforming data into input files X and Y [[Click here](#preparing)]
+* Training along with the transformation of data into input files X and Y [[Click here](#preparation)] and direct training with out transformation [[Click here](#nopreparation)]
 * Optimization of the hyperparameters in CNN and KRR models  
 
 ### Installation and dependencies
@@ -226,7 +226,7 @@ Just to emphasize, the data files should be in the same format as was adopted in
         }
 ```
 
-### Training a model without preparation of training data <a name="preparation"></a>
+### Training a model without preparation of training data <a name="nopreparation"></a>
 
 Let suppose we already have our prepared training data then 
 * **KRR**
