@@ -47,10 +47,11 @@ For KRR model, You need to provide the following parameters
         'time': 20,                     # float: Propagation time in picoseconds (ps)  for FMO complex and in (a.u.) for spin-boson model
         'time_step': 0.1,               # float: Time-step for time-propagation (you are restricted to the time-step used in the training data). 
         'QDmodel': 'useQDmodel',        # str: In MLQD, the dafault option is useQDmodel tells the MLQD to propagate dynamics with an existing trained model
-        'MLmodelType': 'OSTL',          # str: The type of model we wanna use (KRR, AIQD, or OSTL). Here KRR and the default option is OSTL
+        'MLmodelType': 'KRR',          # str: The type of model we wanna use (KRR, AIQD, or OSTL). Here KRR and the default option is OSTL
         'XfileIn': 'x_input',           # str (name of a file) or name of an array or list:  A short time trajectory (equal to the length the input-model was trained on). Here x_input is a txt file where this short-time trajectory is saved. You can also just define a list or an array and pass the name of the array (XfileIn = x_input).  In x-input file, the data should be row wise.  
         'systemType': 'SB',             # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'QDmodelIn': 'KRR_SB_model',    # str: (Not optional for useQDmodel), provide the name of the trained ML model
+        'QDtrajOut': 'Qd_trajectory'    # str: (Optional), File name where the trajectory should be saved
         }
 ```
 
@@ -74,6 +75,7 @@ I. **Case-1:** If a user wants to provide parameters for propagation in a file, 
         `LogCd` : 1.0                   # float: Coefficient "d" in the logistic function, default values is 1.0 (you may not provide it)
         'systemType': 'SB',             # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'QDmodelIn': 'AIQD_SB_model',    # str: (Not Optional for useQDmodel), provide the name of the trained ML model
+        'QDtrajOut': 'Qd_trajectory'    # str: (Optional), File name where the trajectory should be saved
         }
 ```
    II. **Case-2:** A user can also just provide simulation parameters (Characteristic frequency, System-bath coupling strengt, Temperature etc.) and MLQD will predict the correspinding dynamics. 
@@ -103,7 +105,8 @@ I. **Case-1:** If a user wants to provide parameters for propagation in a file, 
         'QDmodel': 'useQDmodel',        # st: In MLQD, the dafault option is useQDmodel tells the MLQD to propagate dynamics with an existing trained model
         'MLmodelType': 'AIQD',          # st: The type of model we wanna use, here AIQD. The default option is OSTL
         'systemType': 'FMO',            # str: (Not optional)  Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
-        'QDmodelIn': 'AIQD_FMO_model',  # str: (Not Optional for useQDmodel), provide the name of the trained ML                                            model
+        'QDmodelIn': 'AIQD_FMO_model',  # str: (Not Optional for useQDmodel), provide the name of the trained ML model
+        'QDtrajOut': 'Qd_trajectory'    # str: (Optional), File name where the trajectory should be saved
         }
 ```
 
@@ -129,6 +132,7 @@ If a user wants to provide parameters for propagation in a file, in the shape of
         `LogCd` : 1.0                   # float: Coefficient "d" in the logistic function, default values is 1.0 (you may not provide it)
         'systemType': 'SB',             # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'QDmodelIn': 'OSTL_SB_model',    # str: (Not Optional for useQDmodel), provide the name of the trained ML model
+        'QDtrajOut': 'Qd_trajectory'    # str: (Optional), File name where the trajectory should be saved
         }
 ```
 
@@ -154,12 +158,26 @@ A user can also just provide simulation parameters (Characteristic frequency, Sy
         'QDmodel': 'useQDmodel',        # st: In MLQD, the dafault option is useQDmodel tells the MLQD to propagate dynamics with an existing trained model
         'MLmodelType': 'OSTL',          # st: The type of model we wanna use, here AIQD. The default option is OSTL
         'systemType': 'FMO',            # str: (Not optional)  Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
-        'QDmodelIn': 'OSTL_FMO_model',  # str: (Not Optional for useQDmodel), provide the name of the trained ML                                            model
+        'QDmodelIn': 'OSTL_FMO_model',  # str: (Not Optional for useQDmodel), provide the name of the trained ML model
+        'QDtrajOut': 'Qd_trajectory'    # str: (Optional), File name where the trajectory should be saved 
         }
 ```
 
 ## Model training on your own data <a name="training"></a> [[Go to Top](#Top)]
 Here we will show how to train data on you data. If you don't have your own data, you can go to our recently released dataset [QDDSET-1: A Quantum Dissipative Dynamics Dataset](https://github.com/Arif-PhyChem/QDDSET "Named link title") and download the data. If you don't want to train own model and want to use our provided ready made trained models, click here [Coming soon] and how to to propagate dynamics with it, go to [Dynamics Propagation](#propagation) 
 
+### Training a model along with the preparation of training files
+
 * **KRR**
-* 
+
+For KRR model, You need to provide the following parameters
+```
+        param={ 
+        'QDmodel': 'createQDmodel',     # str: In MLQD, the dafault option is useQDmodel tells the MLQD to propagate dynamics with an existing trained model
+        'MLmodelType': 'KRR',          # str: The type of model we wanna use (KRR, AIQD, or OSTL). Here KRR and the default option is OSTL
+        'XfileIn': 'x_train',           # str: (Not optional, txt file) The input X file 
+        'YfileIn'; 'y_train',           # str: (Not optional, txt file) The input Y file
+        'systemType': 'SB',             # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
+        'QDmodelout': 'KRR_SB_model',   # str: (Optional), providing a name to save the model at
+        }
+```
