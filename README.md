@@ -25,9 +25,9 @@ For KRR model, You need to provide the following parameters
         'time_step': 0.1,               # float: Time-step for time-propagation (you are restricted to the time-step used in the training data)
         'QDmodel': 'useQDmodel',        # string: In MLQD, the dafault option is useQDmodel tells the MLQD to propagate dynamics with an existing trained model
         'MLmodelType': 'OSTL',          # string:  In MLQD, passing the type of model we wanna use (KRR, AIQD, or OSTL). The default option is OSTL
-         'XfileIn': 'x_input',          # str (name of a file) or name of an array or list:  A short time trajectory (equal to the length the input-model was    trained on). Here x_input is a txt file where this short-time trajectory is saved. You can also just define a list or an                                            array and pass the name of the array (XfileIn = x_input).  In x-input file, the data should be row wise.  
+         'XfileIn': 'x_input',          # str (name of a file) or name of an array or list:  A short time trajectory (equal to the length the input-model was    trained on). Here x_input is a txt file where this short-time trajectory is saved. You can also just define a list or an array and pass the name of the array (XfileIn = x_input).  In x-input file, the data should be row wise.  
         'systemType': 'SB',             # str:  (Not optional)  Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
-        'QDmodelIn': 'KRR_SB_model',    # str: (Not optional for useQDmodel), provide the name of the trained ML                                            model
+        'QDmodelIn': 'KRR_SB_model',    # str: (Not optional for useQDmodel), provide the name of the trained ML model
         }
 ```
 
@@ -48,7 +48,7 @@ For KRR model, You need to provide the following parameters
         'MLmodelType': 'AIQD',          # string:  In MLQD, passing the type of model we wanna use, here AIQD. The default option is OSTL
          'XfileIn': 'x_input',          # str (name of a file) or name of an array or list:  A short time trajectory (equal to the length the input-model was trained on). Here 'x_input' is a txt file where this short-time trajectory is saved. You can also just define a list or an array and pass the name of the array (XfileIn = x_input).  In x-input file, the data should be row wise.  
         'systemType': 'SB',             # str:  (Not optional)  Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
-        'QDmodelIn': 'KRR_SB_model',    # str:  (Not Optional for useQDmodel), provide the name of the trained ML                                            model
+        'QDmodelIn': 'KRR_SB_model',    # str:  (Not Optional for useQDmodel), provide the name of the trained ML model
         }
 ```
 *If a user just wants to providing just parameters
