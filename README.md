@@ -173,7 +173,7 @@ For KRR model, You need to provide the following parameters
         param={ 
         'QDmodel': 'createQDmodel',     # str: create QD model. The dafault option is useQDmodel
         'MLmodelType': 'KRR',           # str: The type of model. Here KRR and the default option is OSTL
-        'prepInput' : True,             # str: Prepare input files from the data
+        'prepInput' : True,             # str: Prepare input files from the data (Default False)
         'XfileIn': 'x_train',           # str: (Optional, txt file) The prepared X file will be saved at the provided file name 
         'YfileIn': 'y_train',           # str: (Optional, txt file) The prepared Y file will be saved at the provided file name
         'dataPath': 'data/sb' ,         # str: Data path
@@ -197,7 +197,7 @@ Just to emphasize, the data files should be in the same format as was adopted in
         'time_step': 0.005,             # float: Time-step for time-propagation. Default values are 0.05 (spin-boson model) and 0.005ps for FMO complex.
         'QDmodel': 'createQDmodel',     # string: createQDmodel, the dafault option is useQDmodel
         'MLmodelType': 'AIQD',          # string: Type of model. The default option is OSTL
-        'prepInput' : True,             # str: Prepare input files from the data
+        'prepInput' : True,             # str: Prepare input files from the data (Default False)
         'XfileIn': 'x_data',            # str: Optional, npy file) The prepared X file will be saved at the provided file name 
         'YfileIn': 'y_data',            # str: Optional, npy file) The prepared Y file will be saved at the provided file name 
         'numLogf': 1.0,                 # int: Number of Logistic function for the normalization of time dimension. Default value is 1.0.    
@@ -219,7 +219,7 @@ Just to emphasize, the data files should be in the same format as was adopted in
         'n_states': 7,                  # int:  Number of states (SB) or sites (FMO), default 2 (SB) and 7 (FMO).
         'QDmodel': 'createQDmodel',     # string: createQDmodel, the dafault option is useQDmodel
         'MLmodelType': 'OSTL',          # string: Type of model. The default option is OSTL
-        'prepInput' : True,             # str: Prepare input files from the data
+        'prepInput' : True,             # str: Prepare input files from the data (Default False)
         'XfileIn': 'x_data',            # str: Optional, npy file) The prepared X file will be saved at the provided file name 
         'YfileIn': 'y_data',            # str: Optional, npy file) The prepared Y file will be saved at the provided file name 
         'systemType': 'FMO',            # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
