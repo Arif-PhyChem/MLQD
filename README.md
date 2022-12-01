@@ -1,5 +1,5 @@
 # MLQD- A Python package for Machine Learning-based Qauntum Dissipative Dynamics <a name="Top"></a>
-We provide three Machine Learning (ML) methods in our package MLQD
+In MLQD, we provide three Machine Learning (ML) methods for propagation Qauntum Dissipative Dynamics 
 * **Kernel Ridge Regression (KRR)-based recursive (iterative) Quantum Dissipative Dynamics method:** [Speeding up quantum dissipative dynamics of open systems with kernel methods](https://iopscience.iop.org/article/10.1088/1367-2630/ac3261 "Named link title")  which outperforms NN models as we have shown in this comparative study [A comparative study of different machine learning methods for dissipative quantum dynamics](https://dx.doi.org/10.1088/2632-2153/ac9a9d "Named link title")
 * **AIQD non-recursive  (non-iterative) approach:** [Predicting the future of excitation energy transfer in light-harvesting complex with artificial intelligence-based quantum dynamics](https://doi.org/10.1038/s41467-022-29621-w "Named link title") 
 * **The blazingly fast OSTL non-recursive (non-iterative) approach:** [One-Shot Trajectory Learning of Open Quantum Systems Dynamics]( https://doi.org/10.1021/acs.jpclett.2c01242 "Named link title")
@@ -9,7 +9,7 @@ We provide three Machine Learning (ML) methods in our package MLQD
 * Propagation of dynamics with the existing trained models [[Click here](#propagation)]
 * Training a convolutional neural networks (CNN) model and KRR model on the data [[Click here](#training)]
 * Training along with the transformation of data into input files X and Y [[Click here](#preparation)] and direct training with out transformation [[Click here](#nopreparation)]
-* Optimization of the hyperparameters in CNN and KRR models  
+* Optimization of the hyperparameters in CNN and KRR models [[Click here](#preparation)]
 
 ### Installation and dependencies
 Create a conda environment 
