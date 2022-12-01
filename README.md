@@ -25,7 +25,7 @@ For KRR model, You need to provide the following parameters
         'time_step': 0.1,               # float: Time-step for time-propagation (you are restricted to the time-step used in the training data)
         'QDmodel': 'useQDmodel',        # string: In MLQD, the dafault option is useQDmodel tells the MLQD to propagate dynamics with an existing trained model
         'MLmodelType': 'OSTL',          # string:  In MLQD, passing the type of model we wanna use (KRR, AIQD, or OSTL). The default option is OSTL
-         'XfileIn': 'x_input',          # str (name of a file) or name of an array or list:  A short time trajectory (equal to the length the input-model was    trained on). Here x_input is a txt file where this short-time trajectory is saved. You can also just define a list or an array and pass the name of the array (XfileIn = x_input).  In x-input file, the data should be row wise.  
+        'XfileIn': 'x_input',          # str (name of a file) or name of an array or list:  A short time trajectory (equal to the length the input-model was trained on). Here x_input is a txt file where this short-time trajectory is saved. You can also just define a list or an array and pass the name of the array (XfileIn = x_input).  In x-input file, the data should be row wise.  
         'systemType': 'SB',             # str:  (Not optional)  Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'QDmodelIn': 'KRR_SB_model',    # str: (Not optional for useQDmodel), provide the name of the trained ML model
         }
@@ -56,13 +56,22 @@ For KRR model, You need to provide the following parameters
 ```
         param={ 
         'initState': 1,                 # Int:  Initial state with Initial Excitation case (only required in FMO complex case, Default is '1')
-        'n_states': 2,                  # Int:  Number of states (SB) or sites (FMO), default 2 (SB) and 7 (FMO).
+        'n_states': 2,                  # Int:  Number of states (SB) or sites (FMO). Default is 2 (SB) and 7 (FMO).
         'time': 20,                     # float: Propagation time in picoseconds (ps)
-        'time_step': 0.1,               # float: Time-step for time-propagation (you are not restricted to the time-step used in the training data, however better                                             stick to that for good accuracy)
+        'time_step': 0.1,               # float: Time-step for time-propagation (you are not restricted to the time-step used in the training data, however better stick to that for good accuracy)
+        'energyDiff': 1.0               # float: Energy difference between the two states (in the units of (a.u.)). Only required in SB model
+        'Delta': 1.0                    # float: The tunneling matrix element (in the units of (a.u.)). Only required in SB model
+        'gamma': 100,                   # float: Characteristic frequency (in cm^-1 for the provided trained FMO models, in (a.u.) for spin-boson model)
+        'lamb': 10,                     # float: System-bath coupling strength  (in cm^-1 for the provided trained FMO models, in (a.u.) for spin-boson model)
+        'temp': 300,                    # float: temperature in K  (in Kilven for the provided trained FMO models, in (a.u.) for spin-boson model)
+        'gammaNorm': 500,               # float: Normalizer for Characteristic frequency (in cm^-1 for the provided trained FMO models, in (a.u.) for spin-boson model). Default value is 500 in the case of FMO complex and 10 in the case of spin-boson model. The same values are also adopted in the provided trained models  
+        'lambNorm': 520,                # float: System-bath coupling strength  (in cm^-1 for the provided trained FMO models, in (a.u.) for spin-boson model). Default value is 520 (FMO complex) and 1 (SB model). The same values are also adopted in the provided trained models 
+        'tempNorm': 500,                # float: temperature in K  (in Kilven for the provided trained FMO models, in (a.u.) for spin-boson model). Default value is 510 (FMO complex) and 1 (SB model). The same values are also adopted in the provided trained models.
+      
         'QDmodel': 'useQDmodel',        # st: In MLQD, the dafault option is useQDmodel tells the MLQD to propagate dynamics with an existing trained model
         'MLmodelType': 'AIQD',          # st:  In MLQD, passing the type of model we wanna use, here AIQD. The default option is OSTL
-        'systemType': 'SB',             # str:  (Not optional)  Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
-        'QDmodelIn': 'KRR_SB_model',    # str:  (Not Optional for useQDmodel), provide the name of the trained ML                                            model
+        'systemType': 'FOM',            # str:  (Not optional)  Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
+        'QDmodelIn': 'AIQD_FMO_model',  # str:  (Not Optional for useQDmodel), provide the name of the trained ML                                            model
         }
 ```
 
