@@ -75,9 +75,7 @@ For KRR model, You need to provide the following parameters
         'QDmodelIn': 'KRR_SB_model',    # str: (Not Optional for useQDmodel), provide the name of the trained ML model
         }
 ```
-
    * **Case-2:** A user can also just provide simulation parameters (Characteristic frequency, System-bath coupling strengt, Temperature etc.) and MLQD will predict the correspinding dynamics. 
-
 
 ```
         param={ 
