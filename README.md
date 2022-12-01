@@ -174,7 +174,7 @@ For KRR model, You need to provide the following parameters
         'QDmodel': 'createQDmodel',     # str: create QD model. The dafault option is useQDmodel
         'MLmodelType': 'KRR',           # str: The type of model. Here KRR and the default option is OSTL
         'XfileIn': 'x_train',           # str: (Optional, txt file) The prepared X file will be saved at the provided file name 
-        'YfileIn'; 'y_train',           # str: (Optional, txt file) The prepared Y file will be saved at the provided file name
+        'YfileIn': 'y_train',           # str: (Optional, txt file) The prepared Y file will be saved at the provided file name
         'dataPath': 'data/sb'           # str: Data path
         'dataCol': 1,                   # int: Default is 1, we may have multiple columns in our data files, mention a single column (KRR model works only for single output)
         'dtype': 'real'                 # str: Default is real. If the data in complex and if we pass 'real', it will prepare data only for real part and if we pass 'imag' is mentioned, only imaginary data will be considered. 
@@ -237,7 +237,7 @@ For KRR model, You need to provide the following parameters
         'QDmodel': 'createQDmodel',     # str: create QD model. The dafault option is useQDmodel
         'MLmodelType': 'KRR',           # str: The type of model. Here KRR and the default option is OSTL
         'XfileIn': 'x_train',           # str: (Not Optional, txt file) The X file 
-        'YfileIn'; 'y_train',           # str: (Not Optional, txt file) The Y file
+        'YfileIn': 'y_train',           # str: (Not Optional, txt file) The Y file
         'hyperParam': True              # bool: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default values)
         'krrSigma': 4.0                 # float: If you pass False to hyperParam, then we need to provide a value for hyperparameter Sigma in Gaussian kernel. Otherwise the model will run with the default value. 
         'krrLamb': 0.00000001           # float: If you pass False to hyperParam, then we need to provide a value for hyperparameter Lambda in KRR. Otherwise the model will run with the default value.
