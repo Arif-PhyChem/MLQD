@@ -11,7 +11,7 @@ We provide three Machine Learning (ML) methods in our package MLQD
 * Transforming data into input files X and Y
 * Optimization of the hyperparameters in CNN and KRR models  
 
-##**Install and dependencies**
+### Install and dependencies
 Create a conda environment 
 
 ```conda create --name mlqd```
