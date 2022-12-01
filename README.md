@@ -173,10 +173,17 @@ Here we will show how to train data on you data. If you don't have your own data
 For KRR model, You need to provide the following parameters
 ```
         param={ 
-        'QDmodel': 'createQDmodel',     # str: In MLQD, the dafault option is useQDmodel tells the MLQD to propagate dynamics with an existing trained model
-        'MLmodelType': 'KRR',          # str: The type of model we wanna use (KRR, AIQD, or OSTL). Here KRR and the default option is OSTL
-        'XfileIn': 'x_train',           # str: (Not optional, txt file) The input X file 
-        'YfileIn'; 'y_train',           # str: (Not optional, txt file) The input Y file
+        'QDmodel': 'createQDmodel',     # str: create QD model. The dafault option is useQDmodel
+        'MLmodelType': 'KRR',           # str: The type of model we wanna use (KRR, AIQD, or OSTL). Here KRR and the default option is OSTL
+        'XfileIn': 'x_train',           # str: (Optional, txt file) The prepared X file will be saved at the provided file name 
+        'YfileIn'; 'y_train',           # str: (Optional, txt file) The prepared Y file will be saved at the provided file name
+        'dataPath': 'data/sb'           # str: Data path
+        'dataCol': 1,                   # int: Default is 1, we may have multiple columns in our data files, mention a single column (KRR model works only for single output)
+        'dtype': 'real'                 # str: Default is real. If the data in complex and if we pass 'real', it will prepare data only for real part and if we pass 'imag' is mentioned, only imaginary data will be considered. 
+        'xlength': 81                   # int:  Default is 81. Length of the short trajectory which will be used as an input
+        'hyperParam': True              # bool: Default is False, we can pass True (optimize the hyper parameters) or False (don't optimize and run with the default values)
+        'krrSigma': 4.0                 # float: If you pass False to hyperParam, then we need to provide a value for hyper parameter Sigma in Gaussian kernel. Otherwise the model will run with the default value. 
+        'krrLamb': 0.00000001           # float: If you pass False to hyperParam, then we need to provide a value for hyper parameter Lambda in KRR. Otherwise the model will run with the default value.
         'systemType': 'SB',             # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'QDmodelout': 'KRR_SB_model',   # str: (Optional), providing a name to save the model at
         }
