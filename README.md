@@ -164,7 +164,7 @@ A user can also just provide simulation parameters (Characteristic frequency, Sy
 ## Model training on your own data <a name="training"></a> [[Go to Top](#Top)]
 Here we will show how to train data on you data. If you don't have your own data, you can go to our recently released dataset [QDDSET-1: A Quantum Dissipative Dynamics Dataset](https://github.com/Arif-PhyChem/QDDSET "Named link title") and download the data. If you don't want to train own model and want to use our provided ready made trained models, click here [Coming soon] and how to to propagate dynamics with it, go to [Dynamics Propagation](#propagation) 
 
-### Training a model along with the preparation of training data <a name="preparation"></a>
+### Training a model along with the preparation of training data and optimization of hyperparameters <a name="preparation"></a>
 
 * **KRR**
 
@@ -179,8 +179,8 @@ For KRR model, You need to provide the following parameters
         'dataCol': 1,                   # int: Default is 1, we may have multiple columns in our data files, mention a single column (KRR model works only for single output)
         'dtype': 'real'                 # str: Default is real. If the data in complex and if we pass 'real', it will prepare data only for real part and if we pass 'imag' is mentioned, only imaginary data will be considered. 
         'xlength': 81                   # int:  Default is 81. Length of the short trajectory which will be used as an input
-        'hyperParam': True              # bool: Default is False, we can pass True (optimize the hyper parameters) or False (don't optimize and run with the default values)
-        'krrSigma': 4.0                 # float: If you pass False to hyperParam, then we need to provide a value for hyper parameter Sigma in Gaussian kernel. Otherwise the model will run with the default value. 
+        'hyperParam': True              # bool: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default values)
+        'krrSigma': 4.0                 # float: If you pass False to hyperParam, then we need to provide a value for hyperparameter Sigma in Gaussian kernel. Otherwise the model will run with the default value. 
         'krrLamb': 0.00000001           # float: If you pass False to hyperParam, then we need to provide a value for hyper parameter Lambda in KRR. Otherwise the model will run with the default value.
         'systemType': 'SB',             # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'QDmodelout': 'KRR_SB_model',   # str: (Optional), providing a name to save the model at
@@ -204,7 +204,7 @@ Just to emphasize, the data files should be in the same format as was adopted in
         `LogCc` : -1.0                  # float: Coefficient "a" in the logistic function, default values is -1.0 (you may not provide it)
         `LogCd` : 1.0                   # float: Coefficient "d" in the logistic function, default values is 1.0 (you may not provide it)
         'systemType': 'FMO',            # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
-        'hyperParam': True,             # bool: Default is False, we can pass True (optimize the hyper parameters) or False (don't optimize and run with the default structure)
+        'hyperParam': True,             # bool: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default structure)
         'dataPath': 'data/fmo'          # str: Data path
         'QDmodelout': 'AIQD_SB_model',  # str: (Optional), providing a name to save the model at
         }
@@ -220,7 +220,7 @@ Just to emphasize, the data files should be in the same format as was adopted in
         'XfileIn': 'x_data',            # str: Optional, npy file) The prepared X file will be saved at the provided file name 
         'YfileIn': 'y_data',            # str: Optional, npy file) The prepared Y file will be saved at the provided file name 
         'systemType': 'FMO',            # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
-        'hyperParam': True,             # bool: Default is False, we can pass True (optimize the hyper parameters) or False (don't optimize and run with the default structure)
+        'hyperParam': True,             # bool: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default structure)
         'dataPath': 'data/fmo'          # str: Data path
         'QDmodelout': 'AIQD_SB_model',  # str: (Optional), providing a name to save the model at
         }
@@ -238,9 +238,9 @@ For KRR model, You need to provide the following parameters
         'MLmodelType': 'KRR',           # str: The type of model. Here KRR and the default option is OSTL
         'XfileIn': 'x_train',           # str: (Not Optional, txt file) The X file 
         'YfileIn'; 'y_train',           # str: (Not Optional, txt file) The Y file
-        'hyperParam': True              # bool: Default is False, we can pass True (optimize the hyper parameters) or False (don't optimize and run with the default values)
-        'krrSigma': 4.0                 # float: If you pass False to hyperParam, then we need to provide a value for hyper parameter Sigma in Gaussian kernel. Otherwise the model will run with the default value. 
-        'krrLamb': 0.00000001           # float: If you pass False to hyperParam, then we need to provide a value for hyper parameter Lambda in KRR. Otherwise the model will run with the default value.
+        'hyperParam': True              # bool: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default values)
+        'krrSigma': 4.0                 # float: If you pass False to hyperParam, then we need to provide a value for hyperparameter Sigma in Gaussian kernel. Otherwise the model will run with the default value. 
+        'krrLamb': 0.00000001           # float: If you pass False to hyperParam, then we need to provide a value for hyperparameter Lambda in KRR. Otherwise the model will run with the default value.
         'systemType': 'SB',             # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'QDmodelout': 'KRR_SB_model',   # str: (Optional), providing a name to save the model at
         }
@@ -256,7 +256,7 @@ Just to emphasize, the data files should be in the same format as was adopted in
         'MLmodelType': 'AIQD',          # string: Type of model. The default option is OSTL
         'XfileIn': 'x_data',            # str: (Not Optional, txt file) The X file 
         'YfileIn': 'y_data',            # str: (Not Optional, txt file) The Y file  
-        'hyperParam': True,             # bool: Default is False, we can pass True (optimize the hyper parameters) or False (don't optimize and run with the default structure)
+        'hyperParam': True,             # bool: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default structure)
         'QDmodelout': 'AIQD_SB_model',  # str: (Optional), providing a name to save the model at
         }
 ```
@@ -271,7 +271,7 @@ Just to emphasize, the data files should be in the same format as was adopted in
         'XfileIn': 'x_data',            # str: (Not Optional, txt file) The X file 
         'YfileIn': 'y_data',            # str: (Not Optional, txt file) The X file 
         'systemType': 'FMO',            # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
-        'hyperParam': True,             # bool: Default is False, we can pass True (optimize the hyper parameters) or False (don't optimize and run with the default structure)
+        'hyperParam': True,             # bool: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default structure)
         'QDmodelout': 'AIQD_SB_model',  # str: (Optional), providing a name to save the model at
         }
 ```
