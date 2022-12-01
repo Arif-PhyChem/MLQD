@@ -160,3 +160,6 @@ A user can also just provide simulation parameters (Characteristic frequency, Sy
 
 ## Model training on your own data <a name="training"></a> [[Go to Top](#Top)]
 Here we will show how to train data on you data. If you don't have your own data, you can go to our recently released dataset [QDDSET-1: A Quantum Dissipative Dynamics Dataset](https://github.com/Arif-PhyChem/QDDSET "Named link title") and download the data. If you don't want to train own model and want to use our provided ready made trained models, click here [Coming soon] and how to to propagate dynamics with it, go to [Dynamics Propagation](#propagation) 
+
+* **KRR**
+* 
