@@ -47,7 +47,7 @@ For KRR model, You need to provide the following parameters
         'time': 20,                     # float: Propagation time in picoseconds (ps)  for FMO complex and in (a.u.) for spin-boson model
         'time_step': 0.1,               # float: Time-step for time-propagation (you are restricted to the time-step used in the training data). Default for KRR is 0.1
         'QDmodel': 'useQDmodel',        # str: In MLQD, the dafault option is useQDmodel tells the MLQD to propagate dynamics with an existing trained model
-        'MLmodelType': 'KRR',           # str: The type of model we wanna use (KRR, AIQD, or OSTL). Here KRR and the default option is OSTL
+        'QDmodelType': 'KRR',           # str: The type of model we wanna use (KRR, AIQD, or OSTL). Here KRR and the default option is OSTL
         'XfileIn': 'x_input',           # str (name of a file) or name of an array or list:  A short time trajectory (equal to the length the input-model was trained on). Here x_input is a txt file where this short-time trajectory is saved. You can also just define a list or an array and pass the name of the array (XfileIn = x_input).  In x-input file, the data should be row wise.  
         'systemType': 'SB',             # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'QDmodelIn': 'KRR_SB_model',    # str: (Not optional for useQDmodel), provide the name of the trained ML model
@@ -65,7 +65,7 @@ I. **Case-1:** If a user wants to provide parameters for propagation in a file, 
         'time': 20,                     # float: Propagation time in picoseconds (ps) for FMO complex and in (a.u.) for spin-boson model
         'time_step': 0.05,              # float: Time-step for time-propagation (you are not restricted to the time-step used in the training data, however better  stick to that for good accuracy). Default values are 0.1 (KRR SB), 0.05 (AIQD and OSTL for spin-boson model) and 0.005ps for FMO complex.
         'QDmodel': 'useQDmodel',        # string: In MLQD, the dafault option is useQDmodel tells the MLQD to propagate dynamics with an existing trained model
-        'MLmodelType': 'AIQD',          # string: Type of model we wanna use, here AIQD. The default option is OSTL
+        'QDmodelType': 'AIQD',          # string: Type of model we wanna use, here AIQD. The default option is OSTL
         'XfileIn': 'x_input',           # str: Input parameters should be in the same format as the model was trained on. Here "x_input" can be a txt file ('XfileIn': 'x_input'). It can be a list or an array and in this case you need to pass the name of the array or list (XfileIn = x_input). 
         'numLogf': 1.0,                 # int: Number of Logistic function for the normalization of time dimension. Default value is 1.0.    
         `LogCa` : 1.0,                  # float: Coefficient "a" in the logistic function, default values is 1.0 (you may not provide it)
@@ -102,7 +102,7 @@ I. **Case-1:** If a user wants to provide parameters for propagation in a file, 
         'tempNorm': 500,                # float: Normalizer for temperature. Default value is 510 (FMO complex) and 1 (SB model). The same values are also adopted in the provided trained models.
       
         'QDmodel': 'useQDmodel',        # st: In MLQD, the dafault option is useQDmodel tells the MLQD to propagate dynamics with an existing trained model
-        'MLmodelType': 'AIQD',          # st: The type of model we wanna use, here AIQD. The default option is OSTL
+        'QDmodelType': 'AIQD',          # st: The type of model we wanna use, here AIQD. The default option is OSTL
         'systemType': 'FMO',            # str: (Not optional)  Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'QDmodelIn': 'AIQD_FMO_model',  # str: (Not Optional for useQDmodel), provide the name of the trained ML model
         'QDtrajOut': 'Qd_trajectory'    # str: (Optional), File name where the trajectory should be saved
@@ -121,7 +121,7 @@ If a user wants to provide parameters for propagation in a file, in the shape of
         'time': 20,                     # float: Propagation time in picoseconds (ps)  for FMO complex and in (a.u.) for spin-boson model
         'time_step': 0.1,               # float: Time-step for time-propagation (you are not restricted to the time-step used in the training data, however better  stick to that for good accuracy). Default values are 0.1 (KRR SB), 0.05 (AIQD and OSTL for spin-boson model) and 0.005ps for FMO complex
         'QDmodel': 'useQDmodel',        # string: In MLQD, the dafault option is useQDmodel tells the MLQD to propagate dynamics with an existing trained model
-        'MLmodelType': 'AIQD',          # string: Type of model we wanna use, here AIQD. The default option is OSTL
+        'QDmodelType': 'AIQD',          # string: Type of model we wanna use, here AIQD. The default option is OSTL
         'XfileIn': 'x_input',           # str: Input parameters should be in the same format as the model was trained on. Here "x_input" can be a txt file ('XfileIn': 'x_input'). It can be a list or an array and in this case you need to pass the name of the array or list (XfileIn = x_input). 
         'numLogf': 1.0,                 # int: Number of Logistic function for the normalization of time dimension. Default value is 1.0.    
         `LogCa` : 1.0,                  # float: Coefficient "a" in the logistic function, default values is 1.0 (you may not provide it)
@@ -154,7 +154,7 @@ A user can also just provide simulation parameters (Characteristic frequency, Sy
         'tempNorm': 500,                # float: Normalizer for temperature. Default value is 510 (FMO complex) and 1 (SB model). The same values are also adopted in the provided trained models.
       
         'QDmodel': 'useQDmodel',        # st: In MLQD, the dafault option is useQDmodel tells the MLQD to propagate dynamics with an existing trained model
-        'MLmodelType': 'OSTL',          # st: The type of model we wanna use, here AIQD. The default option is OSTL
+        'QDmodelType': 'OSTL',          # st: The type of model we wanna use, here AIQD. The default option is OSTL
         'systemType': 'FMO',            # str: (Not optional)  Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'QDmodelIn': 'OSTL_FMO_model',  # str: (Not Optional for useQDmodel), provide the name of the trained ML model
         'QDtrajOut': 'Qd_trajectory'    # str: (Optional), File name where the trajectory should be saved 
@@ -172,7 +172,7 @@ For KRR model, You need to provide the following parameters
 ```
         param={ 
         'QDmodel': 'createQDmodel',     # str: create QD model. The dafault option is useQDmodel
-        'MLmodelType': 'KRR',           # str: The type of model. Here KRR and the default option is OSTL
+        'QDmodelType': 'KRR',           # str: The type of model. Here KRR and the default option is OSTL
         'prepInput' : True,             # str: Prepare input files from the data (Default False)
         'XfileIn': 'x_train',           # str: (Optional, txt file) The prepared X file will be saved at the provided file name 
         'YfileIn': 'y_train',           # str: (Optional, txt file) The prepared Y file will be saved at the provided file name
@@ -196,7 +196,7 @@ Just to emphasize, the data files should be in the same format as was adopted in
         'time': 50,                     # float: Propagation time in picoseconds (ps) for FMO complex and in (a.u.) for spin-boson model
         'time_step': 0.005,             # float: Time-step for time-propagation. Default values are 0.05 (spin-boson model) and 0.005ps for FMO complex.
         'QDmodel': 'createQDmodel',     # string: createQDmodel, the dafault option is useQDmodel
-        'MLmodelType': 'AIQD',          # string: Type of model. The default option is OSTL
+        'QDmodelType': 'AIQD',          # string: Type of model. The default option is OSTL
         'prepInput' : True,             # str: Prepare input files from the data (Default False)
         'XfileIn': 'x_data',            # str: Optional, npy file) The prepared X file will be saved at the provided file name 
         'YfileIn': 'y_data',            # str: Optional, npy file) The prepared Y file will be saved at the provided file name 
@@ -218,7 +218,7 @@ Just to emphasize, the data files should be in the same format as was adopted in
         param={ 
         'n_states': 7,                  # int:  Number of states (SB) or sites (FMO), default 2 (SB) and 7 (FMO).
         'QDmodel': 'createQDmodel',     # string: createQDmodel, the dafault option is useQDmodel
-        'MLmodelType': 'OSTL',          # string: Type of model. The default option is OSTL
+        'QDmodelType': 'OSTL',          # string: Type of model. The default option is OSTL
         'prepInput' : True,             # str: Prepare input files from the data (Default False)
         'XfileIn': 'x_data',            # str: Optional, npy file) The prepared X file will be saved at the provided file name 
         'YfileIn': 'y_data',            # str: Optional, npy file) The prepared Y file will be saved at the provided file name 
@@ -238,7 +238,7 @@ For KRR model, You need to provide the following parameters
 ```
         param={ 
         'QDmodel': 'createQDmodel',     # str: create QD model. The dafault option is useQDmodel
-        'MLmodelType': 'KRR',           # str: The type of model. Here KRR and the default option is OSTL
+        'QDmodelType': 'KRR',           # str: The type of model. Here KRR and the default option is OSTL
         'XfileIn': 'x_train',           # str: (Not Optional, txt file) The X file 
         'YfileIn': 'y_train',           # str: (Not Optional, txt file) The Y file
         'hyperParam': True,             # bool: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default values)
@@ -256,7 +256,7 @@ Just to emphasize, the data files should be in the same format as was adopted in
         param={ 
         'n_states': 7,                  # int:  Number of states (SB) or sites (FMO), default 2 (SB) and 7 (FMO).
         'QDmodel': 'createQDmodel',     # string: createQDmodel, the dafault option is useQDmodel
-        'MLmodelType': 'AIQD',          # string: Type of model. The default option is OSTL
+        'QDmodelType': 'AIQD',          # string: Type of model. The default option is OSTL
         'XfileIn': 'x_data',            # str: (Not Optional, txt file) The X file 
         'YfileIn': 'y_data',            # str: (Not Optional, txt file) The Y file  
         'hyperParam': True,             # bool: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default structure)
@@ -270,7 +270,7 @@ Just to emphasize, the data files should be in the same format as was adopted in
         param={ 
         'n_states': 7,                  # int:  Number of states (SB) or sites (FMO), default 2 (SB) and 7 (FMO).
         'QDmodel': 'createQDmodel',     # string: createQDmodel, the dafault option is useQDmodel
-        'MLmodelType': 'OSTL',          # string: Type of model. The default option is OSTL
+        'QDmodelType': 'OSTL',          # string: Type of model. The default option is OSTL
         'XfileIn': 'x_data',            # str: (Not Optional, txt file) The X file 
         'YfileIn': 'y_data',            # str: (Not Optional, txt file) The X file 
         'systemType': 'FMO',            # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
