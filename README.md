@@ -198,13 +198,16 @@ Just to emphasize, the data files should be in the same format as was adopted in
         'QDmodel': 'createQDmodel',     # string: createQDmodel, the dafault option is useQDmodel
         'QDmodelType': 'AIQD',          # string: Type of model. The default option is OSTL
         'prepInput' : True,             # str: Prepare input files from the data (Default False)
-        'XfileIn': 'x_data',            # str: Optional, npy file) The prepared X file will be saved at the provided file name 
-        'YfileIn': 'y_data',            # str: Optional, npy file) The prepared Y file will be saved at the provided file name 
+        'XfileIn': 'x_data',            # str: (Optional, npy file) The prepared X file will be saved at the provided file name 
+        'YfileIn': 'y_data',            # str: (Optional, npy file) The prepared Y file will be saved at the provided file name 
         'numLogf': 1.0,                 # int: Number of Logistic function for the normalization of time dimension. Default value is 1.0.    
         'LogCa' : 1.0,                  # float: Coefficient "a" in the logistic function, default values is 1.0 (you may not provide it)
         'LogCb' : 15.0,                 # float: Coefficient "b" in the logistic function, default values is 15.0 (you may not provide it)
         'LogCc' : -1.0,                 # float: Coefficient "a" in the logistic function, default values is -1.0 (you may not provide it)
         'LogCd' : 1.0,                  # float: Coefficient "d" in the logistic function, default values is 1.0 (you may not provide it)
+        'gammaNorm': 500,               # float: Normalizer for Characteristic frequency. Default value is 500 in the case of FMO complex and 10 in the case of spin-boson model. The same values are also adopted in the provided trained models  
+        'lambNorm': 520,                # float: Normalizer for System-bath coupling strength. Default value is 520 (FMO complex) and 1 (SB model). The same values are also adopted in the provided trained models 
+        'tempNorm': 500,                # float: Normalizer for temperature. Default value is 510 (FMO complex) and 1 (SB model). The same values are also adopted in the provided trained models.
         'systemType': 'FMO',            # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'hyperParam': True,             # bool: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default structure)
         'patience': 10,                 # Int: Patience for early stopping in CNN training 
@@ -221,8 +224,11 @@ Just to emphasize, the data files should be in the same format as was adopted in
         'QDmodel': 'createQDmodel',     # string: createQDmodel, the dafault option is useQDmodel
         'QDmodelType': 'OSTL',          # string: Type of model. The default option is OSTL
         'prepInput' : True,             # str: Prepare input files from the data (Default False)
-        'XfileIn': 'x_data',            # str: Optional, npy file) The prepared X file will be saved at the provided file name 
-        'YfileIn': 'y_data',            # str: Optional, npy file) The prepared Y file will be saved at the provided file name 
+        'XfileIn': 'x_data',            # str: (Optional, npy file) The prepared X file will be saved at the provided file name 
+        'YfileIn': 'y_data',            # str: (Optional, npy file) The prepared Y file will be saved at the provided file name 
+        'gammaNorm': 500,               # float: Normalizer for Characteristic frequency. Default value is 500 in the case of FMO complex and 10 in the case of spin-boson model. The same values are also adopted in the provided trained models  
+        'lambNorm': 520,                # float: Normalizer for System-bath coupling strength. Default value is 520 (FMO complex) and 1 (SB model). The same values are also adopted in the provided trained models 
+        'tempNorm': 500,                # float: Normalizer for temperature. Default value is 510 (FMO complex) and 1 (SB model). The same values are also adopted in the provided trained models.
         'systemType': 'FMO',            # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'hyperParam': True,             # bool: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default structure)
         'patience': 10,                 # Int: Patience for early stopping in CNN training
@@ -259,8 +265,8 @@ Just to emphasize, the data files should be in the same format as was adopted in
         'n_states': 7,                  # int:  Number of states (SB) or sites (FMO), default 2 (SB) and 7 (FMO).
         'QDmodel': 'createQDmodel',     # string: createQDmodel, the dafault option is useQDmodel
         'QDmodelType': 'AIQD',          # string: Type of model. The default option is OSTL
-        'XfileIn': 'x_data',            # str: (Not Optional, txt file) The X file 
-        'YfileIn': 'y_data',            # str: (Not Optional, txt file) The Y file  
+        'XfileIn': 'x_data',            # str: (Not Optional, npy file) The X file 
+        'YfileIn': 'y_data',            # str: (Not Optional, npy file) The Y file  
         'hyperParam': True,             # bool: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default structure)
         'patience': 10,                 # Int: Patience for early stopping in CNN training
         'QDmodelOut': 'AIQD_SB_model'   # str: (Optional), providing a name to save the model at
@@ -274,8 +280,8 @@ Just to emphasize, the data files should be in the same format as was adopted in
         'n_states': 7,                  # int:  Number of states (SB) or sites (FMO), default 2 (SB) and 7 (FMO).
         'QDmodel': 'createQDmodel',     # string: createQDmodel, the dafault option is useQDmodel
         'QDmodelType': 'OSTL',          # string: Type of model. The default option is OSTL
-        'XfileIn': 'x_data',            # str: (Not Optional, txt file) The X file 
-        'YfileIn': 'y_data',            # str: (Not Optional, txt file) The X file 
+        'XfileIn': 'x_data',            # str: (Not Optional, npy file) The X file 
+        'YfileIn': 'y_data',            # str: (Not Optional, npy file) The X file 
         'systemType': 'FMO',            # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'hyperParam': True,             # bool: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default structure)
         'patience': 10,                 # Int: Patience for early stopping in CNN training
