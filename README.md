@@ -207,7 +207,7 @@ Just to emphasize, the data files should be in the same format as was adopted in
         'LogCd' : 1.0,                  # float: Coefficient "d" in the logistic function, default values is 1.0 (you may not provide it)
         'systemType': 'FMO',            # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'hyperParam': True,             # bool: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default structure)
-        'dataPath': 'data/fmo'          # str: Data path
+        'dataPath': 'data/fmo',          # str: Data path
         'QDmodelOut': 'AIQD_SB_model'   # str: (Optional), providing a name to save the model at
         }
 ```
@@ -224,7 +224,7 @@ Just to emphasize, the data files should be in the same format as was adopted in
         'YfileIn': 'y_data',            # str: Optional, npy file) The prepared Y file will be saved at the provided file name 
         'systemType': 'FMO',            # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'hyperParam': True,             # bool: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default structure)
-        'dataPath': 'data/fmo'          # str: Data path
+        'dataPath': 'data/fmo',          # str: Data path
         'QDmodelOut': 'AIQD_SB_model'   # str: (Optional), providing a name to save the model at
         }
 ```
