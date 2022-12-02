@@ -82,7 +82,7 @@ I. **Case-1:** If a user wants to provide parameters for propagation in a file, 
 ```
         param={ 
         'initState': 1,                 # int:  Initial state with Initial Excitation case (only required in FMO complex case, Default is '1')
-        'n_states': 2,                  # Int:  Number of states (SB) or sites (FMO). Default is 2 (SB) and 7 (FMO).
+        'n_states': 7,                  # Int:  Number of states (SB) or sites (FMO). Default is 2 (SB) and 7 (FMO).
         'time': 50,                     # float: Propagation time in picoseconds (ps)  for FMO complex and in (a.u.) for spin-boson model
         'time_step': 0.005,               # float: Time-step for time-propagation (you are not restricted to the time-step used in the training data, however better stick to that for good accuracy) Default values are 0.1 (KRR SB), 0.05 (AIQD and OSTL for spin-boson model) and 0.005ps for FMO complex
         'numLogf': 1.0,                 # int: Number of Logistic function for the normalization of time dimension. Default value is 1.0.   
