@@ -48,7 +48,7 @@ For KRR model, You need to provide the following parameters
         'time_step': 0.1,               # float: Time-step for time-propagation (you are restricted to the time-step used in the training data). Default for KRR is 0.1
         'QDmodel': 'useQDmodel',        # str: In MLQD, the dafault option is useQDmodel tells the MLQD to propagate dynamics with an existing trained model
         'QDmodelType': 'KRR',           # str: The type of model we wanna use (KRR, AIQD, or OSTL). Here KRR and the default option is OSTL
-        'XfileIn': 'x_input',           # str (name of a file) or name of an array or list:  A short time trajectory (equal to the length the input-model was trained on). Here x_input is a txt file where this short-time trajectory is saved. You can also just define a list or an array and pass the name of the array (XfileIn = x_input).  In x-input file, the data should be row wise.  
+        'XfileIn': 'x_input',           # str: Name of a txt file where a short time trajectory (equal to the length the input-model was trained on) is saved. In x-input file, the data should be row wise.  
         'systemType': 'SB',             # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'QDmodelIn': 'KRR_SB_model',    # str: (Not optional for useQDmodel), provide the name of the trained ML model
         'QDtrajOut': 'Qd_trajectory'    # str: (Optional), File name where the trajectory should be saved
