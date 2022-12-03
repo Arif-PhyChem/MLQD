@@ -85,18 +85,14 @@ I. **Case-1:** If a user wants to provide parameters for propagation in a file, 
         'n_states': 7,                  # Int:  Number of states (SB) or sites (FMO). Default is 2 (SB) and 7 (FMO).
         'time': 50,                     # float: Propagation time in picoseconds (ps)  for FMO complex and in (a.u.) for spin-boson model
         'time_step': 0.005,             # float: Time-step for time-propagation (you are not restricted to the time-step used in the training data, however better stick to that for good accuracy) Default values are 0.1 (KRR SB), 0.05 (AIQD and OSTL for spin-boson model) and 0.005ps for FMO complex
-        'numLogf': 10,                   # int: Number of Logistic function for the normalization of time dimension. Default value is 1.0.   
+        'numLogf': 10,                  # int: Number of Logistic function for the normalization of time dimension. Default value is 1.0.   
         'LogCa' : 1.0,                  # float: Coefficient "a" in the logistic function, default values is 1.0 (you may not provide it)
         'LogCb' : 15.0,                 # float: Coefficient "b" in the logistic function, default values is 15.0 (you may not provide it)
         'LogCc' : -1.0,                 # float: Coefficient "a" in the logistic function, default values is -1.0 (you may not provide it)
         'LogCd' : 1.0,                  # float: Coefficient "d" in the logistic function, default values is 1.0 (you may not provide it)
-        'energyDiff': 1.0,              # float: Energy difference between the two states (in the unit of (a.u.)). Only required in SB model
-        'Delta': 1.0,                   # float: The tunneling matrix element (in the unit of (a.u.)). Only required in SB model
         'gamma': 100,                   # float: Characteristic frequency (in cm^-1 for the provided trained FMO models, in (a.u.) for spin-boson model)
         'lamb': 10,                     # float: System-bath coupling strength  (in cm^-1 for the provided trained FMO models, in (a.u.) for spin-boson model)
         'temp': 300,                    # float: temperature in K  (in Kilven for the provided trained FMO models, in (a.u.) for spin-boson model)
-        'energyNorm': 1.0,              # float: Normalizer for energy difference. Default value is 1.0 (adopted in the provided trained models)
-        'DeltaNorm': 1.0,               # float: Normalizer for Delta. Default value is 1.0 (adopted in the provided trained models)
         'gammaNorm': 500,               # float: Normalizer for Characteristic frequency. Default value is 500 in the case of FMO complex and 10 in the case of spin-boson model. The same values are also adopted in the provided trained models  
         'lambNorm': 520,                # float: Normalizer for System-bath coupling strength. Default value is 520 (FMO complex) and 1 (SB model). The same values are also adopted in the provided trained models 
         'tempNorm': 500,                # float: Normalizer for temperature. Default value is 510 (FMO complex) and 1 (SB model). The same values are also adopted in the provided trained models.
@@ -136,7 +132,7 @@ A user can also just provide simulation parameters (Characteristic frequency, Sy
         'initState': 1,                 # int:  Initial state with Initial Excitation case (only required in FMO complex case, Default is '1')
         'n_states': 2,                  # int:  Number of states (SB) or sites (FMO). Default is 2 (SB) and 7 (FMO).
         'time': 20,                     # float: Propagation time in picoseconds (ps)  for FMO complex and in (a.u.) for spin-boson model
-        'time_step': 0.05,             # float: Time-step for time-propagation (OSTL does not use it, however will use it in the output file). Default values are 0.1 (KRR SB), 0.05 (AIQD and OSTL for spin-boson model) and 0.005ps for FMO complex
+        'time_step': 0.05,              # float: Time-step for time-propagation (OSTL does not use it, however will use it in the output file). Default values are 0.1 (KRR SB), 0.05 (AIQD and OSTL for spin-boson model) and 0.005ps for FMO complex
         'energyDiff': 1.0,              # float: Energy difference between the two states (in the unit of (a.u.)). Only required in SB model
         'Delta': 1.0,                   # float: The tunneling matrix element (in the unit of (a.u.)). Only required in SB model
         'gamma': 100,                   # float: Characteristic frequency (in cm^-1 for the provided trained FMO models, in (a.u.) for spin-boson model)
@@ -150,8 +146,8 @@ A user can also just provide simulation parameters (Characteristic frequency, Sy
       
         'QDmodel': 'useQDmodel',        # st: In MLQD, the dafault option is useQDmodel tells the MLQD to propagate dynamics with an existing trained model
         'QDmodelType': 'OSTL',          # st: The type of model we wanna use, here AIQD. The default option is OSTL
-        'systemType': 'SB',            # str: (Not optional)  Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
-        'QDmodelIn': 'OSTL_SB_model',  # str: (Not Optional for useQDmodel), provide the name of the trained ML model
+        'systemType': 'SB',             # str: (Not optional)  Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
+        'QDmodelIn': 'OSTL_SB_model',   # str: (Not Optional for useQDmodel), provide the name of the trained ML model
         'QDtrajOut': 'Qd_trajectory'    # str: (Optional), File name where the trajectory should be saved 
         }
 ```
@@ -227,8 +223,8 @@ Just to emphasize, the data files should be in the same format as was adopted in
         'systemType': 'FMO',            # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'hyperParam': True,             # bool: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default structure)
         'patience': 10,                 # Int: Patience for early stopping in CNN training
-        'dataPath': 'data/fmo',          # str: Data path
-        'QDmodelOut': 'AIQD_FMO_model'   # str: (Optional), providing a name to save the model at
+        'dataPath': 'data/fmo',         # str: Data path
+        'QDmodelOut': 'AIQD_FMO_model'  # str: (Optional), providing a name to save the model at
         }
 ```
 
@@ -265,7 +261,7 @@ Just to emphasize, the data files should be in the same format as was adopted in
         'YfileIn': 'y_data',            # str: (Not Optional, npy file) The Y file  
         'hyperParam': True,             # bool: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default structure)
         'patience': 10,                 # Int: Patience for early stopping in CNN training
-        'QDmodelOut': 'AIQD_FMO_model'   # str: (Optional), providing a name to save the model at
+        'QDmodelOut': 'AIQD_FMO_model'  # str: (Optional), providing a name to save the model at
         }
 ```
 * **OSTL**
@@ -282,6 +278,6 @@ Just to emphasize, the data files should be in the same format as was adopted in
         'systemType': 'FMO',            # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'hyperParam': True,             # bool: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default structure)
         'patience': 10,                 # Int: Patience for early stopping in CNN training
-        'QDmodelOut': 'AIQD_FMO_model'   # str: (Optional), providing a name to save the model at
+        'QDmodelOut': 'AIQD_FMO_model'  # str: (Optional), providing a name to save the model at
         }
 ```
