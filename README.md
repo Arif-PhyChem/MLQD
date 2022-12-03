@@ -85,7 +85,7 @@ I. **Case-1:** If a user wants to provide parameters for propagation in a file, 
         'n_states': 7,                  # Int:  Number of states (SB) or sites (FMO). Default is 2 (SB) and 7 (FMO).
         'time': 50,                     # float: Propagation time in picoseconds (ps)  for FMO complex and in (a.u.) for spin-boson model
         'time_step': 0.005,             # float: Time-step for time-propagation (you are not restricted to the time-step used in the training data, however better stick to that for good accuracy) Default values are 0.1 (KRR SB), 0.05 (AIQD and OSTL for spin-boson model) and 0.005ps for FMO complex
-        'numLogf': 1,                   # int: Number of Logistic function for the normalization of time dimension. Default value is 1.0.   
+        'numLogf': 10,                   # int: Number of Logistic function for the normalization of time dimension. Default value is 1.0.   
         'LogCa' : 1.0,                  # float: Coefficient "a" in the logistic function, default values is 1.0 (you may not provide it)
         'LogCb' : 15.0,                 # float: Coefficient "b" in the logistic function, default values is 15.0 (you may not provide it)
         'LogCc' : -1.0,                 # float: Coefficient "a" in the logistic function, default values is -1.0 (you may not provide it)
@@ -123,11 +123,6 @@ If a user wants to provide parameters for propagation in a file, in the shape of
         'QDmodel': 'useQDmodel',        # string: In MLQD, the dafault option is useQDmodel tells the MLQD to propagate dynamics with an existing trained model
         'QDmodelType': 'AIQD',          # string: Type of model we wanna use, here AIQD. The default option is OSTL
         'XfileIn': 'x_input',           # str: Input parameters should be in the same format as the model was trained on. Here "x_input" can be a txt file ('XfileIn': 'x_input'). It can be a list or an array and in this case you need to pass the name of the array or list (XfileIn = x_input). 
-        'numLogf': 1,                   # int: Number of Logistic function for the normalization of time dimension. Default value is 1.0.    
-        'LogCa' : 1.0,                  # float: Coefficient "a" in the logistic function, default values is 1.0 (you may not provide it)
-        'LogCb' : 15.0,                 # float: Coefficient "b" in the logistic function, default values is 15.0 (you may not provide it)
-        'LogCc' : -1.0,                 # float: Coefficient "a" in the logistic function, default values is -1.0 (you may not provide it)
-        'LogCd' : 1.0,                  # float: Coefficient "d" in the logistic function, default values is 1.0 (you may not provide it)
         'systemType': 'SB',             # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'QDmodelIn': 'OSTL_SB_model',   # str: (Not Optional for useQDmodel), provide the name of the trained ML model
         'QDtrajOut': 'Qd_trajectory'    # str: (Optional), File name where the trajectory should be saved
@@ -140,8 +135,8 @@ A user can also just provide simulation parameters (Characteristic frequency, Sy
         param={ 
         'initState': 1,                 # int:  Initial state with Initial Excitation case (only required in FMO complex case, Default is '1')
         'n_states': 2,                  # int:  Number of states (SB) or sites (FMO). Default is 2 (SB) and 7 (FMO).
-        'time': 50,                     # float: Propagation time in picoseconds (ps)  for FMO complex and in (a.u.) for spin-boson model
-        'time_step': 0.005,             # float: Time-step for time-propagation (OSTL does not use it, however will use it in the output file). Default values are 0.1 (KRR SB), 0.05 (AIQD and OSTL for spin-boson model) and 0.005ps for FMO complex
+        'time': 20,                     # float: Propagation time in picoseconds (ps)  for FMO complex and in (a.u.) for spin-boson model
+        'time_step': 0.05,             # float: Time-step for time-propagation (OSTL does not use it, however will use it in the output file). Default values are 0.1 (KRR SB), 0.05 (AIQD and OSTL for spin-boson model) and 0.005ps for FMO complex
         'energyDiff': 1.0,              # float: Energy difference between the two states (in the unit of (a.u.)). Only required in SB model
         'Delta': 1.0,                   # float: The tunneling matrix element (in the unit of (a.u.)). Only required in SB model
         'gamma': 100,                   # float: Characteristic frequency (in cm^-1 for the provided trained FMO models, in (a.u.) for spin-boson model)
@@ -155,8 +150,8 @@ A user can also just provide simulation parameters (Characteristic frequency, Sy
       
         'QDmodel': 'useQDmodel',        # st: In MLQD, the dafault option is useQDmodel tells the MLQD to propagate dynamics with an existing trained model
         'QDmodelType': 'OSTL',          # st: The type of model we wanna use, here AIQD. The default option is OSTL
-        'systemType': 'FMO',            # str: (Not optional)  Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
-        'QDmodelIn': 'OSTL_FMO_model',  # str: (Not Optional for useQDmodel), provide the name of the trained ML model
+        'systemType': 'SB',            # str: (Not optional)  Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
+        'QDmodelIn': 'OSTL_SB_model',  # str: (Not Optional for useQDmodel), provide the name of the trained ML model
         'QDtrajOut': 'Qd_trajectory'    # str: (Optional), File name where the trajectory should be saved 
         }
 ```
