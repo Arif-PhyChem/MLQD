@@ -265,6 +265,7 @@ Just to emphasize, the data files should be in the same format as was adopted in
         'n_states': 7,                  # int:  Number of states (SB) or sites (FMO), default 2 (SB) and 7 (FMO).
         'QDmodel': 'createQDmodel',     # string: createQDmodel, the dafault option is useQDmodel
         'QDmodelType': 'AIQD',          # string: Type of model. The default option is OSTL
+        'systemType': 'FMO',            # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'XfileIn': 'x_data',            # str: (Not Optional, npy file) The X file 
         'YfileIn': 'y_data',            # str: (Not Optional, npy file) The Y file  
         'hyperParam': True,             # bool: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default structure)
@@ -280,6 +281,7 @@ Just to emphasize, the data files should be in the same format as was adopted in
         'n_states': 7,                  # int:  Number of states (SB) or sites (FMO), default 2 (SB) and 7 (FMO).
         'QDmodel': 'createQDmodel',     # string: createQDmodel, the dafault option is useQDmodel
         'QDmodelType': 'OSTL',          # string: Type of model. The default option is OSTL
+        'systemType': 'FMO',            # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'XfileIn': 'x_data',            # str: (Not Optional, npy file) The X file 
         'YfileIn': 'y_data',            # str: (Not Optional, npy file) The X file 
         'systemType': 'FMO',            # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
