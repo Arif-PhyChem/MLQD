@@ -212,7 +212,7 @@ Just to emphasize, the data files should be in the same format as was adopted in
         'hyperParam': True,             # bool: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default structure)
         'patience': 10,                 # Int: Patience for early stopping in CNN training 
         'dataPath': 'data/fmo',          # str: Data path
-        'QDmodelOut': 'AIQD_SB_model'   # str: (Optional), providing a name to save the model at
+        'QDmodelOut': 'AIQD_FMO_model'   # str: (Optional), providing a name to save the model at
         }
 ```
 * **OSTL**
@@ -233,7 +233,7 @@ Just to emphasize, the data files should be in the same format as was adopted in
         'hyperParam': True,             # bool: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default structure)
         'patience': 10,                 # Int: Patience for early stopping in CNN training
         'dataPath': 'data/fmo',          # str: Data path
-        'QDmodelOut': 'AIQD_SB_model'   # str: (Optional), providing a name to save the model at
+        'QDmodelOut': 'AIQD_FMO_model'   # str: (Optional), providing a name to save the model at
         }
 ```
 
@@ -269,7 +269,7 @@ Just to emphasize, the data files should be in the same format as was adopted in
         'YfileIn': 'y_data',            # str: (Not Optional, npy file) The Y file  
         'hyperParam': True,             # bool: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default structure)
         'patience': 10,                 # Int: Patience for early stopping in CNN training
-        'QDmodelOut': 'AIQD_SB_model'   # str: (Optional), providing a name to save the model at
+        'QDmodelOut': 'AIQD_FMO_model'   # str: (Optional), providing a name to save the model at
         }
 ```
 * **OSTL**
@@ -285,6 +285,6 @@ Just to emphasize, the data files should be in the same format as was adopted in
         'systemType': 'FMO',            # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'hyperParam': True,             # bool: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default structure)
         'patience': 10,                 # Int: Patience for early stopping in CNN training
-        'QDmodelOut': 'AIQD_SB_model'   # str: (Optional), providing a name to save the model at
+        'QDmodelOut': 'AIQD_FMO_model'   # str: (Optional), providing a name to save the model at
         }
 ```
