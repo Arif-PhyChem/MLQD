@@ -233,7 +233,7 @@ Just to emphasize, the data files should be in the same format as was adopted in
         'hyperParam': True,             # bool: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default structure)
         'patience': 10,                 # int: Patience for early stopping in CNN training
         'dataPath': 'data/fmo',         # str: Data path
-        'QDmodelOut': 'AIQD_FMO_model'  # str: (Optional), providing a name to save the model at
+        'QDmodelOut': 'OSTL_FMO_model'  # str: (Optional), providing a name to save the model at
         }
 ```
 
