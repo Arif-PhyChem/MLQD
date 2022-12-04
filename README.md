@@ -149,7 +149,7 @@ A user can also just provide simulation parameters (Characteristic frequency, Sy
         'temp': 1.0,                            # float: temperature in K  (in Kilven for the provided trained FMO models, in (a.u.) for spin-boson model)
         'energyNorm': 1.0,                      # float: Normalizer for energy difference. Default value is 1.0 (adopted in the provided trained models)
         'DeltaNorm': 1.0,                       # float: Normalizer for Delta. Default value is 1.0 (adopted in the provided trained models)
-        'gammaNorm': 10,                       # float: Normalizer for Characteristic frequency. Default value is 500 in the case of FMO complex and 10 in the case of spin-boson model. The same values are also adopted in the provided trained models  
+        'gammaNorm': 10.0,                       # float: Normalizer for Characteristic frequency. Default value is 500 in the case of FMO complex and 10 in the case of spin-boson model. The same values are also adopted in the provided trained models  
         'lambNorm': 1.0,                        # float: Normalizer for System-bath coupling strength. Default value is 520 (FMO complex) and 1 (SB model). The same values are also adopted in the provided trained models 
         'tempNorm': 1.0,                        # float: Normalizer for temperature. Default value is 510 (FMO complex) and 1 (SB model). The same values are also adopted in the provided trained models.
       
