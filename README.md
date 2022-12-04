@@ -138,7 +138,6 @@ If a user wants to provide parameters for propagation in a file, in the shape of
 A user can also just provide simulation parameters (Characteristic frequency, System-bath coupling strengt, Temperature etc.) and MLQD will predict the correspinding dynamics. 
 ```
         param={ 
-        'initState': 1,                         # int:  Initial state with Initial Excitation case (only required in FMO complex case, Default is '1')
         'n_states': 2,                          # int:  Number of states (SB) or sites (FMO). Default is 2 (SB) and 7 (FMO).
         'time': 20,                             # float: Propagation time in picoseconds (ps)  for FMO complex and in (a.u.) for spin-boson model
         'time_step': 0.05,                      # float: Time-step for time-propagation (OSTL does not use it, however will use it in the output file). Default values are 0.1 (KRR SB), 0.05 (AIQD and OSTL for spin-boson model) and 0.005ps for FMO complex
