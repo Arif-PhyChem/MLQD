@@ -58,7 +58,7 @@ For KRR model, You need to provide the following parameters
 * **AIQD model:**
 
 For each time-step, the AIQD approach predicts the corresponding reduced density matrix in the following format 
-$$\mathcal{R}[\rho_{11}(t)], \mathcal{R}[\rho_{1N}(t)], \mathcal{I}[\rho_{1N}(t)] \dots, \mathcal{R}[\rho_{1N}(t)], \mathcal{I}[\rho_{1N}(t)], \mathcal{R}[\rho_{22}(t)], \dots, \mathcal{R}[\rho_{2N}(t)], \mathcal{I}[\rho_{2N}(t)], \mathcal{R}[\rho_{33}(t)], \dots, \mathcal{R}[\rho_{3N}(t)],\mathcal{I}[\rho_{3N}(t)],\dots, \dots,   \mathcal{R}[\rho_{NN}(t)]$$
+$$\mathcal{R}[\rho_{11}(t)], \mathcal{R}[\rho_{12}(t)], \mathcal{I}[\rho_{12}(t)] \dots, \mathcal{R}[\rho_{1N}(t)], \mathcal{I}[\rho_{1N}(t)], \mathcal{R}[\rho_{22}(t)], \dots, \mathcal{R}[\rho_{2N}(t)], \mathcal{I}[\rho_{2N}(t)], \mathcal{R}[\rho_{33}(t)], \dots, \mathcal{R}[\rho_{3N}(t)],\mathcal{I}[\rho_{3N}(t)],\dots, \dots,   \mathcal{R}[\rho_{NN}(t)]$$
 
 where $N$ is the dimension of the reduced density matrix and $\mathcal{R}$ and $\mathcal{I}$ represent the real and imaginary parts of the off-diagonal terms, respectively.  
 
@@ -113,7 +113,7 @@ I. **Case-1:** If a user wants to provide parameters for propagation in a file, 
 * **OSTL model** (Recommended for fast and smooth propagation of dyanmics)
 For OSTL, the input is the same as AIQD except in OSTL, we just don't use the logistic functions here. The OSTL predict the whole dynamics in one shot in the following format $$\boldsymbol{\mathcal{Y}}(t_0), \boldsymbol{\mathcal{Y}}(t_1), \dots, \boldsymbol{\mathcal{Y}}(t_{k-1}), \boldsymbol{\mathcal{Y}}(t_k),  \boldsymbol{\mathcal{Y}}(t_{k+1}), \dots,  \boldsymbol{\mathcal{Y}}(t_M)$$ 
 where 
-$$\boldsymbol{\mathcal{Y}}(t) = \mathcal{R}[\rho_{11}(t)], \mathcal{R}[\rho_{1N}(t)], \mathcal{I}[\rho_{1N}(t)] \dots, \mathcal{R}[\rho_{1N}(t)], \mathcal{I}[\rho_{1N}(t)], \mathcal{R}[\rho_{22}(t)], \dots, \mathcal{R}[\rho_{2N}(t)], \mathcal{I}[\rho_{2N}(t)], \mathcal{R}[\rho_{33}(t)], \dots, \mathcal{R}[\rho_{3N}(t)],\mathcal{I}[\rho_{3N}(t)],\dots, \dots,   \mathcal{R}[\rho_{NN}(t)]$$ 
+$$\boldsymbol{\mathcal{Y}}(t) = \mathcal{R}[\rho_{11}(t)], \mathcal{R}[\rho_{12}(t)], \mathcal{I}[\rho_{12}(t)] \dots, \mathcal{R}[\rho_{1N}(t)], \mathcal{I}[\rho_{1N}(t)], \mathcal{R}[\rho_{22}(t)], \dots, \mathcal{R}[\rho_{2N}(t)], \mathcal{I}[\rho_{2N}(t)], \mathcal{R}[\rho_{33}(t)], \dots, \mathcal{R}[\rho_{3N}(t)],\mathcal{I}[\rho_{3N}(t)],\dots, \dots,   \mathcal{R}[\rho_{NN}(t)]$$ 
 
 where $N$ is the dimension of the reduced density matrix and $\mathcal{R}$ and $\mathcal{I}$ represent the real and imaginary parts of the off-diagonal terms, respectively.  
 
