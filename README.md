@@ -33,7 +33,7 @@ Install the following required dependencies
 * MLatom ```pip install MLatom```
 
 ## Dynamics Propagation <a name="propagation"></a> [[Go to Top](#Top)]
-(***Go to example folder for ready made scripts***)
+(***Go to examples folder for ready made scripts***)
 We provide already trained QD models which can be found here [coming soon], you can download them and test the code. If You wanna train your own model, then go to [Model training on your own data](#training).
 First import ```quant_dyn``` class from ```evolution.py``` 
 
