@@ -87,7 +87,7 @@ I. **Case-1:** If a user wants to provide parameters for propagation in a file, 
 ```
         param={ 
         'initState': 1,                         # int:  Initial state with Initial Excitation case (only required in FMO complex case, Default is '1')
-        'n_states': 7,                          # Int:  Number of states (SB) or sites (FMO). Default is 2 (SB) and 7 (FMO).
+        'n_states': 8,                          # Int:  Number of states (SB) or sites (FMO). Default is 2 (SB) and 7 (FMO).
         'time': 50,                             # float: Propagation time in picoseconds (ps)  for FMO complex and in (a.u.) for spin-boson model
         'time_step': 0.005,                     # float: Time-step for time-propagation (you are not restricted to the time-step used in the training data, however better stick to that for good accuracy) Default values are 0.1 (KRR SB), 0.05 (AIQD and OSTL for spin-boson model) and 0.005ps for FMO complex
         'numLogf': 10,                          # int: Number of Logistic function for the normalization of time dimension. Default value is 1.0.   
@@ -192,7 +192,7 @@ For KRR model, You need to provide the following parameters
 Just to emphasize, the data files should be in the same format as was adopted in out [QDDSET-1: A Quantum Dissipative Dynamics Dataset](https://github.com/Arif-PhyChem/QDDSET "Named link title")
 ```
         param={ 
-        'n_states': 7,                  # int:  Number of states (SB) or sites (FMO), default 2 (SB) and 7 (FMO).
+        'n_states': 8,                  # int:  Number of states (SB) or sites (FMO), default 2 (SB) and 7 (FMO).
         'time': 50,                     # float: Propagation time in picoseconds (ps) for FMO complex and in (a.u.) for spin-boson model
         'time_step': 0.005,             # float: Time-step for time-propagation. Default values are 0.05 (spin-boson model) and 0.005ps for FMO complex.
         'QDmodel': 'createQDmodel',     # str: createQDmodel, the dafault option is useQDmodel
@@ -220,7 +220,7 @@ Just to emphasize, the data files should be in the same format as was adopted in
 Just to emphasize, the data files should be in the same format as was adopted in out [QDDSET-1: A Quantum Dissipative Dynamics Dataset](https://github.com/Arif-PhyChem/QDDSET "Named link title")
 ```
         param={ 
-        'n_states': 7,                  # int:  Number of states (SB) or sites (FMO), default 2 (SB) and 7 (FMO).
+        'n_states': 8,                  # int:  Number of states (SB) or sites (FMO), default 2 (SB) and 7 (FMO).
         'QDmodel': 'createQDmodel',     # str: createQDmodel, the dafault option is useQDmodel
         'QDmodelType': 'OSTL',          # str: Type of model. The default option is OSTL
         'prepInput' : True,             # str: Prepare input files from the data (Default False)
@@ -262,7 +262,7 @@ For KRR model, You need to provide the following parameters
 Just to emphasize, the data files should be in the same format as was adopted in out [QDDSET-1: A Quantum Dissipative Dynamics Dataset](https://github.com/Arif-PhyChem/QDDSET "Named link title")
 ```
         param={ 
-        'n_states': 7,                  # int:  Number of states (SB) or sites (FMO), default 2 (SB) and 7 (FMO).
+        'n_states': 8,                  # int:  Number of states (SB) or sites (FMO), default 2 (SB) and 7 (FMO).
         'QDmodel': 'createQDmodel',     # str: createQDmodel, the dafault option is useQDmodel
         'QDmodelType': 'AIQD',          # str: Type of model. The default option is OSTL
         'systemType': 'FMO',            # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
@@ -278,7 +278,7 @@ Just to emphasize, the data files should be in the same format as was adopted in
 Just to emphasize, the data files should be in the same format as was adopted in out [QDDSET-1: A Quantum Dissipative Dynamics Dataset](https://github.com/Arif-PhyChem/QDDSET "Named link title")
 ```
         param={ 
-        'n_states': 7,                  # int:  Number of states (SB) or sites (FMO), default 2 (SB) and 7 (FMO).
+        'n_states': 8,                  # int:  Number of states (SB) or sites (FMO), default 2 (SB) and 7 (FMO).
         'QDmodel': 'createQDmodel',     # str: createQDmodel, the dafault option is useQDmodel
         'QDmodelType': 'OSTL',          # str: Type of model. The default option is OSTL
         'systemType': 'FMO',            # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
@@ -287,6 +287,6 @@ Just to emphasize, the data files should be in the same format as was adopted in
         'systemType': 'FMO',            # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'hyperParam': True,             # bool: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default structure)
         'patience': 10,                 # int: Patience for early stopping in CNN training
-        'QDmodelOut': 'AIQD_FMO_model'  # str: (Optional), providing a name to save the model at
+        'QDmodelOut': 'OSTL_FMO_model'  # str: (Optional), providing a name to save the model at
         }
 ```
