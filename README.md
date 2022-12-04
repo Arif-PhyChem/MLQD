@@ -57,6 +57,8 @@ For KRR model, You need to provide the following parameters
 
 * **AIQD model:**
 
+AIQD predict the whole reduced density matrix in the following format $\rho_{11}(t), \mathcal{R}[\rho_{1N}(t)], \mathcal{I}[\rho_{1N}(t)] \dots, \mathcal{R}[\rho_{1N}(t)] \mathcal{I}[\rho_{1N}(t)], \rho_{22}(t), \dots, \rho_{2N}(t), \rho_{33}(t), \dots, \rho_{3N}(t),\dots, \dots,  \rho_{NN}(t)$ where $N$ is the dimension of the reduced density matrix. As the off-diagonal terms are complex, we predict the real and imaginary part seperately.  
+
 I. **Case-1:** If a user wants to provide parameters for propagation in a file, in the shape of an array or in the form of a list. (In this case, the user needs to normalized the data him/herself). AIQD uses a logistic function to normalize the dimension of time, i.e.,  $f(t) = a/(1 + b \exp(-(t + c)/d))$ where $a, b, c$ and  $d$ are constants.  Check out the Supplementary Figure 3 of our AIQD papar [Predicting the future of excitation energy transfer in light-harvesting complex with artificial intelligence-based quantum dynamics](https://doi.org/10.1038/s41467-022-29621-w "Named link title") 
 
 ```
