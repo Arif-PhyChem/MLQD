@@ -7,8 +7,8 @@ In MLQD, we provide three Machine Learning (ML) methods for propagation Qauntum 
 **MLQD provides**
 
 * Propagation of dynamics with the existing trained models [[Click here](#propagation)]
-* Training a convolutional neural networks (CNN) model and KRR model on the data [[Click here](#training)]
-* Training along with the transformation of data into input files X and Y [[Click here](#preparation)] and direct training with out transformation [[Click here](#nopreparation)]
+* Training a convolutional neural networks (CNN) and KRR models on the data [[Click here](#training)]
+* Transformation of data into input files X and Y [[Click here](#preparation)] and direct training with out transformation [[Click here](#nopreparation)]
 * Optimization of the hyperparameters in CNN and KRR models [[Click here](#preparation)]
 
 ### Installation and dependencies
