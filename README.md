@@ -34,8 +34,7 @@ Install the following required dependencies
 
 ## Dynamics Propagation <a name="propagation"></a> [[Go to Top](#Top)]
 (***Go to examples folder for ready made scripts***)
-We provide already trained QD models which can be found here [coming soon], you can download them and test the code. If You wanna train your own model, then go to [Model training on your own data](#training).
-First import ```quant_dyn``` class from ```evolution.py``` 
+We provide already trained QD models which can be found here [coming soon], you can download them and test the code. If you want to train your own model, then go to [Training on your own data](#training) section. First of all, we need to import ```quant_dyn``` class from ```evolution.py``` .
 
 ``` from evolution import quant_dyn ```
 
