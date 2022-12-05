@@ -41,7 +41,7 @@ First import ```quant_dyn``` class from ```evolution.py```
 
 * **KRR model:**
 
-For KRR model, You need to provide the following parameters
+For KRR model, You need to provide the following parameters. Just to emphsize, MLQD uses MLatom package [http://mlatom.com/] for KRR in the backend.
 ```
         param={ 
         'time': 20,                     # float: Propagation time in picoseconds (ps)  for FMO complex and in (a.u.) for spin-boson model
@@ -165,8 +165,9 @@ Here we will show how to train data on you data. If you don't have your own data
 
 ### Training a model along with the preparation of training data and optimization of hyperparameters <a name="preparation"></a>
 
-* **KRR**
+* **KRR** 
 
+ MLQD is using MLatom package [http://mlatom.com/] for KRR in the backend.
 For KRR model, You need to provide the following parameters
 ```
         param={ 
