@@ -41,7 +41,7 @@ First import ```quant_dyn``` class from ```evolution.py```
 
 * **KRR model:**
 
-For KRR model, You need to provide the following parameters. Just to emphsize, MLQD uses MLatom package [http://mlatom.com/] for KRR in the backend.
+For KRR model, You need to provide the following parameters. Just to emphsize, MLQD is using MLatom package [http://mlatom.com/] for KRR in the backend.
 ```
         param={ 
         'time': 20,                     # float: Propagation time in picoseconds (ps)  for FMO complex and in (a.u.) for spin-boson model
