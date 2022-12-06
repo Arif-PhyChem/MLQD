@@ -24,8 +24,6 @@ Install the following required dependencies
 
 * tensorflow  ```conda install -c conda-forge tensorflow``` 
 
-* Keras ```conda install -c conda-forge keras```  (though tensorflow also has keras, but we installing it explicitly) 
-
 * hyperopt ```conda install -c conda-forge hyperopt```
 
 * hyperas  ```conda install -c conda-forge hyperas```
