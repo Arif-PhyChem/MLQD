@@ -170,14 +170,14 @@ For KRR model, You need to provide the following parameters
         param={ 
         'QDmodel': 'createQDmodel',     # str: create QD model. The dafault option is useQDmodel
         'QDmodelType': 'KRR',           # str: The type of model. Here KRR and the default option is OSTL
-        'prepInput' : True,             # str: Prepare input files from the data (Default False)
+        'prepInput' : 'True',           # str: Prepare input files from the data (Default False)
         'XfileIn': 'x_train',           # str: (Optional, txt file) The prepared X file will be saved at the provided file name 
         'YfileIn': 'y_train',           # str: (Optional, txt file) The prepared Y file will be saved at the provided file name
         'dataPath': 'data/sb' ,         # str: Data path
         'dataCol': 1,                   # int: Default is 1, we may have multiple columns in our data files, mention a single column (KRR model works only for single output)
         'dtype': 'real',                # str: Default is real. If the data in complex and if we pass 'real', it will prepare data only for real part and if we pass 'imag' is mentioned, only imaginary data will be considered. 
         'xlength': 81,                  # int:  Default is 81. Length of the short trajectory which will be used as an input
-        'hyperParam': True,             # bool: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default values)
+        'hyperParam': 'True',           # str: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default values)
         'krrSigma': 4.0,                # float: If you pass False to hyperParam, then we need to provide a value for hyperparameter Sigma in Gaussian kernel. Otherwise the model will run with the default value. 
         'krrLamb': 0.00000001,          # float: If you pass False to hyperParam, then we need to provide a value for hyper parameter Lambda in KRR. Otherwise the model will run with the default value.
         'systemType': 'SB',             # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
@@ -194,7 +194,7 @@ Just to emphasize, the data files should be in the same format as was adopted in
         'time_step': 0.005,             # float: Time-step for time-propagation. Default values are 0.05 (spin-boson model) and 0.005ps for FMO complex.
         'QDmodel': 'createQDmodel',     # str: createQDmodel, the dafault option is useQDmodel
         'QDmodelType': 'AIQD',          # str: Type of model. The default option is OSTL
-        'prepInput' : True,             # str: Prepare input files from the data (Default False)
+        'prepInput' : 'True',           # str: Prepare input files from the data (Default False)
         'XfileIn': 'x_data',            # str: (Optional, npy file) The prepared X file will be saved at the provided file name 
         'YfileIn': 'y_data',            # str: (Optional, npy file) The prepared Y file will be saved at the provided file name 
         'numLogf': 1,                   # int: Number of Logistic function for the normalization of time dimension. Default value is 1.0.    
@@ -206,7 +206,7 @@ Just to emphasize, the data files should be in the same format as was adopted in
         'lambNorm': 520,                # float: Normalizer for System-bath coupling strength. Default value is 520 (FMO complex) and 1 (SB model). The same values are also adopted in the provided trained models 
         'tempNorm': 500,                # float: Normalizer for temperature. Default value is 510 (FMO complex) and 1 (SB model). The same values are also adopted in the provided trained models.
         'systemType': 'FMO',            # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
-        'hyperParam': True,             # bool: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default structure)
+        'hyperParam': 'True',           # str: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default structure)
         'patience': 10,                 # int: Patience for early stopping in CNN training 
         'dataPath': 'data/fmo',         # str: Data path
         'QDmodelOut': 'AIQD_FMO_model'  # str: (Optional), providing a name to save the model at
@@ -220,14 +220,14 @@ Just to emphasize, the data files should be in the same format as was adopted in
         'n_states': 8,                  # int:  Number of states (SB) or sites (FMO), default 2 (SB) and 7 (FMO).
         'QDmodel': 'createQDmodel',     # str: createQDmodel, the dafault option is useQDmodel
         'QDmodelType': 'OSTL',          # str: Type of model. The default option is OSTL
-        'prepInput' : True,             # str: Prepare input files from the data (Default False)
+        'prepInput' : 'True',           # str: Prepare input files from the data (Default False)
         'XfileIn': 'x_data',            # str: (Optional, npy file) The prepared X file will be saved at the provided file name 
         'YfileIn': 'y_data',            # str: (Optional, npy file) The prepared Y file will be saved at the provided file name 
         'gammaNorm': 500,               # float: Normalizer for Characteristic frequency. Default value is 500 in the case of FMO complex and 10 in the case of spin-boson model. The same values are also adopted in the provided trained models  
         'lambNorm': 520,                # float: Normalizer for System-bath coupling strength. Default value is 520 (FMO complex) and 1 (SB model). The same values are also adopted in the provided trained models 
         'tempNorm': 500,                # float: Normalizer for temperature. Default value is 510 (FMO complex) and 1 (SB model). The same values are also adopted in the provided trained models.
         'systemType': 'FMO',            # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
-        'hyperParam': True,             # bool: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default structure)
+        'hyperParam': 'True',           # str: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default structure)
         'patience': 10,                 # int: Patience for early stopping in CNN training
         'dataPath': 'data/fmo',         # str: Data path
         'QDmodelOut': 'OSTL_FMO_model'  # str: (Optional), providing a name to save the model at
@@ -246,7 +246,7 @@ For KRR model, You need to provide the following parameters
         'QDmodelType': 'KRR',           # str: The type of model. Here KRR and the default option is OSTL
         'XfileIn': 'x_train',           # str: (Not Optional, txt file) The X file 
         'YfileIn': 'y_train',           # str: (Not Optional, txt file) The Y file
-        'hyperParam': True,             # bool: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default values)
+        'hyperParam': 'True',           # str: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default values)
         'krrSigma': 4.0,                # float: If you pass False to hyperParam, then we need to provide a value for hyperparameter Sigma in Gaussian kernel. Otherwise the model will run with the default value. 
         'krrLamb': 0.00000001,          # float: If you pass False to hyperParam, then we need to provide a value for hyperparameter Lambda in KRR. Otherwise the model will run with the default value.
         'systemType': 'SB',             # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
@@ -265,7 +265,7 @@ Just to emphasize, the data files should be in the same format as was adopted in
         'systemType': 'FMO',            # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'XfileIn': 'x_data',            # str: (Not Optional, npy file) The X file 
         'YfileIn': 'y_data',            # str: (Not Optional, npy file) The Y file  
-        'hyperParam': True,             # bool: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default structure)
+        'hyperParam': 'True',           # str: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default structure)
         'patience': 10,                 # int: Patience for early stopping in CNN training
         'QDmodelOut': 'AIQD_FMO_model'  # str: (Optional), providing a name to save the model at
         }
@@ -281,7 +281,7 @@ Just to emphasize, the data files should be in the same format as was adopted in
         'systemType': 'FMO',            # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'XfileIn': 'x_data',            # str: (Not Optional, npy file) The X file 
         'YfileIn': 'y_data',            # str: (Not Optional, npy file) The X file 
-        'hyperParam': True,             # bool: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default structure)
+        'hyperParam': 'True',           # str: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default structure)
         'patience': 10,                 # int: Patience for early stopping in CNN training
         'QDmodelOut': 'OSTL_FMO_model'  # str: (Optional), providing a name to save the model at
         }
