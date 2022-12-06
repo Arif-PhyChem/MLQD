@@ -1,7 +1,7 @@
 import data
-import keras
 import pickle
 import numpy as np
+import tensorflow.keras as keras
 from hyperas import optim
 from keras.layers import Dense
 from keras.layers import Flatten

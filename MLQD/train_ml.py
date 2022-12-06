@@ -1,24 +1,24 @@
 import os
 import cnn
-import keras
 import prep_input
 import subprocess
 import numpy as np
 import time as proc_time
+import tensorflow.keras as keras
 ############################################################
 def KRR(Xin: str,
         Yin: str,
         QDmodelOut: str,
-        prepInput: bool, 
+        prepInput: str, 
         dataCol: int, 
         xlength: int, 
         dtype: str, 
         dataPath: str,
-        hyperParam: bool,
+        hyperParam: str,
         krrSigma: float,
         krrLamb: float):
     #
-    if bool(prepInput) == True:
+    if prepInput == 'True':
         print('train_ml.KRR: preparing training data for KRR model')
         prep_input.KRR(Xin,
                     Yin, 
@@ -40,12 +40,12 @@ def KRR(Xin: str,
     QDmodelOut = QDmodelOut + '.unf'
     arg = ['rm', '-f', QDmodelOut + '*']
     subprocess.run(arg, check=True)
-    if bool(hyperParam) == True:
+    if hyperParam == 'True':
         args = ['mlatom', 'createMLmodel', 'MLmodelOut='+ str(QDmodelOut) + ' XfileIn=' + str(Xin), 'Yfile=' + str(Yin), 
                     'kernel=Gaussian', 'sigma=opt', 'lgSigmaL=-25', 'lgSigmaH=25', 'lambda=opt', 'lgLambdaL=-30.0', 'sampling=random']
         with open('kkr_train_output', "w") as output:
             subprocess.run(args, check=True, stdout=output)
-    if bool(hyperParam) == False:
+    else:
         args = ['mlatom', 'createMLmodel', 'MLmodelOut='+ str(QDmodelOut) + ' XfileIn=' + str(Xin), 'Yfile=' + str(Yin), 
                     'kernel=Gaussian', 'sigma='+ str(krrSigma), 'lambda=' + str(krrLamb)]
         with open('kkr_train_output', "w") as output:
@@ -65,12 +65,12 @@ def OSTL(Xin: str,
         tempNorm: float,
         dataPath: str,  # optional in prepInput is False
         QDmodelOut: str,
-        hyperParam: bool,
+        hyperParam: str,
         patience: int,
-        prepInput: bool,
+        prepInput: str,
         mlqdDr: str):
 
-    if bool(prepInput) == True:
+    if prepInput == 'True':
         print('train_ml.OSTL: preparing training data for OSTL model')
         prep_input.OSTL(Xin,
                         Yin,
@@ -83,7 +83,7 @@ def OSTL(Xin: str,
                         tempNorm, 
                         dataPath)
 
-    if bool(hyperParam) == True:
+    if hyperParam == 'True':
         print('*****************************************')
         print('Train_ml.OSTL: Going for hyperopt optimization of CNN.', 
                 'If you are using Jupyter Notebook, you may not see the output of it.')
@@ -130,13 +130,13 @@ def AIQD(Xin: str,
         lambNorm: float, 
         tempNorm: float,
         QDmodelOut: str,
-        hyperParam: bool,
+        hyperParam: str,
         patience: int,
-        prepInput: bool,
+        prepInput: str,
         dataPath: str,
         mlqdDr: str):
 
-    if bool(prepInput) == True:
+    if prepInput == 'True':
         print('train_ml.AIQD: preparing training data for AIQD model')
         prep_input.AIQD(
                         Xin,
@@ -158,7 +158,7 @@ def AIQD(Xin: str,
                         dataPath
                         )
 
-    if bool(hyperParam) == True:
+    if hyperParam == 'True':
         print('*****************************************')
         print('Train_ml.AIQD: Going for hyperopt optimization of CNN.',
                 'If you are using Jupyter Notebook, you may not see the output of it.')

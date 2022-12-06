@@ -3,6 +3,7 @@ import random
 import train_ml
 import numpy as np
 import ml_dyn as mld
+from pathlib import Path
 
 fmo_7_init_sites = [1, 6]
 fmo_8_init_sites = [1, 6, 8]
@@ -12,12 +13,8 @@ class quant_dyn:
     """ Assign values to the parameters"""
     def __init__(self, **param):
         print('*****************************************')
-        mlqdDr = os.path.normpath(os.getcwd() + os.sep + os.pardir) + '/MLQD'
-        hyperopt_file = str(mlqdDr) + '/' + 'hyperopt_optim.py'
-        if os.path.isfile(hyperopt_file):
-            self._mlqdDr = mlqdDr
-        else:
-            self._mlqdDr = os.getcwd() + '/MLQD'
+        source_path = Path(__file__).resolve()
+        self._mlqdDr = source_path.parent
         if param.get('QDmodel') is not None:
             self._QDmodel = param.get('QDmodel')
             if type(self._QDmodel) != str:
@@ -47,11 +44,14 @@ class quant_dyn:
         if self._QDmodel == 'createQDmodel':
             if param.get('prepInput') is not None:
                 self._prepInput = param.get('prepInput')
-                if type(self._prepInput) != bool:
-                    raise Exception('prepInput should be boolean: True or False')
-                print('Setting option "prepInput" to ' + str(self._prepInput))
+                if type(self._prepInput) != str:
+                    raise Exception('prepInput should be string')
+                if self._prepInput == 'True':
+                    print('Setting option "prepInput" to ' + str(self._prepInput))
+                else:
+                    print('You have chosen not to prepare the input files, othewise you should pass "True" to prepInput')
             else:
-                self._prepInput = False
+                self._prepInput = 'False'
                 print('The MLQD is running with default "prepInput" option', self._prepInput)
             if param.get('QDmodelOut') is not None:
                 self._QDmodelOut = param.get('QDmodelOut')
@@ -293,14 +293,14 @@ class quant_dyn:
                 print('Setting Yfilein to dafault name', self._Yin)
             if param.get('hyperParam') is not None:
                 self._hyperParam = param.get('hyperParam')
-                if type(self._hyperParam) != bool: 
-                    raise ValueError('You can only pass True or False to "hyperParam"')
-                if bool(self._hyperParam) == True:
+                if type(self._hyperParam) != str: 
+                    raise ValueError('You can only pass string to "hyperParam"')
+                if self._hyperParam == 'True':
                     print('You have chosen to optimize the hyper parameters of the model')
-                if bool(self._hyperParam) == False:
-                    print('You have chosen not to optimize the hyper parameters of the model')
+                else:
+                    print('You have chosen not to optimize the hyper parameters of the model, otherwise you should pass "True" to hyperParam')
             else:
-                self._hyperParam = False  # donot optimize
+                self._hyperParam = 'False'  # donot optimize
                 print('You have chosen not to optimize the hyper parameters of the model, so it will run with the dafault hyper parameters')
             if self._QDmodelType == 'OSTL' or self._QDmodelType == 'AIQD':
                 if param.get('patience') is not None:
@@ -312,7 +312,7 @@ class quant_dyn:
                     self._patience = 20  # for early stopping
                     print('Running with the dafualt value of "patience" =', self._patience)
 
-            if bool(self._prepInput) == True:
+            if self._prepInput == 'True':
                 if param.get('dataPath') is not None:
                      self._dataPath = param.get('dataPath')
                      if type(self._dataPath) != str: 
@@ -353,7 +353,7 @@ class quant_dyn:
                     self._xlength = 81
                     print('Setting length of x-input "xlength" to default value', self._xlength)
 
-                if bool(self._hyperParam == False):
+                if self._hyperParam != 'True':
                     if param.get('krrSigma') is not None:
                         self._krrSigma = param.get('krrSigma')
                         print('Setting hyperparameter Sigma for Guassian kernel "krrSigma" to ', self._krrSigma)
