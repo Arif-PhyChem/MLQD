@@ -12,6 +12,13 @@ In MLQD, we provide three Machine Learning (ML) methods for propagation Qauntum 
 * Optimization of the hyperparameters in CNN and KRR models [[Click here](#preparation)]
 
 ### Installation and dependencies
+
+Download the GitHub repository and go to Jupyter Notebooks folder to run the notebooks. 
+Do not change the name of the MLQD folder as upon running one of the Notebooks, the compiler 
+will look for the MLQD folder. 
+
+*Some dependencies:* 
+
 Create a conda environment 
 
 ```conda create --name mlqd```
@@ -208,6 +215,8 @@ Just to emphasize, the data files should be in the same format as was adopted in
         'systemType': 'FMO',            # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'hyperParam': 'True',           # str: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default structure)
         'patience': 10,                 # int: Patience for early stopping in CNN training 
+        'epochs': 100,                  # int: Number of epochs for training or optimization
+        'max_evals': 100,               # int: Number of maximum evaluations in hyperopt optimization
         'dataPath': 'data/fmo',         # str: Data path
         'QDmodelOut': 'AIQD_FMO_model'  # str: (Optional), providing a name to save the model at
         }
@@ -229,6 +238,8 @@ Just to emphasize, the data files should be in the same format as was adopted in
         'systemType': 'FMO',            # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'hyperParam': 'True',           # str: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default structure)
         'patience': 10,                 # int: Patience for early stopping in CNN training
+        'epochs': 100,                  # int: Number of epochs for training or optimization
+        'max_evals': 100,               # int: Number of maximum evaluations in hyperopt optimization
         'dataPath': 'data/fmo',         # str: Data path
         'QDmodelOut': 'OSTL_FMO_model'  # str: (Optional), providing a name to save the model at
         }
@@ -267,6 +278,8 @@ Just to emphasize, the data files should be in the same format as was adopted in
         'YfileIn': 'y_data',            # str: (Not Optional, npy file) The Y file  
         'hyperParam': 'True',           # str: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default structure)
         'patience': 10,                 # int: Patience for early stopping in CNN training
+        'epochs': 100,                  # int: Number of epochs for training or optimization
+        'max_evals': 100,               # int: Number of maximum evaluations in hyperopt optimization
         'QDmodelOut': 'AIQD_FMO_model'  # str: (Optional), providing a name to save the model at
         }
 ```
@@ -283,6 +296,8 @@ Just to emphasize, the data files should be in the same format as was adopted in
         'YfileIn': 'y_data',            # str: (Not Optional, npy file) The X file 
         'hyperParam': 'True',           # str: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default structure)
         'patience': 10,                 # int: Patience for early stopping in CNN training
+        'epochs': 100,                  # int: Number of epochs for training or optimization
+        'max_evals': 100,               # int: Number of maximum evaluations in hyperopt optimization
         'QDmodelOut': 'OSTL_FMO_model'  # str: (Optional), providing a name to save the model at
         }
 ```
