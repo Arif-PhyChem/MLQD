@@ -32,8 +32,6 @@ Install the following required dependencies
 
 * hyperopt ```conda install -c conda-forge hyperopt```
 
-* hyperas  ```conda install -c conda-forge hyperas```
-
 * MLatom ```pip install MLatom```
 
 ## Dynamics Propagation <a name="propagation"></a> [[Go to Top](#Top)]
