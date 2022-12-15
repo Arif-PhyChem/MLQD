@@ -14,8 +14,7 @@ In MLQD, we provide three Machine Learning (ML) methods for propagation Qauntum 
 ### Installation and dependencies
 
 Download the GitHub repository and go to Jupyter Notebooks folder to run the notebooks. 
-Do not change the name of the MLQD folder as upon running one of the Notebooks, the compiler 
-will look for the MLQD folder. 
+Do not change the name of the MLQD folder as the system will look for the MLQD folder. 
 
 *Some dependencies:* 
 
