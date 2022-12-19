@@ -10,6 +10,7 @@ In MLQD, we provide three Machine Learning (ML) methods for propagation Qauntum 
 * Training convolutional neural networks (CNN) and KRR models on the data [[Click here](#training)]
 * Transformation of data into input files X and Y [[Click here](#preparation)] and direct training with out transformation [[Click here](#nopreparation)]
 * Optimization of the hyperparameters in CNN and KRR models [[Click here](#preparation)]
+* Auto-plotting
 
 ### Installation and dependencies
 
@@ -32,7 +33,18 @@ Install the following required dependencies
 
 * hyperopt ```conda install -c conda-forge hyperopt```
 
+* matplotlib ```conda install -c conda-forge matplotlib```
+
 * MLatom ```pip install MLatom```
+
+## Manual for help
+
+MLQD provides User-Manual. To get to that, we need to import ```quant_dyn``` class from ```evolution.py``` from MLQD folder
+
+``` from evolution import quant_dyn ```
+
+and then passing now parameters to quant_dyn will print the manual, i.e.,  ``` quant_dyn()``` 
+
 
 ## Dynamics Propagation <a name="propagation"></a> [[Go to Top](#Top)]
 (***Go to examples folder for ready made scripts***)
