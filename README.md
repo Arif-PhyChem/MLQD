@@ -12,6 +12,9 @@ In MLQD, we provide three Machine Learning (ML) methods for propagation Qauntum 
 * Optimization of the hyperparameters in CNN and KRR models [[Click here](#preparation)]
 * Auto-plotting
 
+**For Licence statement, please [[Click here](#licence)]**
+
+
 ### Installation and dependencies
 
 Download the GitHub repository and go to Jupyter Notebooks folder to run the notebooks. 
@@ -37,14 +40,13 @@ Install the following required dependencies
 
 * MLatom ```pip install MLatom```
 
-## Manual for help
+## User-Manual
 
 MLQD provides User-Manual. To get to that, we need to import ```quant_dyn``` class from ```evolution.py``` from MLQD folder
 
 ``` from evolution import quant_dyn ```
 
 and then passing now parameters to quant_dyn will print the manual, i.e.,  ``` quant_dyn()``` 
-
 
 ## Dynamics Propagation <a name="propagation"></a> [[Go to Top](#Top)]
 (***Go to examples folder for ready made scripts***)
@@ -310,3 +312,23 @@ Just to emphasize, the data files should be in the same format as was adopted in
         'QDmodelOut': 'OSTL_FMO_model'  # str: (Optional), providing a name to save the model at
         }
 ```
+
+## Licence statement <a name="licence"></a> [[Go to Top](#Top)]
+
+MLQD is a python package developed for Machine Learning-based Quantum Dissipative Dynamics, Version 1.0.0 
+                        https://github.com/Arif-PhyChem/MLQD
+                          Copyright (c) 2022 Arif Ullah
+All rights reserved. This work is licensed under the Attribution-NonCommercial-NoDerivatives 4.0 International http://creativecommons.org/licenses/by-nc-nd/4.0/) license. See LICENSE.CC-BY-NC-ND-4.0
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+The software is provided "as is" without warranty of any kind, express or implied, including but not limited to the warranties ofmerchantability, fitness for a particular purpose and noninfringement. In no event shall the authors or copyright holders be liable for any claim, damages or other liability, whether in an action of contract, tort or otherwise, arising from, out of or in connection with the software or the use or other dealings in the software.
+                                         
+ **Cite as:**
+1) Ullah A. and Dral P. O., New Journal of Physics, 2021, 23(11), 113019
+2) Ullah A. and Dral P. O., Nature Communications, 2022, 13(1), 1930
+3) Ullah A. and Dral P. O., Journal of Physical Chemistry Letters, 2022, 13(26), 6037
+4) Rodriguez L. E. H.; Ullah A.; Espinosa K. J. R.; Dral P. O. and A. A. Kananenka, Machine Learning: Science and Technology, 2022, 3(4), 045016"
+
+**Contributers List:**
+1) Arif Ullah (main) 
+2) Pavlo O. Dral"
