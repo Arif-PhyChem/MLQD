@@ -1,5 +1,5 @@
 # MLQD- A Python package for Machine Learning-based Quantum Dissipative Dynamics <a name="Top"></a>
-In MLQD, we provide three Machine Learning (ML) methods for propagation Qauntum Dissipative Dynamics **[For Licence statement, please [[Click here](#licence)]]**
+In MLQD, we provide three Machine Learning (ML) methods for propagating Qauntum Dissipative Dynamics **[For Licence statement, please [[Click here](#licence)]]**
 
 * **Kernel Ridge Regression (KRR)-based recursive (iterative) Quantum Dissipative Dynamics method:** Here is the corresponding article $\boldsymbol{\rightarrow}$ [Speeding up quantum dissipative dynamics of open systems with kernel methods](https://iopscience.iop.org/article/10.1088/1367-2630/ac3261 "Named link title"). Recently, we have performed a comparative study where KKR method outperforms NN models, here is the article $\boldsymbol{\rightarrow}$ [A comparative study of different machine learning methods for dissipative quantum dynamics](https://dx.doi.org/10.1088/2632-2153/ac9a9d "Named link title")
 * **AIQD non-recursive  (non-iterative) approach:** Here is the corresponding article $\boldsymbol{\rightarrow}$ [Predicting the future of excitation energy transfer in light-harvesting complex with artificial intelligence-based quantum dynamics](https://doi.org/10.1038/s41467-022-29621-w "Named link title") 
