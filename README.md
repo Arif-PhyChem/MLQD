@@ -316,8 +316,8 @@ Just to emphasize, the data files should be in the same format as was adopted in
 ## Licence statement <a name="licence"></a> [[Go to Top](#Top)]
 
 MLQD is a python package developed for Machine Learning-based Quantum Dissipative Dynamics, Version 1.0.0  
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  https://github.com/Arif-PhyChem/MLQD  
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp;&ensp;   Copyright (c) 2022 Arif Ullah  
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;  https://github.com/Arif-PhyChem/MLQD  
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;   Copyright (c) 2022 Arif Ullah  
 All rights reserved. This work is licensed under the Attribution-NonCommercial-NoDerivatives 4.0 International http://creativecommons.org/licenses/by-nc-nd/4.0/) license. See LICENSE.CC-BY-NC-ND-4.0  
 
 The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.  
