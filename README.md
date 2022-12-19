@@ -47,7 +47,7 @@ MLQD provides User-Manual and to get to that, we need to import ```quant_dyn``` 
 and then call quant_dyn with out passing any parameters, i.e.,  ``` quant_dyn()``` 
 
 ## Dynamics Propagation <a name="propagation"></a> [[Go to Top](#Top)]
-(***Go to examples folder for ready made scripts***)
+(***Go to Jupyter_Notebooks folder for ready made scripts***)
 We provide already trained QD models which can be found here [coming soon], you can download them and test the code. If you want to train your own model, then go to [Training on your own data](#training) section. First of all, we need to import ```quant_dyn``` class from ```evolution.py``` .
 
 ``` from evolution import quant_dyn ```
