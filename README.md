@@ -40,11 +40,11 @@ Install the following required dependencies
 
 ## User-Manual
 
-MLQD provides User-Manual. To get to that, we need to import ```quant_dyn``` class from ```evolution.py``` from MLQD folder
+MLQD provides User-Manual and to get to that, we need to import ```quant_dyn``` class from ```evolution.py``` [in MLQD folder]
 
 ``` from evolution import quant_dyn ```
 
-and then passing now parameters to quant_dyn will print the manual, i.e.,  ``` quant_dyn()``` 
+and then call quant_dyn with out passing any parameters, i.e.,  ``` quant_dyn()``` 
 
 ## Dynamics Propagation <a name="propagation"></a> [[Go to Top](#Top)]
 (***Go to examples folder for ready made scripts***)
