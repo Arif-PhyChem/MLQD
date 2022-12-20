@@ -207,7 +207,7 @@ quant_dyn(**param)
 ```
 * **AIQD**
 
-Just to emphasize, the data files should be in the same format as was adopted in out [QD3SET-1: A Quantum Dissipative Dynamics Dataset](https://github.com/Arif-PhyChem/QD3SET "Named link title")
+Just to emphasize, the data files should be in the same naming and type format as was adopted in out [QD3SET-1: A Quantum Dissipative Dynamics Dataset](https://github.com/Arif-PhyChem/QD3SET "Named link title")
 ```
 param={ 
         'n_states': 2,                  # int:  Number of states (SB) or sites (FMO), default 2 (SB) and 7 (FMO).
@@ -240,7 +240,7 @@ quant_dyn(**param)
 ```
 * **OSTL**
 
-Just to emphasize, the data files should be in the same format as was adopted in out [QD3SET-1: A Quantum Dissipative Dynamics Dataset](https://github.com/Arif-PhyChem/QD3SET "Named link title")
+Just to emphasize, the data files should be in the same naming and type format as was adopted in out [QD3SET-1: A Quantum Dissipative Dynamics Dataset](https://github.com/Arif-PhyChem/QD3SET "Named link title")
 ```
 param={ 
         'n_states': 2,                  # int:  Number of states (SB) or sites (FMO), default 2 (SB) and 7 (FMO).
