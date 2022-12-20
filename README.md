@@ -164,8 +164,8 @@ param={
         'time_step': 0.05,                      # float: Time-step for time-propagation (OSTL does not use it, however will use it in the output file). Default values are 0.05 (a.u.) for spin-boson model) and 5fs for FMO complex
         'energyDiff': 1.0,                      # float: Energy difference between the two states. Only required in SB model
         'Delta': 1.0,                           # float: The tunneling matrix element. Only required in SB model
-        'gamma': 10,                           # float: Characteristic frequency 
-        'lamb': 0.1,                             # float: System-bath coupling strength 
+        'gamma': 10,                            # float: Characteristic frequency 
+        'lamb': 0.1,                            # float: System-bath coupling strength 
         'temp': 1.0,                            # float: temperature or inverse temperature
         'QDmodel': 'useQDmodel',                # str: In MLQD, the dafault option is useQDmodel tells the MLQD to propagate dynamics with an existing trained model
         'QDmodelType': 'OSTL',                  # str: The type of model we wanna use, here AIQD. The default option is OSTL
@@ -210,60 +210,64 @@ quant_dyn(**param)
 Just to emphasize, the data files should be in the same format as was adopted in out [QD3SET-1: A Quantum Dissipative Dynamics Dataset](https://github.com/Arif-PhyChem/QD3SET "Named link title")
 ```
 param={ 
-        'n_states': 8,                  # int:  Number of states (SB) or sites (FMO), default 2 (SB) and 7 (FMO).
-        'time': 10,                     # float: Propagation time in picoseconds (ps) for FMO complex and in (a.u.) for spin-boson model
-        'time_step': 5fs,             # float: Time-step for time-propagation. Default values are 0.05 (spin-boson model) and 0.005ps for FMO complex.
+        'n_states': 2,                  # int:  Number of states (SB) or sites (FMO), default 2 (SB) and 7 (FMO).
+        'time': 20,                     # float: Propagation time in picoseconds (ps) for FMO complex and in (a.u.)for spin-boson model
+        'time_step': 0.05,              # float: Time-step for time-propagation. Default values are 0.05 (a.u.) for spin-boson model and 5fs for FMO complex.
         'QDmodel': 'createQDmodel',     # str: createQDmodel, the dafault option is useQDmodel
         'QDmodelType': 'AIQD',          # str: Type of model. The default option is OSTL
         'prepInput' : 'True',           # str: Prepare input files from the data (Default False)
         'XfileIn': 'x_data',            # str: (Optional, npy file) The prepared X file will be saved at the provided file name 
         'YfileIn': 'y_data',            # str: (Optional, npy file) The prepared Y file will be saved at the provided file name 
-        'numLogf': 1,                   # int: Number of Logistic function for the normalization of time dimension. Default value is 1.0.    
-        'LogCa' : 1.0,                  # float: Coefficient "a" in the logistic function, default values is 1.0 (you may not provide it)
-        'LogCb' : 15.0,                 # float: Coefficient "b" in the logistic function, default values is 15.0 (you may not provide it)
-        'LogCc' : -1.0,                 # float: Coefficient "a" in the logistic function, default values is -1.0 (you may not provide it)
-        'LogCd' : 1.0,                  # float: Coefficient "d" in the logistic function, default values is 1.0 (you may not provide it)
-        'gammaNorm': 500,               # float: Normalizer for Characteristic frequency. Default value is 500 in the case of FMO complex and 10 in the case of spin-boson model. The same values are also adopted in the provided trained models  
-        'lambNorm': 520,                # float: Normalizer for System-bath coupling strength. Default value is 520 (FMO complex) and 1 (SB model). The same values are also adopted in the provided trained models 
-        'tempNorm': 500,                # float: Normalizer for temperature. Default value is 510 (FMO complex) and 1 (SB model). The same values are also adopted in the provided trained models.
-        'systemType': 'FMO',            # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
+        'numLogf': 10,                  # int: Number of Logistic function for the normalization of time dimension. Default value is 1.0.    
+        'LogCa' : 1.0,                  # float: Coefficient "a" in the logistic function, default values is 1.0 
+        'LogCb' : 15.0,                 # float: Coefficient "b" in the logistic function, default values is 15.0 
+        'LogCc' : -1.0,                 # float: Coefficient "a" in the logistic function, default values is -1.0 
+        'LogCd' : 1.0,                  # float: Coefficient "d" in the logistic function, default values is 1.0 
+        'energyNorm': 1.0,              # float: Normalizer for the energy difference between the two states (in spin-boson model)
+        'DeltaNorm': 1.0,               # float: Normalizer for the the tunneling matrix element (in spin-boson model)
+        'gammaNorm': 10,                # float: Normalizer for Characteristic frequency. Default values are 500  (FMO complex) and 10 (spin-boson model)
+        'lambNorm': 1.0,                # float: Normalizer for System-bath coupling strength. Default values are 520 (FMO complex) and 1 (spin-boson model)
+        'tempNorm': 1.0,                # float: Normalizer for temperature. Default values are 510 (FMO complex) and 1 (spin-boson model)
+        'systemType': 'SB',             # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'hyperParam': 'True',           # str: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default structure)
         'patience': 10,                 # int: Patience for early stopping in CNN training 
         'epochs': 100,                  # int: Number of epochs for training or optimization
         'max_evals': 100,               # int: Number of maximum evaluations in hyperopt optimization
-        'dataPath': 'data/fmo',         # str: Data path
-        'QDmodelOut': 'AIQD_FMO_model'  # str: (Optional), providing a name to save the model at
+        'dataPath': 'sb_data',         # str: Data path
+        'QDmodelOut': 'AIQD_SB_model'  # str: (Optional), providing a name to save the model at
     }
 quant_dyn(**param)
 ```
 * **OSTL**
 
-Just to emphasize, the data files should be in the same format as was adopted in out [QDDSET-1: A Quantum Dissipative Dynamics Dataset](https://github.com/Arif-PhyChem/QDDSET "Named link title")
+Just to emphasize, the data files should be in the same format as was adopted in out [QD3SET-1: A Quantum Dissipative Dynamics Dataset](https://github.com/Arif-PhyChem/QD3SET "Named link title")
 ```
 param={ 
-        'n_states': 8,                  # int:  Number of states (SB) or sites (FMO), default 2 (SB) and 7 (FMO).
+        'n_states': 2,                  # int:  Number of states (SB) or sites (FMO), default 2 (SB) and 7 (FMO).
         'QDmodel': 'createQDmodel',     # str: createQDmodel, the dafault option is useQDmodel
         'QDmodelType': 'OSTL',          # str: Type of model. The default option is OSTL
         'prepInput' : 'True',           # str: Prepare input files from the data (Default False)
         'XfileIn': 'x_data',            # str: (Optional, npy file) The prepared X file will be saved at the provided file name 
-        'YfileIn': 'y_data',            # str: (Optional, npy file) The prepared Y file will be saved at the provided file name 
-        'gammaNorm': 500,               # float: Normalizer for Characteristic frequency. Default value is 500 in the case of FMO complex and 10 in the case of spin-boson model. The same values are also adopted in the provided trained models  
-        'lambNorm': 520,                # float: Normalizer for System-bath coupling strength. Default value is 520 (FMO complex) and 1 (SB model). The same values are also adopted in the provided trained models 
-        'tempNorm': 500,                # float: Normalizer for temperature. Default value is 510 (FMO complex) and 1 (SB model). The same values are also adopted in the provided trained models.
-        'systemType': 'FMO',            # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
+        'YfileIn': 'y_data',            # str: (Optional, npy file) The prepared Y file will be saved at the provided file name
+        'energyNorm': 1.0,              # float: Normalizer for the energy difference between the two states (in spin-boson model)
+        'DeltaNorm': 1.0,               # float: Normalizer for the the tunneling matrix element (in spin-boson model)
+        'gammaNorm': 10,                # float: Normalizer for Characteristic frequency. Default values are 500 (FMO complex) and 10 (spin-boson model)
+        'lambNorm': 1.0,                # float: Normalizer for System-bath coupling strength. Default values are 520 (FMO complex) and 1 (spin-boson model)
+        'tempNorm': 1.0,                # float: Normalizer for temperature. Default values are 510 (FMO complex) and 1 (spin-boson model)
+        'systemType': 'SB',            # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'hyperParam': 'True',           # str: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default structure)
         'patience': 10,                 # int: Patience for early stopping in CNN training
         'epochs': 100,                  # int: Number of epochs for training or optimization
         'max_evals': 100,               # int: Number of maximum evaluations in hyperopt optimization
-        'dataPath': 'data/fmo',         # str: Data path
-        'QDmodelOut': 'OSTL_FMO_model'  # str: (Optional), providing a name to save the model at
+        'dataPath': 'sb_data',         # str: Data path
+        'QDmodelOut': 'OSTL_SB_model'  # str: (Optional), providing a name to save the model at
     }
 quant_dyn(**param)
 ```
 
 ### Training a model without preparation of training data <a name="nopreparation"></a> [[Go to Top](#Top)]
 
-Let suppose we already have our prepared training data then 
+Let suppose we already have our prepared training data as was prepared in above examples, then 
 * **KRR**
 
 For KRR model, You need to provide the following parameters
@@ -274,8 +278,6 @@ param={
         'XfileIn': 'x_train',           # str: (Not Optional, txt file) The X file 
         'YfileIn': 'y_train',           # str: (Not Optional, txt file) The Y file
         'hyperParam': 'True',           # str: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default values)
-        'krrSigma': 4.0,                # float: If you pass False to hyperParam, then we need to provide a value for hyperparameter Sigma in Gaussian kernel. Otherwise the model will run with the default value. 
-        'krrLamb': 0.00000001,          # float: If you pass False to hyperParam, then we need to provide a value for hyperparameter Lambda in KRR. Otherwise the model will run with the default value.
         'systemType': 'SB',             # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'QDmodelOut': 'KRR_SB_model'    # str: (Optional), providing a name to save the model at
     }
