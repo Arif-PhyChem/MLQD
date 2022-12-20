@@ -38,7 +38,7 @@ Install the following required dependencies
 
 * MLatom ```pip install MLatom```
 
-## User-Manual
+## User-Manual (Coming Soon)
 
 MLQD provides User-Manual and to get to that, we need to import ```quant_dyn``` class from ```evolution.py``` [in MLQD folder]
 
