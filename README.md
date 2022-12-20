@@ -65,8 +65,11 @@ For KRR model, You need to provide the following parameters. Just to emphsize, M
         'systemType': 'SB',             # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'QDmodelIn': 'KRR_SB_model',    # str: (Not optional for useQDmodel), provide the name of the trained ML model
         'QDtrajOut': 'Qd_trajectory'    # str: (Optional), File name where the trajectory should be saved
-        'refTraj': 'test_set/sb/'
+        'xlim': 20,                     # float: Xaxis limit for plotting. Default is equal to propagation time
+        'plotNstates': 2,               # int: Number of states to be plotted. Default option is to plot all of them 
+        'refTraj': 'test_set/sb/2_epsilon-0.0_Delta-1.0_lambda-0.1_gamma-4.0_beta-1.0.npy' # str: Reference Trajectory for plotting. If not provided, MLQD will ignore plotting
         }
+quant_dyn(**param)
 ```
 
 * **AIQD model:**
@@ -91,7 +94,11 @@ I. **Case-1:** If a user wants to provide parameters for propagation in a file, 
         'systemType': 'SB',                     # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'QDmodelIn': 'AIQD_SB_model.hdf5',      # str: (Not Optional for useQDmodel), provide the name of the trained ML model
         'QDtrajOut': 'Qd_trajectory'            # str: (Optional), File name where the trajectory should be saved
+        'xlim': 20,                     # float: Xaxis limit for plotting. Default is equal to propagation time
+        'plotNstates': 2,               # int: Number of states to be plotted. Default option is to plot all of them 
+        'refTraj': 'test_set/sb/2_epsilon-0.0_Delta-1.0_lambda-0.1_gamma-4.0_beta-1.0.npy' # str: Reference Trajectory for plotting. If not provided, MLQD will ignore plotting
         }
+quant_dyn(**param)
 ```
    II. **Case-2:** A user can also just provide simulation parameters (Characteristic frequency, System-bath coupling strength, Temperature (or inverse temperature) etc.) and MLQD will predict the correspinding dynamics. 
 
@@ -111,7 +118,11 @@ I. **Case-1:** If a user wants to provide parameters for propagation in a file, 
         'systemType': 'SB',                     # str: (Not optional)  Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'QDmodelIn': 'AIQD_SB_model.hdf5',      # str: (Not Optional for useQDmodel), provide the name of the trained ML model
         'QDtrajOut': 'Qd_trajectory'            # str: (Optional), File name where the trajectory should be saved
+        'xlim': 20,                     # float: Xaxis limit for plotting. Default is equal to propagation time
+        'plotNstates': 2,               # int: Number of states to be plotted. Default option is to plot all of them 
+        'refTraj': 'test_set/sb/2_epsilon-0.0_Delta-1.0_lambda-0.1_gamma-4.0_beta-1.0.npy' # str: Reference Trajectory for plotting. If not provided, MLQD will ignore plotting
         }
+quant_dyn(**param)
 ```
 
 * **OSTL model** (Recommended for fast and smooth propagation of dyanmics)
@@ -137,7 +148,11 @@ If a user wants to provide parameters for propagation in a file, in the shape of
         'systemType': 'SB',                     # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'QDmodelIn': 'OSTL_SB_model.hdf5',      # str: (Not Optional for useQDmodel), provide the name of the trained ML model
         'QDtrajOut': 'Qd_trajectory'            # str: (Optional), File name where the trajectory should be saved
+        'xlim': 20,                     # float: Xaxis limit for plotting. Default is equal to propagation time
+        'plotNstates': 2,               # int: Number of states to be plotted. Default option is to plot all of them 
+        'refTraj': 'test_set/sb/2_epsilon-0.0_Delta-1.0_lambda-0.1_gamma-4.0_beta-1.0.npy' # str: Reference Trajectory for plotting. If not provided, MLQD will ignore plotting
         }
+quant_dyn(**param)
 ```
 
    II. **Case-2**
@@ -157,7 +172,11 @@ A user can also just provide simulation parameters (Characteristic frequency, Sy
         'systemType': 'SB',                     # str: (Not optional)  Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'QDmodelIn': 'OSTL_SB_model.hdf5',      # str: (Not Optional for useQDmodel), provide the name of the trained ML model
         'QDtrajOut': 'Qd_trajectory'            # str: (Optional), File name where the trajectory should be saved 
+        'xlim': 20,                     # float: Xaxis limit for plotting. Default is equal to propagation time
+        'plotNstates': 2,               # int: Number of states to be plotted. Default option is to plot all of them 
+        'refTraj': 'test_set/sb/2_epsilon-0.0_Delta-1.0_lambda-0.1_gamma-4.0_beta-1.0.npy' # str: Reference Trajectory for plotting. If not provided, MLQD will ignore plotting
         }
+ quant_dyn(**param)
 ```
 
 ## Model training on your own data <a name="training"></a> [[Go to Top](#Top)]
@@ -184,6 +203,7 @@ For KRR model, You need to provide the following parameters
         'systemType': 'SB',             # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'QDmodelOut': 'KRR_SB_model'    # str: (Optional), providing a name to save the model at
         }
+quant_dyn(**param)
 ```
 * **AIQD**
 
@@ -214,6 +234,7 @@ Just to emphasize, the data files should be in the same format as was adopted in
         'dataPath': 'data/fmo',         # str: Data path
         'QDmodelOut': 'AIQD_FMO_model'  # str: (Optional), providing a name to save the model at
         }
+quant_dyn(**param)
 ```
 * **OSTL**
 
@@ -237,6 +258,7 @@ Just to emphasize, the data files should be in the same format as was adopted in
         'dataPath': 'data/fmo',         # str: Data path
         'QDmodelOut': 'OSTL_FMO_model'  # str: (Optional), providing a name to save the model at
         }
+quant_dyn(**param)
 ```
 
 ### Training a model without preparation of training data <a name="nopreparation"></a> [[Go to Top](#Top)]
@@ -257,6 +279,7 @@ For KRR model, You need to provide the following parameters
         'systemType': 'SB',             # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'QDmodelOut': 'KRR_SB_model'    # str: (Optional), providing a name to save the model at
         }
+quant_dyn(**param)
 ```
 
 * **AIQD**
@@ -276,6 +299,7 @@ Just to emphasize, the data files should be in the same format as was adopted in
         'max_evals': 100,               # int: Number of maximum evaluations in hyperopt optimization
         'QDmodelOut': 'AIQD_FMO_model'  # str: (Optional), providing a name to save the model at
         }
+quant_dyn(**param)
 ```
 * **OSTL**
 
@@ -294,6 +318,7 @@ Just to emphasize, the data files should be in the same format as was adopted in
         'max_evals': 100,               # int: Number of maximum evaluations in hyperopt optimization
         'QDmodelOut': 'OSTL_FMO_model'  # str: (Optional), providing a name to save the model at
         }
+quant_dyn(**param)
 ```
 
 ## Licence statement <a name="licence"></a> [[Go to Top](#Top)]
