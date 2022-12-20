@@ -286,7 +286,7 @@ quant_dyn(**param)
 
 * **AIQD**
 
-Just to emphasize, the data files should be in the same format as was adopted in out [QDDSET-1: A Quantum Dissipative Dynamics Dataset](https://github.com/Arif-PhyChem/QDDSET "Named link title")
+Here provide the ready made X and Y files. Here normalization constants are provided so MLQD can save them for later use while predicting dynamics. 
 ```
 param={ 
         'n_states': 2,                  # int:  Number of states (SB) or sites (FMO), default 2 (SB) and 7 (FMO).
@@ -294,7 +294,18 @@ param={
         'QDmodelType': 'AIQD',          # str: Type of model. The default option is OSTL
         'systemType': 'SB',             # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'XfileIn': 'x_data',            # str: (Not Optional, npy file) The X file 
-        'YfileIn': 'y_data',            # str: (Not Optional, npy file) The Y file  
+        'YfileIn': 'y_data',            # str: (Not Optional, npy file) The Y file 
+        'numLogf': 10,                  # int: Number of Logistic function for the normalization of time dimension. Default value is 1.0.    
+        'LogCa' : 1.0,                  # float: Coefficient "a" in the logistic function, default values is 1.0 
+        'LogCb' : 15.0,                 # float: Coefficient "b" in the logistic function, default values is 15.0 
+        'LogCc' : -1.0,                 # float: Coefficient "a" in the logistic function, default values is -1.0 
+        'LogCd' : 1.0,                  # float: Coefficient "d" in the logistic function, default values is 1.0 
+        'energyNorm': 1.0,              # float: Normalizer for the energy difference between the two states (in spin-boson model)
+        'DeltaNorm': 1.0,               # float: Normalizer for the the tunneling matrix element (in spin-boson model)
+        'gammaNorm': 10,                # float: Normalizer for Characteristic frequency. Default values are 500  (FMO complex) and 10 (spin-boson model)
+        'lambNorm': 1.0,                # float: Normalizer for System-bath coupling strength. Default values are 520 (FMO complex) and 1 (spin-boson model)
+        'tempNorm': 1.0,                # float: Normalizer for temperature. Default values are 510 (FMO complex) and 1 (spin-boson model)
+        'systemType': 'SB',             # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'hyperParam': 'True',           # str: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default structure)
         'patience': 10,                 # int: Patience for early stopping in CNN training
         'epochs': 100,                  # int: Number of epochs for training or optimization
@@ -305,7 +316,7 @@ quant_dyn(**param)
 ```
 * **OSTL**
 
-Just to emphasize, the data files should be in the same format as was adopted in out [QDDSET-1: A Quantum Dissipative Dynamics Dataset](https://github.com/Arif-PhyChem/QDDSET "Named link title")
+Here provide the ready made X and Y files. Here normalization constants are provided so MLQD can save them for later use while predicting dynamics.
 ```
 param={ 
         'n_states': 2,                  # int:  Number of states (SB) or sites (FMO), default 2 (SB) and 7 (FMO).
@@ -314,6 +325,11 @@ param={
         'systemType': 'SB',             # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'XfileIn': 'x_data',            # str: (Not Optional, npy file) The X file 
         'YfileIn': 'y_data',            # str: (Not Optional, npy file) The X file 
+        'energyNorm': 1.0,              # float: Normalizer for the energy difference between the two states (in spin-boson model)
+        'DeltaNorm': 1.0,               # float: Normalizer for the the tunneling matrix element (in spin-boson model)
+        'gammaNorm': 10,                # float: Normalizer for Characteristic frequency. Default values are 500 (FMO complex) and 10 (spin-boson model)
+        'lambNorm': 1.0,                # float: Normalizer for System-bath coupling strength. Default values are 520 (FMO complex) and 1 (spin-boson model)
+        'tempNorm': 1.0,                # float: Normalizer for temperature. Default values are 510 (FMO complex) and 1 (spin-boson model)
         'hyperParam': 'True',           # str: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default structure)
         'patience': 10,                 # int: Patience for early stopping in CNN training
         'epochs': 100,                  # int: Number of epochs for training or optimization
