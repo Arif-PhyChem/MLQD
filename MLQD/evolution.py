@@ -92,31 +92,36 @@ class quant_dyn:
                 else:
                     self._QDmodelOut = str(self._QDmodelType) + "_" + "model_for_" + str(self._systemType) + "_" + str(random.random())
                     print('The model will be saved as', self._QDmodelOut)
+            else:
+                self._prepInput = None
 ########    ###################################################################################
-            if self._QDmodel == 'useQDmodel' or self._QDmodelType == 'AIQD':
-                if param.get('time') is not None:
-                    self._time = param.get('time')
-                    print('Setting propagation time "time" to ' + str(self._time))
-                else:
-                    if self._systemType == 'FMO':
-                        self._time = 50 # ps 
-                        print('Running with the dafault propagation time; time: 50 ps')
-                    elif self._systemType == 'SB':
-                        self._time = 20  # a. u.
-                        print('Running with the the dafault propagation time:', self._time, '(a.u.)')                
-                    else:
-                        raise Exception('Provide propagation time using parameter "time"')
+            if self._QDmodel == 'useQDmodel' or (self._QDmodelType == 'AIQD' and self._QDmodel == 'createQDmodel' and self._prepInput == 'True'):
+               if param.get('time') is not None:
+                   self._time = param.get('time')
+                   print('Setting propagation time "time" to ' + str(self._time))
+               else:
+                   if self._systemType == 'FMO':
+                       self._time = 50 # ps 
+                       print('Running with the dafault propagation time; time: 50 ps')
+                   elif self._systemType == 'SB':
+                       self._time = 20  # a. u.
+                       print('Running with the the dafault propagation time:', self._time, '(a.u.)')                
+                   else:
+                       raise Exception('Provide propagation time using parameter "time"')
 
-                if param.get('time_step') is not None:
-                    self._time_step = param.get('time_step')
-                    print('Setting time_step to ' + str(self._time_step))
-                else:
-                    if self._systemType == 'FMO':
-                        self._time_step = 5.0 # fs
-                        print('Running with the dafault time-step: time_step: 5.0 fs (default for the provided trained models)')
-                    elif self._systemType == 'SB':
-                        self._time_step = 0.05  # (a.u.)
-                        print('Running with the dafault time-step:', self._time_step)                     
+               if param.get('time_step') is not None:
+                   self._time_step = param.get('time_step')
+                   print('Setting time_step to ' + str(self._time_step))
+               else:
+                   if self._systemType == 'FMO':
+                       self._time_step = 5.0 # fs
+                       print('Running with the dafault time-step: time_step: 5.0 fs ')
+                   elif self._systemType == 'SB':
+                       self._time_step = 0.05  # (a.u.)
+                       print('Running with the dafault time-step:', self._time_step)
+            else:
+                self._time = None
+                self._time_step = None
 ########    ######################################################################################
             if self._QDmodel == 'useQDmodel':
                 if param.get('QDmodelIn') is not None:
@@ -220,13 +225,13 @@ class quant_dyn:
                                 print('Setting energy difference normalizer "energyNorm" to ' + str(self._energyNorm))
                             else:
                         	    self._energyNorm = 1.0
-                        	    print('Running with the default value of energy difference normalizer; energyNorm = 1.0 (used in the provided trained spin-boson models)')
+                        	    print('Running with the default value of energy difference normalizer; energyNorm = 1.0 ')
                             if param.get('DeltaNorm') is not None:
                                 self._DeltaNorm = param.get('DeltaNorm')
                                 print('Setting tunneling matrix element normalizer "DeltaNorm" to ' + str(self._DeltaNorm))
                             else:
                         	    self._DeltaNorm = 1.0
-                        	    print('Running with the default value of tunneling matrix element normalizer; DeltaNorm = 1.0 (used in the provided trained spin-boson models)')
+                        	    print('Running with the default value of tunneling matrix element normalizer; DeltaNorm = 1.0 ')
                         else:
                             self._energyNorm = None
                             self._DeltaNorm = None
@@ -236,30 +241,30 @@ class quant_dyn:
                         else:
                             if self._systemType == 'FMO':
                         	    self._gammaNorm = 500.0
-                        	    print('Running with the default value of gamma normalizeer; gammaNorm = 500 (used in the provided trained FMO models)')
+                        	    print('Running with the default value of gamma normalizeer; gammaNorm = 500 ')
                             if self._systemType == 'SB':
                         	    self._gammaNorm = 10.0
-                        	    print('Running with the default value of gamma normalizeer; gammaNorm = 10 (used in the provided trained spin-boson models)')
+                        	    print('Running with the default value of gamma normalizeer; gammaNorm = 10 ')
                         if param.get('lambNorm') is not None:
                             self._lambNorm = param.get('lambNorm')
                             print('Setting lambda normalizer "lambNormalizer" to ' + str(self._lambNorm))
                         else:
                             if self._systemType == 'FMO':
                         	    self._lambNorm = 510.0
-                        	    print('Running with the default value of lambda normalizer; lambNorm = 520 (used in the provided trained FMO models)')
+                        	    print('Running with the default value of lambda normalizer; lambNorm = 520 ')
                             if self._systemType == 'SB':
                         	    self._lambNorm = 1.0
-                        	    print('Running with the default value of lambda normalizer; lambNorm = 1.0 (used in the provided trained spin-boson models)')
+                        	    print('Running with the default value of lambda normalizer; lambNorm = 1.0 ')
                         if param.get('tempNorm') is not None:
                             self._tempNorm = param.get('tempNorm')
                             print('Setting temperature (or inverse temperature) normalizer "tempNorm" to ' + str(self._tempNorm))
                         else:
                             if self._systemType == 'FMO':
                         	    self._tempNorm = 510.0
-                        	    print('Running with the default value of temperature (or inverse temperature) normalizer; tempNorm = 510 (used in the provided trained FMO models)')
+                        	    print('Running with the default value of temperature (or inverse temperature) normalizer; tempNorm = 510 ')
                             if self._systemType == 'SB':
                         	    self._tempNorm = 1.0
-                        	    print('Running with the default value of temperature (or inverse temperature) normalizer; tempNorm = 1.0 (used in the provided trained spin-boson models)')
+                        	    print('Running with the default value of temperature (or inverse temperature) normalizer; tempNorm = 1.0 ')
                     if self._QDmodel == 'useQDmodel':
                         if self._systemType == 'FMO':
                             if self._n_states == 7:
@@ -312,7 +317,7 @@ class quant_dyn:
                         raise ValueError('The input XfileIn "' + str(self._Xin) + '" should be string')
                     print('Xfilein is', self._Xin)
                 else:
-                    self._Xin = 'x_data'
+                    self._Xin = "x_data_" + str(random.random()) 
                     print('Setting XfileIn to dafault name', self._Xin)
                 if param.get('YfileIn') is not None:
                     self._Yin = param.get('YfileIn')
@@ -320,7 +325,7 @@ class quant_dyn:
                        raise ValueError('The target YfileIn "' + str(self._Yin) + '" should be string')
                     print('YfileIn is', self._Yin)
                 else:
-                    self._Yin = 'y_data'
+                    self._Yin = "y_data_" + str(random.random())
                     print('Setting Yfilein to dafault name', self._Yin)
                 if param.get('hyperParam') is not None:
                     self._hyperParam = param.get('hyperParam')
@@ -552,10 +557,10 @@ class quant_dyn:
 
                     self._name = self._QDmodelOut + ".pkl"
                     norm_param = {'energyNorm': self._energyNorm, 'DeltaNorm': self._DeltaNorm, 
-                                'gammaNorm': self._gammaNorm, 'lambNorm': self._lambNorm, 
-                                'tempNorm': self._tempNorm, 'numLogf': self._numLogf, 
-                                'LogCa': self._LogCa, 'LogCb': self._LogCb,
-                                'LogCc': self._LogCc, 'LogCd': self._LogCd}
+                            'gammaNorm': self._gammaNorm, 'lambNorm': self._lambNorm, 
+                            'tempNorm': self._tempNorm, 'numLogf': self._numLogf, 
+                            'LogCa': self._LogCa, 'LogCb': self._LogCb,
+                            'LogCc': self._LogCc, 'LogCd': self._LogCd}
                     f = open(self._name, "wb")
                     pickle.dump(norm_param, f)
                     f.close()
