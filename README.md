@@ -289,17 +289,17 @@ quant_dyn(**param)
 Just to emphasize, the data files should be in the same format as was adopted in out [QDDSET-1: A Quantum Dissipative Dynamics Dataset](https://github.com/Arif-PhyChem/QDDSET "Named link title")
 ```
 param={ 
-        'n_states': 8,                  # int:  Number of states (SB) or sites (FMO), default 2 (SB) and 7 (FMO).
+        'n_states': 2,                  # int:  Number of states (SB) or sites (FMO), default 2 (SB) and 7 (FMO).
         'QDmodel': 'createQDmodel',     # str: createQDmodel, the dafault option is useQDmodel
         'QDmodelType': 'AIQD',          # str: Type of model. The default option is OSTL
-        'systemType': 'FMO',            # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
+        'systemType': 'SB',             # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'XfileIn': 'x_data',            # str: (Not Optional, npy file) The X file 
         'YfileIn': 'y_data',            # str: (Not Optional, npy file) The Y file  
         'hyperParam': 'True',           # str: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default structure)
         'patience': 10,                 # int: Patience for early stopping in CNN training
         'epochs': 100,                  # int: Number of epochs for training or optimization
         'max_evals': 100,               # int: Number of maximum evaluations in hyperopt optimization
-        'QDmodelOut': 'AIQD_FMO_model'  # str: (Optional), providing a name to save the model at
+        'QDmodelOut': 'AIQD_SB_model'  # str: (Optional), providing a name to save the model at
     }
 quant_dyn(**param)
 ```
@@ -308,17 +308,17 @@ quant_dyn(**param)
 Just to emphasize, the data files should be in the same format as was adopted in out [QDDSET-1: A Quantum Dissipative Dynamics Dataset](https://github.com/Arif-PhyChem/QDDSET "Named link title")
 ```
 param={ 
-        'n_states': 8,                  # int:  Number of states (SB) or sites (FMO), default 2 (SB) and 7 (FMO).
+        'n_states': 2,                  # int:  Number of states (SB) or sites (FMO), default 2 (SB) and 7 (FMO).
         'QDmodel': 'createQDmodel',     # str: createQDmodel, the dafault option is useQDmodel
         'QDmodelType': 'OSTL',          # str: Type of model. The default option is OSTL
-        'systemType': 'FMO',            # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
+        'systemType': 'SB',             # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'XfileIn': 'x_data',            # str: (Not Optional, npy file) The X file 
         'YfileIn': 'y_data',            # str: (Not Optional, npy file) The X file 
         'hyperParam': 'True',           # str: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default structure)
         'patience': 10,                 # int: Patience for early stopping in CNN training
         'epochs': 100,                  # int: Number of epochs for training or optimization
         'max_evals': 100,               # int: Number of maximum evaluations in hyperopt optimization
-        'QDmodelOut': 'OSTL_FMO_model'  # str: (Optional), providing a name to save the model at
+        'QDmodelOut': 'OSTL_SB_model'  # str: (Optional), providing a name to save the model at
     }
 quant_dyn(**param)
 ```
