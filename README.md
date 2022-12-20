@@ -341,5 +341,5 @@ The software is provided "as is" without warranty of any kind, express or implie
 4) Rodriguez L. E. H.; Ullah A.; Espinosa K. J. R.; Dral P. O. and A. A. Kananenka, Machine Learning: Science and Technology, 2022, 3(4), 045016"
 
 **Contributers List:**
-1) Arif Ullah (main) 
+1) Arif Ullah (main)  
 2) Pavlo O. Dral"
