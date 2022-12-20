@@ -56,7 +56,7 @@ We provide already trained QD models which can be found here [coming soon], you 
 
 For KRR model, You need to provide the following parameters. Just to emphsize, MLQD is using MLatom package [http://mlatom.com/] for KRR in the backend.
 ```
-        param={ 
+param={ 
         'time': 20,                     # float: Propagation time in picoseconds (ps)  for FMO complex and in (a.u.) for spin-boson model
         'time_step': 0.1,               # float: Time-step for time-propagation (you are restricted to the time-step used in the training data). Default for KRR is 0.1
         'QDmodel': 'useQDmodel',        # str: In MLQD, the dafault option is useQDmodel tells the MLQD to propagate dynamics with an existing trained model
@@ -68,7 +68,7 @@ For KRR model, You need to provide the following parameters. Just to emphsize, M
         'xlim': 20,                     # float: Xaxis limit for plotting. Default is equal to propagation time
         'plotNstates': 2,               # int: Number of states to be plotted. Default option is to plot all of them 
         'refTraj': 'test_set/sb/2_epsilon-0.0_Delta-1.0_lambda-0.1_gamma-4.0_beta-1.0.npy' # str: Reference Trajectory for plotting. If not provided, MLQD will ignore plotting
-        }
+    }
 quant_dyn(**param)
 ```
 
@@ -84,7 +84,7 @@ where $N$ is the dimension of the reduced density matrix and $\mathcal{R}$ and $
 I. **Case-1:** If a user wants to provide parameters for propagation in a file, in the shape of an array or in the form of a list. (In this case, the user needs to normalized the data him/herself). AIQD uses a logistic function to normalize the dimension of time, i.e.,  $$f(t) = a/(1 + b \exp(-(t + c)/d))$$ where $a, b, c$ and  $d$ are constants.  Check out the Supplementary Figure 3 of our AIQD papar [Predicting the future of excitation energy transfer in light-harvesting complex with artificial intelligence-based quantum dynamics](https://doi.org/10.1038/s41467-022-29621-w "Named link title") 
 
 ```
-        param={ 
+param={ 
         'n_states': 2,                          # int:  Number of states (SB) or sites (FMO), default 2 (SB) and 7 (FMO).
         'time': 20,                             # float: Propagation time in picoseconds (ps) for FMO complex and in (a.u.) for spin-boson model
         'time_step': 0.05,                      # float: Time-step for time-propagation (you are not restricted to the time-step used in the training data, however better  stick to that for good accuracy). Default values are 0.05 (a.u.) for spin-boson model) and 5fs for FMO complex
@@ -97,13 +97,13 @@ I. **Case-1:** If a user wants to provide parameters for propagation in a file, 
         'xlim': 20,                     # float: Xaxis limit for plotting. Default is equal to propagation time
         'plotNstates': 2,               # int: Number of states to be plotted. Default option is to plot all of them 
         'refTraj': 'test_set/sb/2_epsilon-0.0_Delta-1.0_lambda-0.1_gamma-4.0_beta-1.0.npy' # str: Reference Trajectory for plotting. If not provided, MLQD will ignore plotting
-        }
+    }
 quant_dyn(**param)
 ```
    II. **Case-2:** A user can also just provide simulation parameters (Characteristic frequency, System-bath coupling strength, Temperature (or inverse temperature) etc.) and MLQD will predict the correspinding dynamics. 
 
 ```
-        param={ 
+param={ 
         'initState': 1,                         # int:  Initial state with Initial Excitation case (only required in FMO complex case, Default is '1')
         'n_states': 2,                          # Int:  Number of states (SB) or sites (FMO). Default is 2 (SB) and 7 (FMO).
         'time': 20,                             # float: Propagation time in picoseconds (ps) for FMO complex and in (a.u.) for spin-boson model
@@ -121,7 +121,7 @@ quant_dyn(**param)
         'xlim': 20,                     # float: Xaxis limit for plotting. Default is equal to propagation time
         'plotNstates': 2,               # int: Number of states to be plotted. Default option is to plot all of them 
         'refTraj': 'test_set/sb/2_epsilon-0.0_Delta-1.0_lambda-0.1_gamma-4.0_beta-1.0.npy' # str: Reference Trajectory for plotting. If not provided, MLQD will ignore plotting
-        }
+    }
 quant_dyn(**param)
 ```
 
@@ -138,7 +138,7 @@ where $N$ is the dimension of the reduced density matrix and $\mathcal{R}$ and $
 If a user wants to provide parameters for propagation in a file, in the shape of an array or in the form of a list. (In this case, the user needs to normalized the data him/herself).
 
 ```
-        param={ 
+param={ 
         'n_states': 2,                          # int:  Number of states (SB) or sites (FMO), default 2 (SB) and 7 (FMO).
         'time': 20,                             # float: Propagation time in picoseconds (ps) for FMO complex and in (a.u.) for spin-boson model
         'time_step': 0.1,                       # float: Time-step for time-propagation (you are not restricted to the time-step used in the training data, however better  stick to that for good accuracy). Default values are 0.05 (a.u.) for spin-boson model) and 5fs for FMO complex
@@ -151,14 +151,14 @@ If a user wants to provide parameters for propagation in a file, in the shape of
         'xlim': 20,                     # float: Xaxis limit for plotting. Default is equal to propagation time
         'plotNstates': 2,               # int: Number of states to be plotted. Default option is to plot all of them 
         'refTraj': 'test_set/sb/2_epsilon-0.0_Delta-1.0_lambda-0.1_gamma-4.0_beta-1.0.npy' # str: Reference Trajectory for plotting. If not provided, MLQD will ignore plotting
-        }
+    }
 quant_dyn(**param)
 ```
 
    II. **Case-2**
 A user can also just provide simulation parameters (Characteristic frequency, System-bath coupling strength, Temperature etc.) and MLQD will predict the correspinding dynamics. 
 ```
-        param={ 
+param={ 
         'n_states': 2,                          # int:  Number of states (SB) or sites (FMO). Default is 2 (SB) and 7 (FMO).
         'time': 20,                             # float: Propagation time in picoseconds (ps)  for FMO complex and in (a.u.) for spin-boson model
         'time_step': 0.05,                      # float: Time-step for time-propagation (OSTL does not use it, however will use it in the output file). Default values are 0.05 (a.u.) for spin-boson model) and 5fs for FMO complex
@@ -175,7 +175,7 @@ A user can also just provide simulation parameters (Characteristic frequency, Sy
         'xlim': 20,                     # float: Xaxis limit for plotting. Default is equal to propagation time
         'plotNstates': 2,               # int: Number of states to be plotted. Default option is to plot all of them 
         'refTraj': 'test_set/sb/2_epsilon-0.0_Delta-1.0_lambda-0.1_gamma-4.0_beta-1.0.npy' # str: Reference Trajectory for plotting. If not provided, MLQD will ignore plotting
-        }
+    }
  quant_dyn(**param)
 ```
 
@@ -189,7 +189,7 @@ Here we will show how to train data on you data. If you don't have your own data
  MLQD is using MLatom package [http://mlatom.com/] for KRR in the backend.
 For KRR model, You need to provide the following parameters
 ```
-        param={ 
+param={ 
         'QDmodel': 'createQDmodel',     # str: create QD model. The dafault option is useQDmodel
         'QDmodelType': 'KRR',           # str: The type of model. Here KRR and the default option is OSTL
         'prepInput' : 'True',           # str: Prepare input files from the data (Default False)
@@ -202,14 +202,14 @@ For KRR model, You need to provide the following parameters
         'hyperParam': 'True',           # str: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default values)
         'systemType': 'SB',             # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'QDmodelOut': 'KRR_SB_model'    # str: (Optional), providing a name to save the model at
-        }
+    }
 quant_dyn(**param)
 ```
 * **AIQD**
 
 Just to emphasize, the data files should be in the same format as was adopted in out [QDDSET-1: A Quantum Dissipative Dynamics Dataset](https://github.com/Arif-PhyChem/QDDSET "Named link title")
 ```
-        param={ 
+param={ 
         'n_states': 8,                  # int:  Number of states (SB) or sites (FMO), default 2 (SB) and 7 (FMO).
         'time': 10,                     # float: Propagation time in picoseconds (ps) for FMO complex and in (a.u.) for spin-boson model
         'time_step': 5fs,             # float: Time-step for time-propagation. Default values are 0.05 (spin-boson model) and 0.005ps for FMO complex.
@@ -233,14 +233,14 @@ Just to emphasize, the data files should be in the same format as was adopted in
         'max_evals': 100,               # int: Number of maximum evaluations in hyperopt optimization
         'dataPath': 'data/fmo',         # str: Data path
         'QDmodelOut': 'AIQD_FMO_model'  # str: (Optional), providing a name to save the model at
-        }
+    }
 quant_dyn(**param)
 ```
 * **OSTL**
 
 Just to emphasize, the data files should be in the same format as was adopted in out [QDDSET-1: A Quantum Dissipative Dynamics Dataset](https://github.com/Arif-PhyChem/QDDSET "Named link title")
 ```
-        param={ 
+param={ 
         'n_states': 8,                  # int:  Number of states (SB) or sites (FMO), default 2 (SB) and 7 (FMO).
         'QDmodel': 'createQDmodel',     # str: createQDmodel, the dafault option is useQDmodel
         'QDmodelType': 'OSTL',          # str: Type of model. The default option is OSTL
@@ -257,7 +257,7 @@ Just to emphasize, the data files should be in the same format as was adopted in
         'max_evals': 100,               # int: Number of maximum evaluations in hyperopt optimization
         'dataPath': 'data/fmo',         # str: Data path
         'QDmodelOut': 'OSTL_FMO_model'  # str: (Optional), providing a name to save the model at
-        }
+    }
 quant_dyn(**param)
 ```
 
@@ -268,7 +268,7 @@ Let suppose we already have our prepared training data then
 
 For KRR model, You need to provide the following parameters
 ```
-        param={ 
+param={ 
         'QDmodel': 'createQDmodel',     # str: create QD model. The dafault option is useQDmodel
         'QDmodelType': 'KRR',           # str: The type of model. Here KRR and the default option is OSTL
         'XfileIn': 'x_train',           # str: (Not Optional, txt file) The X file 
@@ -278,7 +278,7 @@ For KRR model, You need to provide the following parameters
         'krrLamb': 0.00000001,          # float: If you pass False to hyperParam, then we need to provide a value for hyperparameter Lambda in KRR. Otherwise the model will run with the default value.
         'systemType': 'SB',             # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'QDmodelOut': 'KRR_SB_model'    # str: (Optional), providing a name to save the model at
-        }
+    }
 quant_dyn(**param)
 ```
 
@@ -286,7 +286,7 @@ quant_dyn(**param)
 
 Just to emphasize, the data files should be in the same format as was adopted in out [QDDSET-1: A Quantum Dissipative Dynamics Dataset](https://github.com/Arif-PhyChem/QDDSET "Named link title")
 ```
-        param={ 
+param={ 
         'n_states': 8,                  # int:  Number of states (SB) or sites (FMO), default 2 (SB) and 7 (FMO).
         'QDmodel': 'createQDmodel',     # str: createQDmodel, the dafault option is useQDmodel
         'QDmodelType': 'AIQD',          # str: Type of model. The default option is OSTL
@@ -298,14 +298,14 @@ Just to emphasize, the data files should be in the same format as was adopted in
         'epochs': 100,                  # int: Number of epochs for training or optimization
         'max_evals': 100,               # int: Number of maximum evaluations in hyperopt optimization
         'QDmodelOut': 'AIQD_FMO_model'  # str: (Optional), providing a name to save the model at
-        }
+    }
 quant_dyn(**param)
 ```
 * **OSTL**
 
 Just to emphasize, the data files should be in the same format as was adopted in out [QDDSET-1: A Quantum Dissipative Dynamics Dataset](https://github.com/Arif-PhyChem/QDDSET "Named link title")
 ```
-        param={ 
+param={ 
         'n_states': 8,                  # int:  Number of states (SB) or sites (FMO), default 2 (SB) and 7 (FMO).
         'QDmodel': 'createQDmodel',     # str: createQDmodel, the dafault option is useQDmodel
         'QDmodelType': 'OSTL',          # str: Type of model. The default option is OSTL
@@ -317,7 +317,7 @@ Just to emphasize, the data files should be in the same format as was adopted in
         'epochs': 100,                  # int: Number of epochs for training or optimization
         'max_evals': 100,               # int: Number of maximum evaluations in hyperopt optimization
         'QDmodelOut': 'OSTL_FMO_model'  # str: (Optional), providing a name to save the model at
-        }
+    }
 quant_dyn(**param)
 ```
 
