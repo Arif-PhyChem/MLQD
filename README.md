@@ -358,4 +358,4 @@ The software is provided "as is" without warranty of any kind, express or implie
 
 **Contributers List:**
 1) Arif Ullah (main)  
-2) Pavlo O. Dral"
+2) Pavlo O. Dral
