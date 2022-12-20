@@ -24,9 +24,5 @@ def data(Xin:str, Yin: str):
     kernel_choice = []
     for i in range(2, x_train.shape[1], 1):
         kernel_choice.append(i)
-    filter_choice =  [10,20, 30, 40, 50, 60,70, 80, 90, 100, 110, 120]
-    Dense_choice = [8,16,32, 64, 128, 256,512, 1024]
-    lr_choice =  [10**-5, 10**-4, 10**-3, 10**-2, 10**-1]
-    batch_size = [16,32,64,128,256,512]
-    return x_train, y_train, x_val, y_val, kernel_choice, filter_choice, Dense_choice, lr_choice, batch_size
+    return x_train, y_train, x_val, y_val, kernel_choice
 

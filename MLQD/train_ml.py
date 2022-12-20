@@ -1,10 +1,11 @@
 import os
-import cnn
-import prep_input
 import subprocess
 import numpy as np
+import cnn as cnn
+import hyperopt_optim as optim
 import time as proc_time
 import tensorflow.keras as keras
+import prep_input as prep_input
 ############################################################
 def KRR(Xin: str,
         Yin: str,
@@ -26,7 +27,7 @@ def KRR(Xin: str,
                     xlength, 
                     dtype, 
                     dataPath)
-    print('*****************************************')
+    print('=================================================================')
     print('Train_ml.KRR: Training KRR model with Gaussian kernel using MLatom in the backend ......')
     print('Train_ml.KRR: KRR model will be created and saved as "' + str(QDmodelOut) + '"')
     #
@@ -35,7 +36,7 @@ def KRR(Xin: str,
         raise ValueError("Train_ml.KRR: file name " + str(Xin) + " does not exist")
     if os.path.isfile(Yin) == False:
         raise ValueError("Train_ml.KRR: file name ", str(Xin), " does not exist")
-    print('*****************************************')
+    print('=================================================================')
     ti = proc_time.time()
     QDmodelOut = QDmodelOut + '.unf'
     arg = ['rm', '-f', QDmodelOut + '*']
@@ -66,9 +67,10 @@ def OSTL(Xin: str,
         dataPath: str,  # optional in prepInput is False
         QDmodelOut: str,
         hyperParam: str,
+        epochs: int,
+        max_evals: int, 
         patience: int,
-        prepInput: str,
-        mlqdDr: str):
+        prepInput: str):
 
     if prepInput == 'True':
         print('train_ml.OSTL: preparing training data for OSTL model')
@@ -84,33 +86,24 @@ def OSTL(Xin: str,
                         dataPath)
 
     if hyperParam == 'True':
-        print('*****************************************')
-        print('Train_ml.OSTL: Going for hyperopt optimization of CNN.', 
-                'If you are using Jupyter Notebook, you may not see the output of it.')
-        print('*****************************************')
-        arg = ['cp', str(Xin) + '.npy', 'x_optim.npy']
-        subprocess.run(arg, check=True)
-        arg = ['cp', str(Yin) + '.npy', 'y_optim.npy']
-        subprocess.run(arg, check=True)
+        print('=================================================================')
+        print('Train_ml.AIQD: Going for hyperopt optimization of CNN')
+        print('=================================================================')
         t1 = proc_time.time()
-        arg = ['python', str(mlqdDr) + '/hyperopt_optim.py']
-        subprocess.run(arg, check=True)
+        optim.optimize(Xin, Yin, epochs, max_evals)
         print('Train_ml.OSTL: Time taken for optimization =', proc_time.time() - t1, "sec")
-        arg = ['rm', '-f', '*_optim.npy']
-        subprocess.run(arg, check=True)
-        print('*****************************************')
         print('Train_ml.OSTL: Training CNN model with the optimized hyper_parameters')
-        print('*****************************************')
+        print('=================================================================')
         t2 = proc_time.time()
-        cnn.CNN_optim(Xin, Yin, QDmodelOut, patience)
+        cnn.CNN_optim(Xin, Yin, QDmodelOut, epochs, patience)
         print('Train_ml.OSTL: Time taken for training =', proc_time.time() - t2, "sec")
         print('Train_ml.OSTL: Total Time (optimization + training) =', proc_time.time() - t1 , "sec")
     else:
-        print('*****************************************')
+        print('=================================================================')
         print('Train.ml_OSTL: Training CNN model with the default structure')
-        print('*****************************************')
+        print('=================================================================')
         t1 = proc_time.time()
-        cnn.OSTL_default(Xin, Yin, QDmodelOut, patience)
+        cnn.OSTL_default(Xin, Yin, QDmodelOut, epochs, patience)
         print('Train_ml.OSTL: Time taken for training =', proc_time.time() - t1 , "sec")
 
 def AIQD(Xin: str,
@@ -131,10 +124,11 @@ def AIQD(Xin: str,
         tempNorm: float,
         QDmodelOut: str,
         hyperParam: str,
+        epochs: int,
+        max_evals: int, 
         patience: int,
         prepInput: str,
-        dataPath: str,
-        mlqdDr: str):
+        dataPath: str):
 
     if prepInput == 'True':
         print('train_ml.AIQD: preparing training data for AIQD model')
@@ -159,31 +153,23 @@ def AIQD(Xin: str,
                         )
 
     if hyperParam == 'True':
-        print('*****************************************')
-        print('Train_ml.AIQD: Going for hyperopt optimization of CNN.',
-                'If you are using Jupyter Notebook, you may not see the output of it.')
-        print('*****************************************')
-        arg = ['cp', str(Xin) + '.npy', 'x_optim.npy']
-        subprocess.run(arg, check=True)
-        arg = ['cp', str(Yin) + '.npy', 'y_optim.npy']
-        subprocess.run(arg, check=True)
+        print('=================================================================')
+        print('Train_ml.AIQD: Going for hyperopt optimization of CNN')
+        print('=================================================================')
         t1 = proc_time.time()
-        arg = ['python', str(mlqdDr) +  '/hyperopt_optim.py']
-        subprocess.run(arg, check=True)
-        arg = ['rm', '-f', '*_optim.npy']
-        subprocess.run(arg, check=True)
-        print('*****************************************')
+        optim.optimize(Xin, Yin, epochs, max_evals)
+        print('Train_ml.OSTL: Time taken for optimization =', proc_time.time() - t1, "sec")
         print('Train_ml.AIQD: Training CNN model with the optimized hyper_parameters')
-        print('*****************************************')
+        print('=================================================================')
         t2 = proc_time.time()
-        cnn.CNN_optim(Xin, Yin, QDmodelOut, patience)
+        cnn.CNN_optim(Xin, Yin, QDmodelOut, epochs, patience)
         print('Train_ml.AIQD: Time taken for training =', proc_time.time() - t2, "sec")
         print('Train_ml.AIQD: Total Time (optimization + training) =', proc_time.time() - t1 , "sec")
 
     else:
-        print('*****************************************')
+        print('=================================================================')
         print('Train.ml_AIQD: Training CNN model with the default structure')
-        print('*****************************************')
+        print('=================================================================')
         t1 = proc_time.time()
-        cnn.AIQD_default(Xin, Yin, QDmodelOut, patience)
+        cnn.AIQD_default(Xin, Yin, QDmodelOut, epochs,  patience)
         print('Train_ml.AIQD: Time taken for training =', proc_time.time() - t1, "sec")

@@ -1,7 +1,7 @@
-import numpy as np
 import os
 import glob
 import re
+import numpy as np
 
 def KRR(Xin: str,
         Yin: str,
@@ -11,7 +11,7 @@ def KRR(Xin: str,
         dataPath: str):
     all_files = {}
     j = 0
-    print('*****************************************')
+    print('=================================================================')
     print('prep_input.KRR: Grabbing data from "', dataPath, '" directory') 
     for files in glob.glob(dataPath+'/*'):
         file_name = os.path.basename(files)
@@ -52,9 +52,9 @@ def OSTL(Xin: str,
         dataPath: str):
     all_files = {}
     j = 0
-    print('*****************************************')
+    print('=================================================================')
     print('prep_input.OSTL: Grabbing data from "', dataPath, '" directory')
-    print('prep_input.OSTL: It is assumed that the data is in the format as adopted in our QDDSET-1 dataset \
+    print('prep_input.OSTL: It is assumed that the data is in the format as adopted in our QD3SET-1 dataset \
 , otherwise training files will not be successfully generated')
     for files in glob.glob(dataPath+'/*np[yz]'):
         file_name = os.path.basename(files)
@@ -203,9 +203,9 @@ def AIQD(Xin: str,
         dataPath: str):
     all_files = {}
     j = 0
-    print('*****************************************')
+    print('=================================================================')
     print('prep_input.AIQD: Grabbing data from "', dataPath, '" directory')
-    print('prep_input.AIQD: It is assumed that the data is in the format as adopted in our QDDSET-1 dataset \
+    print('prep_input.AIQD: It is assumed that the data is in the format as adopted in our QD3SET-1 dataset \
 , otherwise training files will not be successfully generated')
     for files in glob.glob(dataPath+'/*np[yz]'):
         file_name = os.path.basename(files)
@@ -279,6 +279,7 @@ def AIQD(Xin: str,
     xx = all_files[file_name]
     length = xx[:,0].shape[0]
     if systemType == 'FMO':
+        time_step = time_step/1000 # convert to 5 fs
         x = np.zeros((file_count*length, 4+numLogf), dtype=float)
     if systemType == 'SB':
         x = np.zeros((file_count*length, 5+numLogf), dtype=float)

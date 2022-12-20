@@ -1,24 +1,29 @@
-import data
+import tensorflow.keras as keras
 import pickle
 import numpy as np
-import tensorflow.keras as keras
-from hyperas import optim
-from keras.layers import Dense
-from keras.layers import Flatten
-from keras.models import Sequential
-from keras.layers import Activation
-from keras.layers.convolutional import Conv1D
-from keras.layers.convolutional import MaxPooling1D
+import data as data
+from tensorflow.keras.layers import Dense
+from tensorflow.keras.layers import Flatten
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Activation
+from tensorflow.keras.layers import Conv1D
+from tensorflow.keras.layers import MaxPooling1D
 
 def CNN_optim(Xin: str, 
             Yin: str, 
             QDmodelOut: str,
+            epochs: int, 
             patience: int):
-    x_train, y_train, x_val, y_val, kernel_choice, filter_choice, dense_choice, lr_choice, batch_size = data.data(Xin, Yin)
-    print('*****************************************')
+    x_train, y_train, x_val, y_val, kernel_choice = data.data(Xin, Yin)
+    print('=================================================================')
     f = open('best_param.pkl', 'rb')
     hyper_param = pickle.load(f)
     f.close()
+    filter_choice = [10,30,50,70,90,110,130,150,170,190]
+    dense_choice = [8,16,32,64,128,256,512]
+    lr_choice = [10**-5, 10**-4, 10**-3, 10**-2, 10**-1]
+    batch_size = [8,16,32,64,128,256,512]
+
     Conv1D_0 = filter_choice[hyper_param['Conv1D']] 
     Conv1D_1 = filter_choice[hyper_param['Conv1D_1']]
     Conv1D_2 = filter_choice[hyper_param['Conv1D_2']]
@@ -48,7 +53,7 @@ def CNN_optim(Xin: str,
     adam = keras.optimizers.Adam(learning_rate=Lr_rate)
     print(model.summary())
     model.compile(loss='mse', optimizer=adam)
-    print('*****************************************')
+    print('=================================================================')
     print('cnn.CNN_optim: Running wth EarlyStopping of patience =', patience)
     
     es = keras.callbacks.EarlyStopping(
@@ -61,27 +66,28 @@ def CNN_optim(Xin: str,
         restore_best_weights=True)
     
     print('cnn.CNN_optim: Running with batch size =', Batch_size, 'and epochs = 10000')
-    print('*****************************************')
+    print('=================================================================')
     model.fit(x_train, y_train,
           batch_size=Batch_size,
-          epochs=10000,
+          epochs=epochs,
           verbose=2,
           validation_data=(x_val, y_val), callbacks=[es]) 
     QDmodelOut =QDmodelOut + '.hdf5'
     model.save(QDmodelOut)
-    print('*****************************************')
+    print('=================================================================')
     print('cnn.CNN_optim: OSTL model is saved as "', QDmodelOut ,'"') 
 
 def OSTL_default(Xin: str, 
             Yin: str, 
             QDmodelOut: str,
+            epochs: int,
             patience: int):
 
-    x_train, y_train, x_val, y_val, kernel_choice, filter_choice, Dense_choice, lr_choice, batch_size = data.data(Xin, Yin)
-    print('*****************************************')
+    x_train, y_train, x_val, y_val, kernel_choice = data.data(Xin, Yin)
+    print('=================================================================')
     print('cnn.OSTL_default: Running wth EarlyStopping of patience =', patience)
     print('cnn.OSTL_default: Running with batch size = 16 and epochs = 10000')
-    print('*****************************************')
+    print('=================================================================')
 
     model = Sequential()
     model.add(Conv1D(80, kernel_size=3, activation ='relu', input_shape=(x_train.shape[1],1)))
@@ -105,24 +111,25 @@ def OSTL_default(Xin: str,
         restore_best_weights=True)
     model.fit(x_train, y_train,
           batch_size=16,
-          epochs=10000,
+          epochs=epochs,
           verbose=2,
           validation_data=(x_val, y_val), callbacks=[es])
 
     QDmodelOut = QDmodelOut + '.hdf5'
     model.save(QDmodelOut)
-    print('*****************************************')
+    print('=================================================================')
     print('cnn.OSTL_default: OSTL model is saved as "', QDmodelOut, '"') 
 def AIQD_default(Xin: str, 
             Yin: str, 
             QDmodelOut: str,
+            epochs: int,
             patience: int):
 
-    x_train, y_train, x_val, y_val, kernel_choice, filter_choice, Dense_choice, lr_choice, batch_size = data.data(Xin, Yin)
-    print('*****************************************')
+    x_train, y_train, x_val, y_val, kernel_choice = data.data(Xin, Yin)
+    print('=================================================================')
     print('cnn.AIQD_default: Running wth EarlyStopping of patience =', patience)
     print('cnn.AIQD_default: Running with batch size = 64 and epochs = 10000')
-    print('*****************************************')
+    print('=================================================================')
 
     model = Sequential()
     model.add(Conv1D(80, kernel_size=3, activation ='relu', input_shape=(x_train.shape[1],1)))
@@ -147,11 +154,11 @@ def AIQD_default(Xin: str,
         restore_best_weights=True)
     model.fit(x_train, y_train,
           batch_size=64,
-          epochs=10000,
+          epochs=epochs,
           verbose=2,
           validation_data=(x_val, y_val), callbacks=[es])
     
     QDmodelOut = QDmodelOut + '.hdf5'
     model.save(QDmodelOut)
-    print('*****************************************')
+    print('=================================================================')
     print('cnn.AIQD_default: AIQD model is saved as "', QDmodelOut, '"')

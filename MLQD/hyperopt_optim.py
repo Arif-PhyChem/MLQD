@@ -1,79 +1,84 @@
 import os
+import tensorflow.keras as keras
 import pickle
 import numpy as np
-import tensorflow.keras as keras
-from hyperas import optim
-from keras.layers import Dense
-from keras.layers import Flatten
-from keras.models import Sequential
-from keras.layers import Activation
-from hyperopt import Trials, STATUS_OK, tpe
-from keras.layers.convolutional import Conv1D
-from hyperas.distributions import choice, uniform
-from keras.layers.convolutional import MaxPooling1D
+import data
+from tensorflow.keras.layers import Dense
+from tensorflow.keras.layers import Flatten
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Activation
+from tensorflow.keras.layers import MaxPooling1D
+from tensorflow.keras.layers import Conv1D
+from hyperopt import fmin, hp, Trials, STATUS_OK, tpe
 from sklearn.model_selection import train_test_split
 
+def optimize(Xin: str, 
+            Yin: str, 
+            epochs: int, 
+            max_evals: int):
 
-print('*****************************************')
-print('hyperopt_optim: splitting data into 80/20 % ratio (training/validation set)')
-def data():
-    X = str(os.getcwd()) + '/' + 'x_optim.npy'
-    Y = str(os.getcwd()) + '/' + 'y_optim.npy'
-    x = np.load(X)
-    y = np.load(Y)
-    x_train, x_val, y_train, y_val = train_test_split(x, y, test_size=0.2, random_state=7)
-    x_train = x_train.reshape(x_train.shape[0], x_train.shape[1],1)
-    x_val  = x_val.reshape(x_val.shape[0], x_val.shape[1],1)
-    kernel_choice = []
-    for i in range(2, x_train.shape[1], 1):
-        kernel_choice.append(i)
-    return x_train, y_train, x_val, y_val, kernel_choice
-######################################################
-print('hyperopt_optim: Optimizing the Neural Network with hyperopt library')
-print('hyperopt_optim: Setting Optimizer to Adam and loss to mean square error (mse)')
-print('hyperopt_optim: We do not optimize the activation function and set it equal to Relu')  
-print('hyperopt_optim: Maximum number of evaluations = 200')
-print('hyperopt_optim: Each evaluation runs for 100 epochs')
-print('*****************************************')
-#####################################################
-def optimize_model(x_train, y_train, x_val, y_val, kernel_choice):
-    model = Sequential()
-    model.add(Conv1D({{choice([10,20, 30, 40, 50, 60,70, 80, 90, 100])}}, kernel_size={{choice(kernel_choice)}}, input_shape=(x_train.shape[1],1)))
-    model.add(Activation({{choice(['relu'])}}))
-    model.add(Conv1D({{choice([10,20, 30,40,50,60,70, 80, 90, 100])}}, kernel_size={{choice(kernel_choice)}}, padding='same'))
-    model.add(Activation({{choice(['relu'])}}))    
-    if ({{choice(['two', 'three'])}}) == 'three':
-        model.add(Conv1D({{choice([10,20,30,40,50,60,70, 80])}}, kernel_size={{choice(kernel_choice)}}, padding='same'))
-        model.add(Activation({{choice(['relu'])}}))
-    model.add(MaxPooling1D(pool_size=2))
-    model.add(Flatten())
-    model.add(Dense({{choice([16,32,64,128, 256, 512])}}))
-    model.add(Activation({{choice(['relu'])}}))
-    model.add(Dense({{choice([8,16,32, 64, 128, 256,512])}}))
-    model.add(Activation({{choice(['relu'])}}))
-    if ({{choice(['two', 'three'])}}) == 'three':
-        model.add(Dense({{choice([8,16, 32, 64, 128, 256,512])}}))
-        model.add(Activation({{choice(['relu'])}}))
-    model.add(Dense(y_train.shape[1], activation='linear'))
+    x_train, y_train, x_val, y_val, kernel_choice = data.data(Xin, Yin)
+    ######################################################
+    print('hyperopt_optim: Optimizing the Neural Network with hyperopt library')
+    print('hyperopt_optim: Setting Optimizer to Adam and loss to mean square error (mse)')
+    print('hyperopt_optim: We do not optimize the activation function and set it equal to Relu')  
+    print('hyperopt_optim: Maximum number of evaluations =', max_evals)
+    print('hyperopt_optim: Each evaluation runs for ' + str(epochs) + ' epochs')
+    print('=================================================================')
+    #####################################################
+    space = {'Conv1D': hp.choice('Conv1D', [10,30,50,70,90,110,130,150,170,190]),
+            'Conv1D_1': hp.choice('Conv1D_1', [10,30,50,70,90,110,130,150,170,190]),
+            'Conv1D_2': hp.choice('Conv1D_2', [10,30,50,70,90,110,130,150,170,190]),
+            'Dense': hp.choice('Dense', [8, 16,32,64,128,256,512]),
+            'Dense_1': hp.choice('Dense_1', [8, 16,32,64,128,256,512]),
+            'Dense_2': hp.choice('Dense_2', [8, 16,32,64,128,256,512]),
+            'if': hp.choice('if', [{'layers': 'two', }, {'layers': 'three'}]), 
+            'if_1': hp.choice('if_1', [{'layers': 'two', }, {'layers': 'three'}]),
+            'kernel_size': hp.choice('kernel_size', kernel_choice),
+            'kernel_size_1': hp.choice('kernel_size_1', kernel_choice),
+            'kernel_size_2': hp.choice('kernel_size_2', kernel_choice),
+            'learning_rate': hp.choice('learning_rate', [10**-5, 10**-4, 10**-3, 10**-2, 10**-1]),
+            'batch_size': hp.choice('batch_size', [8, 16,32,64,128,256,512]),
+            'activation': 'relu'
+        } 
+    def optimize_model(params):
+        model = Sequential()
+        model.add(Conv1D(params['Conv1D'], kernel_size=params['kernel_size'], input_shape=(x_train.shape[1],1)))
+        model.add(Activation(params['activation']))
+        model.add(Conv1D(params['Conv1D_1'], kernel_size=params['kernel_size_1'], padding='same'))
+        model.add(Activation(params['activation']))    
+        if params['if']['layers'] == 'three':
+            model.add(Conv1D(params['Conv1D_2'], kernel_size=params['kernel_size_2'], padding='same'))
+            model.add(Activation(params['activation']))
+        model.add(MaxPooling1D(pool_size=2))
+        model.add(Flatten())
+        model.add(Dense(params['Dense']))
+        model.add(Activation(params['activation']))
+        model.add(Dense(params['Dense_1']))
+        model.add(Activation(params['activation']))
+        if params['if_1']['layers'] == 'three':
+            model.add(Dense(params['Dense_2']))
+            model.add(Activation(params['activation']))
 
+        model.add(Dense(y_train.shape[1], activation='linear'))
 
-    adam = keras.optimizers.Adam(learning_rate={{choice([10**-5, 10**-4, 10**-3, 10**-2, 10**-1])}})
-    model.compile(loss='mse', optimizer=adam)
-    model.fit(x_train, y_train,
-              batch_size={{choice([16,32,64,128,256,512])}},
-              epochs=100,
-              verbose=2,
-              validation_data=(x_val, y_val))
-    loss= model.evaluate(x_val, y_val, verbose=0)
-    return {'loss': loss, 'status': STATUS_OK, 'model': model}
+        adam = keras.optimizers.Adam(learning_rate=params['learning_rate'])
+        model.compile(loss='mse', optimizer=adam)
+        model.fit(x_train, y_train,
+                  batch_size=params['batch_size'],
+                  epochs=epochs,
+                  verbose=2,
+                  validation_data=(x_val, y_val))
+        loss= model.evaluate(x_val, y_val, verbose=0)
+        return {'loss': loss, 'status': STATUS_OK, 'model': model}
 
-if __name__ == '__main__':
-    best_run, best_model = optim.minimize(optimize_model,
-                                        data=data,
-                                        algo=tpe.suggest,
-                                        max_evals=200,
-                                        trials=Trials()) 
-    x_train, y_train, x_val, y_val, kernel_choice = data()
+    #if __name__ == '__main__':
+    trials = Trials()
+    best_run = fmin(optimize_model,
+                        space,
+                        algo=tpe.suggest,
+                        max_evals=max_evals,
+                        trials=trials) 
     f = open("best_param.pkl", "wb")
     pickle.dump(best_run, f)
     f.close()
