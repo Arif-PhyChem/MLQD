@@ -531,25 +531,25 @@ class quant_dyn:
             	        self._numLogf = 1
             	        print('Setting number of Logistic functions to its default value " numLogf = 1 "')
                     if param.get('LogCa') is not None:
-                        self._LogCa = int(param.get('LogCa'))
+                        self._LogCa = float(param.get('LogCa'))
                         print('Setting "a" in Logistic function f(t) = a/(1 + b * np.exp(-(t-c)/d))) to ' + str(self._LogCa))
                     else:
             	        self._LogCa = 1
             	        print('Setting "a" in Logistic function f(t) = a/(1 + b * np.exp(-(t-c)/d))) to its default value "1"')
                     if param.get('LogCb') is not None:
-                        self._LogCb = int(param.get('LogCb'))
+                        self._LogCb = float(param.get('LogCb'))
                         print('Setting "b" in Logistic function f(t) = a/(1 + b * np.exp(-(t-c)/d))) to ' + str(self._LogCb))
                     else:
             	        self._LogCb = 15
             	        print('Setting "b" in Logistic function f(t) = a/(1 + b * np.exp(-(t-c)/d))) to its default value "15"')
                     if param.get('LogCc') is not None:
-                        self._LogCc = int(param.get('LogCc'))
+                        self._LogCc = float(param.get('LogCc'))
                         print('Setting "c" in Logistic function f(t) = a/(1 + b * np.exp(-(t-c)/d))) to ' + str(self._LogCc))
                     else:
                         self._LogCc = -1.0
                         print('Setting "b" in Logistic function f(t) = a/(1 + b * np.exp(-(t-c)/d))) to its default value "-1"')
                     if param.get('LogCd') is not None:
-                        self._LogCd = int(param.get('LogCd'))
+                        self._LogCd = float(param.get('LogCd'))
                         print('Setting "c" in Logistic function f(t) = a/(1 + b * np.exp(-(t-c)/d))) to ' + str(self._LogCd))
                     else:
                         self._LogCd = 1.0
