@@ -94,8 +94,8 @@ param={
         'systemType': 'SB',                     # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'QDmodelIn': 'AIQD_SB_model.hdf5',      # str: (Not Optional for useQDmodel), provide the name of the trained ML model
         'QDtrajOut': 'Qd_trajectory'            # str: (Optional), File name where the trajectory should be saved
-        'xlim': 20,                     # float: Xaxis limit for plotting. Default is equal to propagation time
-        'plotNstates': 2,               # int: Number of states to be plotted. Default option is to plot all of them 
+        'xlim': 20,                             # float: Xaxis limit for plotting. Default is equal to propagation time
+        'plotNstates': 2,                       # int: Number of states to be plotted. Default option is to plot all of them 
         'refTraj': 'test_set/sb/2_epsilon-0.0_Delta-1.0_lambda-0.1_gamma-4.0_beta-1.0.npy' # str: Reference Trajectory for plotting. If not provided, MLQD will ignore plotting
     }
 quant_dyn(**param)
@@ -107,7 +107,7 @@ param={
         'initState': 1,                         # int:  Initial state with Initial Excitation case (only required in FMO complex case, Default is '1')
         'n_states': 2,                          # Int:  Number of states (SB) or sites (FMO). Default is 2 (SB) and 7 (FMO).
         'time': 20,                             # float: Propagation time in picoseconds (ps) for FMO complex and in (a.u.) for spin-boson model
-        'time_step': 0.05,                     # float: Time-step for time-propagation (you are not restricted to the time-step used in the training data, however better stick to that for good accuracy) Default values are 0.05 (a.u.) for spin-boson model) and 5fs for FMO complex
+        'time_step': 0.05,                      # float: Time-step for time-propagation (you are not restricted to the time-step used in the training data, however better stick to that for good accuracy) Default values are 0.05 (a.u.) for spin-boson model) and 5fs for FMO complex
         'energyDiff': 1.0,                      # float: Energy difference between the two states. Only required in SB model
         'Delta': 1.0,                           # float: The tunneling matrix element. Only required in SB model
         'gamma': 10,                            # float: Characteristic frequency 
@@ -118,8 +118,8 @@ param={
         'systemType': 'SB',                     # str: (Not optional)  Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'QDmodelIn': 'AIQD_SB_model.hdf5',      # str: (Not Optional for useQDmodel), provide the name of the trained ML model
         'QDtrajOut': 'Qd_trajectory'            # str: (Optional), File name where the trajectory should be saved
-        'xlim': 20,                     # float: Xaxis limit for plotting. Default is equal to propagation time
-        'plotNstates': 2,               # int: Number of states to be plotted. Default option is to plot all of them 
+        'xlim': 20,                             # float: Xaxis limit for plotting. Default is equal to propagation time
+        'plotNstates': 2,                       # int: Number of states to be plotted. Default option is to plot all of them 
         'refTraj': 'test_set/sb/2_epsilon-0.0_Delta-1.0_lambda-0.1_gamma-4.0_beta-1.0.npy' # str: Reference Trajectory for plotting. If not provided, MLQD will ignore plotting
     }
 quant_dyn(**param)
@@ -148,8 +148,8 @@ param={
         'systemType': 'SB',                     # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'QDmodelIn': 'OSTL_SB_model.hdf5',      # str: (Not Optional for useQDmodel), provide the name of the trained ML model
         'QDtrajOut': 'Qd_trajectory'            # str: (Optional), File name where the trajectory should be saved
-        'xlim': 20,                     # float: Xaxis limit for plotting. Default is equal to propagation time
-        'plotNstates': 2,               # int: Number of states to be plotted. Default option is to plot all of them 
+        'xlim': 20,                             # float: Xaxis limit for plotting. Default is equal to propagation time
+        'plotNstates': 2,                       # int: Number of states to be plotted. Default option is to plot all of them 
         'refTraj': 'test_set/sb/2_epsilon-0.0_Delta-1.0_lambda-0.1_gamma-4.0_beta-1.0.npy' # str: Reference Trajectory for plotting. If not provided, MLQD will ignore plotting
     }
 quant_dyn(**param)
@@ -172,8 +172,8 @@ param={
         'systemType': 'SB',                     # str: (Not optional)  Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'QDmodelIn': 'OSTL_SB_model.hdf5',      # str: (Not Optional for useQDmodel), provide the name of the trained ML model
         'QDtrajOut': 'Qd_trajectory'            # str: (Optional), File name where the trajectory should be saved 
-        'xlim': 20,                     # float: Xaxis limit for plotting. Default is equal to propagation time
-        'plotNstates': 2,               # int: Number of states to be plotted. Default option is to plot all of them 
+        'xlim': 20,                             # float: Xaxis limit for plotting. Default is equal to propagation time
+        'plotNstates': 2,                       # int: Number of states to be plotted. Default option is to plot all of them 
         'refTraj': 'test_set/sb/2_epsilon-0.0_Delta-1.0_lambda-0.1_gamma-4.0_beta-1.0.npy' # str: Reference Trajectory for plotting. If not provided, MLQD will ignore plotting
     }
  quant_dyn(**param)
