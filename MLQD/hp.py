@@ -11,7 +11,8 @@ __time__='time: (float): Propagation time in picoseconds (ps) for FMO complex an
 __time_step__='time_step (float): Time-step for time-propagation. Default values are 0.05 a.u. (for spin-boson model) and 5 fs for FMO complex'
 __hyperParam__='hyperParam (str): Default option is "False". You can pass "True" (to optimize the hyperparameters) or "False" to not optimize the hyperparameters and run with the default structure'
 __patience__='patience (int): Patience for early stopping in CNN training'
-__epochs__='epochs (int): The number of epochs for training and optimzation. Default value is 100'
+__OptEpochs__='OptEpochs (int): The number of epochs for optimzation. Default value is 100'
+__TrEpochs__='TrEpochs (int): The number of epochs for training. Default value is 100'
 __max_evals='max_evals (int): The number of maximum evaluations in hyperopt optimization. Default value is 100'
 __XfileIn__='XfileIn (str): The prepared X file will be saved at the provided file name, if not provided, MLQD will use the default name. In the case of KRR-based prediction of dynamics, this option provides the input short-time dynamics'  
 __YfileIn__='YfileIn (str): The prepared Y file will be saved at the provided file name. If not provided, MLQD will use the dafault name' 
@@ -63,7 +64,8 @@ def help():
     i+=1; print(str(i) + ']===>', __initState__)
     i+=1; print(str(i) + ']===>', __n_states__)
     i+=1; print(str(i) + ']===>', __patience__)
-    i+=1; print(str(i) + ']===>', __epochs__)
+    i+=1; print(str(i) + ']===>', __OptEpochs__)
+    i+=1; print(str(i) + ']===>', __TrEpochs__)
     i+=1; print(str(i) + ']===>', __max_evals)
     i+=1; print(str(i) + ']===>', __energyDiff__)
     i+=1; print(str(i) + ']===>', __Delta__)

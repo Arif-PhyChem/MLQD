@@ -65,7 +65,7 @@ def CNN_optim(Xin: str,
         baseline=None,
         restore_best_weights=True)
     
-    print('cnn.CNN_optim: Running with batch size =', Batch_size, 'and epochs = 10000')
+    print('cnn.CNN_optim: Running with batch size =', Batch_size, 'and epochs =', epochs)
     print('=================================================================')
     model.fit(x_train, y_train,
           batch_size=Batch_size,
@@ -83,10 +83,11 @@ def OSTL_default(Xin: str,
             epochs: int,
             patience: int):
 
+
     x_train, y_train, x_val, y_val, kernel_choice = data.data(Xin, Yin)
     print('=================================================================')
     print('cnn.OSTL_default: Running wth EarlyStopping of patience =', patience)
-    print('cnn.OSTL_default: Running with batch size = 16 and epochs = 10000')
+    print('cnn.OSTL_default: Running with batch size = 16 and epochs =', epochs)
     print('=================================================================')
 
     model = Sequential()
@@ -128,7 +129,7 @@ def AIQD_default(Xin: str,
     x_train, y_train, x_val, y_val, kernel_choice = data.data(Xin, Yin)
     print('=================================================================')
     print('cnn.AIQD_default: Running wth EarlyStopping of patience =', patience)
-    print('cnn.AIQD_default: Running with batch size = 64 and epochs = 10000')
+    print('cnn.AIQD_default: Running with batch size = 64 and epochs =', epochs)
     print('=================================================================')
 
     model = Sequential()

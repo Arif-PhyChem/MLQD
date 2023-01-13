@@ -11,6 +11,9 @@ import lic
 import plot
 import hp
 import train_ml as train_ml
+import createQD as createQD
+import useQD as useQD
+import essential_param as essparam
 
 fmo_7_init_sites = [1, 6]
 fmo_8_init_sites = [1, 6, 8]
@@ -28,73 +31,21 @@ class quant_dyn:
             print('=================================================================')
             source_path = Path(__file__).resolve()
             self._mlqdDr = source_path.parent
-            if param.get('systemType') is not None:
-                self._systemType = param.get('systemType')
-                if type(self._systemType) != str:
-                    raise Exception('systemType should be string')
-                print('Setting "systemType" to ' +  str(self._systemType))
-            else:
-                raise Exception('Please provide system type "systemType = FMO or SB"')
-            if param.get('QDmodel') is not None:
-                self._QDmodel = param.get('QDmodel')
-                if type(self._QDmodel) != str:
-                    raise Exception('QDmodel should be string')
-                if self._QDmodel not in QDmodel:
-                    raise ValueError('QDmodel should be one of these: "createQDmodel", "useQDmodel"')
-                print('MLQD is running with the option QDmodel = ', self._QDmodel)
-            else:
-                self._QDmodel = 'useQDmodel'
-                print('The is running with the dafault option QDmodel = ', self._QDmodel)
-            if param.get('QDmodelType') is not None:
-                self._QDmodelType = param.get('QDmodelType')
-                if type(self._QDmodelType) != str:
-                    raise Exception('QDmodelType should be string')
-                print('Setting ML Model Type "QDmodelType" to ' + str(self._QDmodelType))
-            else:
-            	self._QDmodelType = 'OSTL'
-            	print('As the ML model type is not provided, the ML-QD is running with the \n dafault option QDmodelType = OSTL"')
-            if self._QDmodel == 'ceateQDmodel' and self._QDmodelType == 'KRR':
-                pass
-            else:
-                if param.get('n_states') is not None:
-                    self._n_states = param.get('n_states')
-                    if type(self._n_states) != int:
-                        raise Exception(' Number of states "n_states" shoul be integer')
-                    if self._systemType == 'SB': 
-                        if self._n_states != 2:
-                            raise ValueError('In spin-boson, n_states should be equal to 2')
-                    print('Setting number of states "n_states" to ' + str(self._n_states))
-                else:
-                    if self._systemType == 'FMO':
-                        self._n_states = 7   # FMO-7
-                        print('Running with the default number of states (FMO); n_states: 7, please check if it is the case!')
-                    if self._systemType == 'SB':
-                        self._n_states = 2
-                        print('Running with the default number of states (SB); n_states: 2')
-########    ##################################################################################### 
+            [self._systemType, self._QDmodel, self._QDmodelType, self._n_states] = essparam.loadparam(**param)   
+############################################################################################
             if self._QDmodel == 'createQDmodel':
-                if param.get('prepInput') is not None:
-                    self._prepInput = param.get('prepInput')
-                    if type(self._prepInput) != str:
-                        raise Exception('prepInput should be string')
-                    if self._prepInput == 'True':
-                        print('Setting option "prepInput" to ' + str(self._prepInput))
-                    else:
-                        print('You have chosen not to prepare the input files, othewise you should pass "True" to prepInput')
-                else:
-                    self._prepInput = 'False'
-                    print('The is running with default "prepInput" option', self._prepInput)
-                if param.get('QDmodelOut') is not None:
-                    self._QDmodelOut = param.get('QDmodelOut')
-                    if type(self._QDmodelOut) != str:
-                        raise Exception('QDmodelOut should be string')
-                    print('Model will be saved as ' + str(self._QDmodelOut))
-                else:
-                    self._QDmodelOut = str(self._QDmodelType) + "_" + "model_for_" + str(self._systemType) + "_" + str(random.random())
-                    print('The model will be saved as', self._QDmodelOut)
+                [self._prepInput, self._QDmodelOut, self._energyNorm, self._DeltaNorm,
+                self._gammaNorm, self._lambNorm, self._tempNorm, self._Xin, self._Yin, 
+                self._hyperParam, self._patience, self._OptEpochs, self._TrEpochs, 
+                self._max_evals, self._dataPath, self._xlength, self._krrSigma, 
+                self._krrLamb, self._numLogf, self._LogCa, self._LogCb,
+                self._LogCc, self._LogCd] = createQD.loadparam(self._mlqdDr, 
+                                                            self._systemType, 
+                                                            self._QDmodelType, 
+                                                            **param)
             else:
                 self._prepInput = None
-########    ###################################################################################
+############################################################################################
             if self._QDmodel == 'useQDmodel' or (self._QDmodelType == 'AIQD' and self._QDmodel == 'createQDmodel' and self._prepInput == 'True'):
                if param.get('time') is not None:
                    self._time = param.get('time')
@@ -122,7 +73,7 @@ class quant_dyn:
             else:
                 self._time = None
                 self._time_step = None
-########    ######################################################################################
+###############################################################################################
             if self._QDmodel == 'useQDmodel':
                 if param.get('QDmodelIn') is not None:
                     self._QDmodelIn = param.get('QDmodelIn')
@@ -149,122 +100,12 @@ class quant_dyn:
                         else:
                 	        self._initState = 1
                 	        print('Running with the default value of initial state; initState = 1')
-########    ######################################################################################
+#################################################################################################
                 if self._QDmodelType == 'OSTL' or self._QDmodelType == 'AIQD':
                     if self._QDmodel == 'useQDmodel':
-                        if param.get('XfileIn') is None:
-                            if self._systemType == 'SB':
-                                if param.get('energyDiff') is not None:
-                                    self._energyDiff = param.get('energyDiff')
-                                    print('Setting energy difference between two states "energyDiff" to ' + str(self._energyDiff))
-                                else:
-                	                self._energyDiff = 0.0
-                	                print('As energy difference is not provided, the ML-QD is running with the dafault option energyDiff = 0.0')
-                                if param.get('Delta') is not None:
-                                    self._Delta = param.get('Delta')
-                                    print('Setting tunneling matrix element of the two states "Delta" to ' + str(self._Delta))
-                                else:
-                	                self._Delta = 1.0
-                	                print('As tunneling is not provided, the ML-QD is running with the dafault option Delta = 1.0')
-
-                            if param.get('gamma') is not None:
-                                self._gamma = param.get('gamma')
-                                print('Setting cutt-off frequency "gamma" to ' + str(self._gamma))
-                            else:
-                                if self._systemType == 'FMO':
-                            	    self._gamma = 500
-                            	    print('Running with the default value of cutt-off frequency; gamma = 500')
-                                if self._systemType == 'SB':
-                            	    self._gamma = 10
-                            	    print('Running with the default value of cutt-off frequency; gamma = 10')
-                            
-
-                            if param.get('lamb') is not None:
-                                self._lamb = param.get('lamb')
-                                print('Setting system-bath coupling strength "lambda" to ' + str(self._lamb))
-                            else:
-                                if self._systemType == 'FMO':
-                    	            self._lamb = 520
-                    	            print('Running with the default value of system-bath coupling strength; lamb = 520')
-                                if self._systemType == 'SB':
-                    	            self._lamb = 1.0
-                    	            print('Running with the default value of system-bath coupling strength; lamb = 0.1')
-                            
-
-                            if param.get('temp') is not None:
-                                self._temp = param.get('temp')
-                                print('Setting temperature (or inverse temperature) value "temp" to ' + str(self._temp))
-                            else:
-                                if self._systemType == 'FMO':
-                    	            self._temp = 510
-                    	            print('Running with the default temperature (or inverse temperature) value temp = 510')
-                                if self._systemType == 'SB':
-                                    self._temp = 1.0
-                                    print('Running with the default temperature (or inverse temperature) value temp = 1.0')
-                            print('=================================================================')
-                            self._name = re.split(r'.hdf5', self._QDmodelIn)[0] + ".pkl"
-                            print('Reading normalization constants from', self._name)
-                            print('=================================================================')
-                            f = open(self._name, 'rb')   # Load normalization parameters
-                            norm_param = pickle.load(f)
-                            f.close()
-                            self._energyNorm = norm_param['energyNorm']
-                            self._DeltaNorm = norm_param['DeltaNorm']
-                            self._lambNorm = norm_param['lambNorm']
-                            self._gammaNorm = norm_param['gammaNorm']
-                            self._tempNorm = norm_param['tempNorm']
-                            print('Setting energy difference normalizer "energyNorm" to ' + str(self._energyNorm))
-                            print('Setting tunneling matrix element normalizer "DeltaNorm" to ' + str(self._DeltaNorm))
-                            print('Setting gamma normalizeer "gammaNorm" to ' + str(self._gammaNorm))
-                            print('Setting lambda normalizer "lambNormalizer" to ' + str(self._lambNorm))
-                            print('Setting temperature (or inverse temperature) normalizer "tempNorm" to ' + str(self._tempNorm))
-                    if self._QDmodel == 'createQDmodel':
-                        if self._systemType == 'SB':
-                            if param.get('energyNorm') is not None:
-                                self._energyNorm = param.get('energyNorm')
-                                print('Setting energy difference normalizer "energyNorm" to ' + str(self._energyNorm))
-                            else:
-                        	    self._energyNorm = 1.0
-                        	    print('Running with the default value of energy difference normalizer; energyNorm = 1.0 ')
-                            if param.get('DeltaNorm') is not None:
-                                self._DeltaNorm = param.get('DeltaNorm')
-                                print('Setting tunneling matrix element normalizer "DeltaNorm" to ' + str(self._DeltaNorm))
-                            else:
-                        	    self._DeltaNorm = 1.0
-                        	    print('Running with the default value of tunneling matrix element normalizer; DeltaNorm = 1.0 ')
-                        else:
-                            self._energyNorm = None
-                            self._DeltaNorm = None
-                        if param.get('gammaNorm') is not None:
-                            self._gammaNorm = param.get('gammaNorm')
-                            print('Setting gamma normalizeer "gammaNorm" to ' + str(self._gammaNorm))
-                        else:
-                            if self._systemType == 'FMO':
-                        	    self._gammaNorm = 500.0
-                        	    print('Running with the default value of gamma normalizeer; gammaNorm = 500 ')
-                            if self._systemType == 'SB':
-                        	    self._gammaNorm = 10.0
-                        	    print('Running with the default value of gamma normalizeer; gammaNorm = 10 ')
-                        if param.get('lambNorm') is not None:
-                            self._lambNorm = param.get('lambNorm')
-                            print('Setting lambda normalizer "lambNormalizer" to ' + str(self._lambNorm))
-                        else:
-                            if self._systemType == 'FMO':
-                        	    self._lambNorm = 510.0
-                        	    print('Running with the default value of lambda normalizer; lambNorm = 520 ')
-                            if self._systemType == 'SB':
-                        	    self._lambNorm = 1.0
-                        	    print('Running with the default value of lambda normalizer; lambNorm = 1.0 ')
-                        if param.get('tempNorm') is not None:
-                            self._tempNorm = param.get('tempNorm')
-                            print('Setting temperature (or inverse temperature) normalizer "tempNorm" to ' + str(self._tempNorm))
-                        else:
-                            if self._systemType == 'FMO':
-                        	    self._tempNorm = 510.0
-                        	    print('Running with the default value of temperature (or inverse temperature) normalizer; tempNorm = 510 ')
-                            if self._systemType == 'SB':
-                        	    self._tempNorm = 1.0
-                        	    print('Running with the default value of temperature (or inverse temperature) normalizer; tempNorm = 1.0 ')
+                        [self._energyDiff, self._Delta, self._gamma, self._lamb, self._temp,
+                        self._energyNorm, self._DeltaNorm, self._gammaNorm, self._lambNorm, 
+                        self._tempNorm] = useQD.loadparam(self._systemType, **param)
                     if self._QDmodel == 'useQDmodel':
                         if self._systemType == 'FMO':
                             if self._n_states == 7:
@@ -310,127 +151,29 @@ class quant_dyn:
                             X[0,4] = self._temp/self._tempNorm
                         self._Xin = X
 ########    #########################################################################
-            if self._QDmodel == 'createQDmodel':
-                if param.get('XfileIn') is not None:
-                    self._Xin = param.get('XfileIn')
-                    if type(self._Xin) != str:
-                        raise ValueError('The input XfileIn "' + str(self._Xin) + '" should be string')
-                    print('Xfilein is', self._Xin)
-                else:
-                    self._Xin = "x_data_" + str(random.random()) 
-                    print('Setting XfileIn to dafault name', self._Xin)
-                if param.get('YfileIn') is not None:
-                    self._Yin = param.get('YfileIn')
-                    if type(self._Yin) != str: 
-                       raise ValueError('The target YfileIn "' + str(self._Yin) + '" should be string')
-                    print('YfileIn is', self._Yin)
-                else:
-                    self._Yin = "y_data_" + str(random.random())
-                    print('Setting Yfilein to dafault name', self._Yin)
-                if param.get('hyperParam') is not None:
-                    self._hyperParam = param.get('hyperParam')
-                    if type(self._hyperParam) != str: 
-                        raise ValueError('You can only pass string to "hyperParam"')
-                    if self._hyperParam == 'True':
-                        print('You have chosen to optimize the hyper parameters of the model')
-                    else:
-                        print('You have chosen not to optimize the hyper parameters of the model, otherwise you should pass "True" to hyperParam')
-                else:
-                    self._hyperParam = 'False'  # donot optimize
-                    print('You have chosen not to optimize the hyper parameters of the model, so it will run with the dafault hyper parameters')
-                if self._QDmodelType == 'OSTL' or self._QDmodelType == 'AIQD':
-                    if param.get('patience') is not None:
-                        self._patience = param.get('patience')
-                        if type(self._patience) != int: 
-                            raise ValueError('"patience" value can be only integer')
-                        print('Setting patience for early stopping to', self._patience)
-                    else:
-                        self._patience = 20  # for early stopping
-                        print('Running with the dafualt value of "patience" =', self._patience)
-
-                    if param.get('epochs') is not None:
-                        self._epochs = param.get('epochs')
-                        if type(self._epochs) != int: 
-                            raise ValueError('"epochs" value can be only integer')
-                        print('Setting number of epochs to', self._epochs)
-                    else:
-                        self._epochs = 100  # for CNN training or optimization 
-                        print('Running with the dafualt value of "epochs" =', self._epochs)
-                    if self._hyperParam == 'True':
-                        if param.get('max_evals') is not None:
-                            self._max_evals = param.get('max_evals')
-                            if type(self._max_evals) != int: 
-                                raise ValueError('"max_evals" value can be only integer')
-                            print('Setting maximum number of evaluations to', self._max_evals)
-                        else:
-                            self._max_evals = 100  # for hyperopt optimization 
-                            print('Running with the dafualt value of maximum evaluations "max_evals" =', self._max_evals)
-                    else:
-                        self._max_evals = None 
-                if self._prepInput == 'True':
-                    if param.get('dataPath') is not None:
-                         self._dataPath = param.get('dataPath')
-                         if type(self._dataPath) != str: 
-                             raise ValueError('The provided datapath "' + str(self._dataPath) + '" should be string')
-                         if os.path.isdir(self._dataPath):
-                             pass
-                         else:
-                             raise ValueError('Datapath "' + self._dataPath +'" does not exist')
-                    else:
-                        if self._systemType == 'SB':
-                            self._dataPath = str(self._mlqdDr) + '/Jupyter_Notebooks/sb_data'
-                        if self._systemType == 'FMO':
-                            self._dataPath = str(self._mlqdDr) + '/Jupyter_Notebooks/fmo_data'
-                else:
-                    self._dataPath = None
-                if self._QDmodelType == 'KRR':
-                    if param.get('xlength') is not None:
-                        self._xlength = param.get('xlength')
-                        if type(self._xlength) != int: 
-                            raise ValueError('length of x-input should be integer')
-                        print('Setting length of each row in input file "xlength" to', self._xlength)
-                    else:
-                        self._xlength = 81
-                        print('Setting length of x-input "xlength" to default value', self._xlength)
-
-                    if self._hyperParam != 'True':
-                        if param.get('krrSigma') is not None:
-                            self._krrSigma = param.get('krrSigma')
-                            print('Setting hyperparameter Sigma for Guassian kernel "krrSigma" to ', self._krrSigma)
-                        else:
-                            self._krrSigma = 4.0 
-                            print('Setting hyperparameter Sigma for Gaussian kernel "krrSigma" to default value', self._krrSigma)
-                        if param.get('krrLamb') is not None:
-                            self._krrLamb = param.get('krrLamb')
-                            print('Setting hyperparameter Lambda for KRR "krrLamb" to ', self._krrLamb)
-                        else:
-                            self._krrLamb = 0.00000000047875 
-                            print('Setting hyperparameter Lambda for KRR "krrLamb" to default value', self._krrLamb)
-                    else:
-                        self._krrSigma = None
-                        self._krrLamb = None
             if self._QDmodelType == 'KRR':
-                if param.get('dataCol') is not None:
-                    self._dataCol = param.get('dataCol')
-                    if type(self._dataCol) != int: 
-                        raise ValueError('dataCol should be integer')
-                        print('is grabbing column #', self._dataCol, 'as was passed through "dataCol"')
-                else:
-                    self._dataCol = 1
-                    print('Setting data column "dataCol" to default value ', self._dataCol)
-                if param.get('dtype') is not None:
-                    self._dtype = param.get('dtype')
-                    if type(self._dtype) != str: 
-                        raise ValueError('data type "dtype" should be string')
-                    print('data type "dtype" is ', self._dtype)
-                    if self._dtype not in datatype:
-                        raise ValueError('data type "dtype" should be "real" or "imag"')
-                else:
-                    self._dtype = 'real'
-                    print('Setting data type "dtype" to default type ', self._dtype)
-            else: 
-                self._dataCol = None
-                self._dtype = None
+                if self._QDmodel == 'createQDmodel':
+                    if param.get('dataCol') is not None:
+                        self._dataCol = param.get('dataCol')
+                        if type(self._dataCol) != int: 
+                            raise ValueError('dataCol should be integer')
+                        print('MLQD is grabbing column #', self._dataCol, 'as was passed through "dataCol"')
+                    else:
+                        self._dataCol = 1
+                        print('Setting data column "dataCol" to default value ', self._dataCol)
+                    if param.get('dtype') is not None:
+                        self._dtype = param.get('dtype')
+                        if type(self._dtype) != str: 
+                            raise ValueError('data type "dtype" should be string')
+                        print('data type "dtype" is ', self._dtype)
+                        if self._dtype not in datatype:
+                            raise ValueError('data type "dtype" should be "real" or "imag"')
+                    else:
+                        self._dtype = 'real'
+                        print('Setting data type "dtype" to default type ', self._dtype)
+                else: 
+                    self._dataCol = None
+                    self._dtype = None
             print('=================================================================')
             
             if self._QDmodelType == 'KRR':
@@ -489,7 +232,8 @@ class quant_dyn:
                                 self._dataPath,
                                 self._QDmodelOut,
                                 self._hyperParam,
-                                self._epochs, 
+                                self._OptEpochs, 
+                                self._TrEpochs,
                                 self._max_evals,
                                 self._patience,
                                 self._prepInput)
@@ -522,39 +266,6 @@ class quant_dyn:
                         self._traj_output_file 
                         )
                 if self._QDmodel == 'createQDmodel':
-                    if param.get('numLogf') is not None:
-                        self._numLogf = int(param.get('numLogf'))
-                        if type(self._numLogf) !=int:
-                            raise ValueError('numLogf should be integer')
-                        print('Setting number of Logistic functions to ' + str(self._numLogf))
-                    else:
-            	        self._numLogf = 1
-            	        print('Setting number of Logistic functions to its default value " numLogf = 1 "')
-                    if param.get('LogCa') is not None:
-                        self._LogCa = float(param.get('LogCa'))
-                        print('Setting "a" in Logistic function f(t) = a/(1 + b * np.exp(-(t-c)/d))) to ' + str(self._LogCa))
-                    else:
-            	        self._LogCa = 1
-            	        print('Setting "a" in Logistic function f(t) = a/(1 + b * np.exp(-(t-c)/d))) to its default value "1"')
-                    if param.get('LogCb') is not None:
-                        self._LogCb = float(param.get('LogCb'))
-                        print('Setting "b" in Logistic function f(t) = a/(1 + b * np.exp(-(t-c)/d))) to ' + str(self._LogCb))
-                    else:
-            	        self._LogCb = 15
-            	        print('Setting "b" in Logistic function f(t) = a/(1 + b * np.exp(-(t-c)/d))) to its default value "15"')
-                    if param.get('LogCc') is not None:
-                        self._LogCc = float(param.get('LogCc'))
-                        print('Setting "c" in Logistic function f(t) = a/(1 + b * np.exp(-(t-c)/d))) to ' + str(self._LogCc))
-                    else:
-                        self._LogCc = -1.0
-                        print('Setting "b" in Logistic function f(t) = a/(1 + b * np.exp(-(t-c)/d))) to its default value "-1"')
-                    if param.get('LogCd') is not None:
-                        self._LogCd = float(param.get('LogCd'))
-                        print('Setting "c" in Logistic function f(t) = a/(1 + b * np.exp(-(t-c)/d))) to ' + str(self._LogCd))
-                    else:
-                        self._LogCd = 1.0
-                        print('Setting "d" in Logistic function f(t) = a/(1 + b * np.exp(-(t-c)/d))) to its default value "1"')
-
                     self._name = self._QDmodelOut + ".pkl"
                     norm_param = {'energyNorm': self._energyNorm, 'DeltaNorm': self._DeltaNorm, 
                             'gammaNorm': self._gammaNorm, 'lambNorm': self._lambNorm, 
@@ -586,7 +297,8 @@ class quant_dyn:
                         self._tempNorm,
                     	self._QDmodelOut,
                         self._hyperParam,
-                        self._epochs,
+                        self._OptEpochs,
+                        self._TrEpochs,
                         self._max_evals,
                         self._patience,
                         self._prepInput,

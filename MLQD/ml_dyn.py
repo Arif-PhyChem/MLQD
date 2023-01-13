@@ -18,7 +18,6 @@ def KRR(Xin: np.ndarray,
         traj_output_file: str):
     
     QDmodelIn = re.split(r'.unf', QDmodelIn)[0]
-    print(QDmodelIn)
     tm = Xin.shape[1]
     tmm = (tm-1)*time_step
     t = np.arange(0,time+tmm+ time_step, time_step)
@@ -28,7 +27,7 @@ def KRR(Xin: np.ndarray,
     a = 1;
     #
     print('ml_dyn.KRR: Running dynamics with KRR model using MLatom in the backend ......')
-    print('ml_dyn.KRR: The output of MLatom will be saved as "kkr_dyn_output"')
+    print('ml_dyn.KRR: The output of MLatom will be saved as "krr_dyn_output"')
     #
     QDmodelIn = str(os.getcwd()) + '/' + QDmodelIn + '.unf'
     ti = proc_time.time()
@@ -37,7 +36,7 @@ def KRR(Xin: np.ndarray,
         arg = ['rm', '-f', 'y_est.dat']
         subprocess.run(arg, check=True)
         args = ['mlatom', 'useMlmodel', 'MlmodelIn='+ str(QDmodelIn) + ' XfileIn=input.dat', 'YestFile=y_est.dat', 'debug']
-        with open('kkr_dyn_output', "w") as output:
+        with open('krr_dyn_output', "w") as output:
             subprocess.run(args, check=True, stdout=output)
         y_est = np.loadtxt('y_est.dat')
         y = np.resize(y, (y.shape[0]+1, y.shape[1]))

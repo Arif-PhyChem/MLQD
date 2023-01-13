@@ -54,7 +54,7 @@ def OSTL(Xin: str,
     j = 0
     print('=================================================================')
     print('prep_input.OSTL: Grabbing data from "', dataPath, '" directory')
-    print('prep_input.OSTL: It is assumed that the data is in the format as adopted in our QD3SET-1 dataset \
+    print('prep_input.OSTL: It is assumed that the data is in the same naming format and the same datatype as were adopted in our QD3SET-1 dataset \
 , otherwise training files will not be successfully generated')
     for files in glob.glob(dataPath+'/*np[yz]'):
         file_name = os.path.basename(files)
@@ -205,7 +205,7 @@ def AIQD(Xin: str,
     j = 0
     print('=================================================================')
     print('prep_input.AIQD: Grabbing data from "', dataPath, '" directory')
-    print('prep_input.AIQD: It is assumed that the data is in the format as adopted in our QD3SET-1 dataset \
+    print('prep_input.AIQD: It is assumed that the data is in the same naming format and the same datatype as were adopted in our QD3SET-1 dataset \
 , otherwise training files will not be successfully generated')
     for files in glob.glob(dataPath+'/*np[yz]'):
         file_name = os.path.basename(files)
