@@ -231,10 +231,11 @@ param={
         'systemType': 'SB',             # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'hyperParam': 'True',           # str: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default structure)
         'patience': 10,                 # int: Patience for early stopping in CNN training 
-        'epochs': 100,                  # int: Number of epochs for training or optimization
+        'OptEpochs': 10,                # int: Number of epochs for CNN optimization 
+        'TrEpochs': 10,                 # int: Number of epochs for CNN training  
         'max_evals': 100,               # int: Number of maximum evaluations in hyperopt optimization
-        'dataPath': 'sb_data',         # str: Data path
-        'QDmodelOut': 'AIQD_SB_model'  # str: (Optional), providing a name to save the model at
+        'dataPath': 'sb_data',          # str: Data path
+        'QDmodelOut': 'AIQD_SB_model'   # str: (Optional), providing a name to save the model at
     }
 quant_dyn(**param)
 ```
@@ -254,13 +255,14 @@ param={
         'gammaNorm': 10,                # float: Normalizer for Characteristic frequency. Default values are 500 (FMO complex) and 10 (spin-boson model)
         'lambNorm': 1.0,                # float: Normalizer for System-bath coupling strength. Default values are 520 (FMO complex) and 1 (spin-boson model)
         'tempNorm': 1.0,                # float: Normalizer for temperature. Default values are 510 (FMO complex) and 1 (spin-boson model)
-        'systemType': 'SB',            # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
+        'systemType': 'SB',             # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'hyperParam': 'True',           # str: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default structure)
         'patience': 10,                 # int: Patience for early stopping in CNN training
-        'epochs': 100,                  # int: Number of epochs for training or optimization
+        'OptEpochs': 10,                # int: Number of epochs for CNN optimization 
+        'TrEpochs': 10,                 # int: Number of epochs for CNN training  
         'max_evals': 100,               # int: Number of maximum evaluations in hyperopt optimization
-        'dataPath': 'sb_data',         # str: Data path
-        'QDmodelOut': 'OSTL_SB_model'  # str: (Optional), providing a name to save the model at
+        'dataPath': 'sb_data',          # str: Data path
+        'QDmodelOut': 'OSTL_SB_model'   # str: (Optional), providing a name to save the model at
     }
 quant_dyn(**param)
 ```
@@ -308,9 +310,10 @@ param={
         'systemType': 'SB',             # str: (Not optional) Need to define, wether your model is spin-boson (SB) or FMO complex (FMO) 
         'hyperParam': 'True',           # str: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default structure)
         'patience': 10,                 # int: Patience for early stopping in CNN training
-        'epochs': 100,                  # int: Number of epochs for training or optimization
+        'OptEpochs': 10,                # int: Number of epochs for CNN optimization 
+        'TrEpochs': 10,                 # int: Number of epochs for CNN training  
         'max_evals': 100,               # int: Number of maximum evaluations in hyperopt optimization
-        'QDmodelOut': 'AIQD_SB_model'  # str: (Optional), providing a name to save the model at
+        'QDmodelOut': 'AIQD_SB_model'   # str: (Optional), providing a name to save the model at
     }
 quant_dyn(**param)
 ```
@@ -332,9 +335,10 @@ param={
         'tempNorm': 1.0,                # float: Normalizer for temperature. Default values are 510 (FMO complex) and 1 (spin-boson model)
         'hyperParam': 'True',           # str: Default is False, we can pass True (optimize the hyperparameters) or False (don't optimize and run with the default structure)
         'patience': 10,                 # int: Patience for early stopping in CNN training
-        'epochs': 100,                  # int: Number of epochs for training or optimization
+        'OptEpochs': 10,                # int: Number of epochs for CNN optimization 
+        'TrEpochs': 10,                 # int: Number of epochs for CNN training  
         'max_evals': 100,               # int: Number of maximum evaluations in hyperopt optimization
-        'QDmodelOut': 'OSTL_SB_model'  # str: (Optional), providing a name to save the model at
+        'QDmodelOut': 'OSTL_SB_model'   # str: (Optional), providing a name to save the model at
     }
 quant_dyn(**param)
 ```
