@@ -30,7 +30,9 @@ Activate the environment
 
 Install the following required dependencies
 
-* tensorflow  ```conda install -c conda-forge tensorflow``` 
+* tensorflow  ```conda install -c conda-forge tensorflow```
+
+* scikit-learn ```conda install -c anaconda scikit-learn```
 
 * hyperopt ```conda install -c conda-forge hyperopt```
 
