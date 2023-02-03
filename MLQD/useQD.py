@@ -1,4 +1,5 @@
 import re
+import pickle
 
 def loadparam(*args, **param):
     systemType = args[0]
@@ -85,5 +86,5 @@ def loadparam(*args, **param):
         lambNorm = None
         gammaNorm = None
         tempNorm = None
-
-        return energyDiff, Delta, gamma, lamb, temp, energyNorm, DeltaNorm, gammaNorm, lambNorm, tempNorm 
+        
+    return energyDiff, Delta, gamma, lamb, temp, energyNorm, DeltaNorm, gammaNorm, lambNorm, tempNorm 

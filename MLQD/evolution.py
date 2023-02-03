@@ -171,9 +171,9 @@ class quant_dyn:
                     else:
                         self._dtype = 'real'
                         print('Setting data type "dtype" to default type ', self._dtype)
-                else: 
-                    self._dataCol = None
-                    self._dtype = None
+            else:
+                self._dataCol = None
+                self._dtype = None
             print('=================================================================')
             
             if self._QDmodelType == 'KRR':
@@ -309,26 +309,48 @@ class quant_dyn:
 ########    ########################################################
             print('=================================================================')
             if self._QDmodel == 'useQDmodel':
-               if param.get('pltNstates') is not None:
-                   self._pltNstates = param.get('pltNstates')
-               else:
-                   self._pltNstates = self._n_states # Number of states to be plotted 
-               if param.get('xlim') is not None:
-                   self._xlim = param.get('xlim')
-               else:
-                   self._xlim = None # plot the full length dynamics
-               if param.get('refTraj') is not None:
-                   self._refTraj = param.get('refTraj')
-                   print('Using the following reference trajectory for plotting:', self._refTraj)
-                   plot.plot(self._n_states,
-                           self._QDmodelType,
-                           self._traj_output_file, 
-                           self._refTraj, 
-                           self._dataCol, 
-                           self._dtype,
-                           self._pltNstates,
-                           self._xlim)
-               else: 
+                if param.get('refTraj') is not None:
+                    self._refTraj = param.get('refTraj')
+                    print('Using the following reference trajectory for plotting:', self._refTraj)
+                    if param.get('pltNstates') is not None:
+                        self._pltNstates = param.get('pltNstates')
+                    else:
+                        self._pltNstates = self._n_states # Number of states to be plotted 
+                    if param.get('xlim') is not None:
+                        self._xlim = param.get('xlim')
+                    else:
+                        self._xlim = None # plot the full length dynamics
+                    if self._QDmodelType == 'KRR':
+                        if param.get('dataCol') is not None:
+                            self._dataCol = param.get('dataCol')
+                            if type(self._dataCol) != int: 
+                                raise ValueError('dataCol should be integer')
+                            print('For Plotting: MLQD is grabbing column #', self._dataCol, 'as was passed through "dataCol"')
+                        else:
+                            self._dataCol = 1
+                            print('For Plotting: Setting data column "dataCol" to default value ', self._dataCol)
+                        if param.get('dtype') is not None:
+                            self._dtype = param.get('dtype')
+                            if type(self._dtype) != str: 
+                                raise ValueError('data type "dtype" should be string')
+                            print('For Plotting: data type "dtype" is ', self._dtype)
+                            if self._dtype not in datatype:
+                                raise ValueError('data type "dtype" should be "real" or "imag"')
+                        else:
+                            self._dtype = 'real'
+                            print('For Plotting: Setting data type "dtype" to default type ', self._dtype)
+                    else:
+                        self._dataCol = None
+                        self._dtype = None
+                    plot.plot(self._n_states,
+                            self._QDmodelType,
+                            self._traj_output_file, 
+                            self._refTraj, 
+                            self._dataCol, 
+                            self._dtype,
+                            self._pltNstates,
+                            self._xlim)
+                else: 
                    print('No reference trajectory was provided, so dynamics is not plotted.',
                            'You can provide reference trajectory with "refTraj"')
             print('=================================================================')
