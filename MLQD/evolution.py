@@ -157,10 +157,10 @@ class quant_dyn:
                                 self._QDmodelIn = param.get('QDmodelIn')
                             else:
                                 raise ValueError(str(self._QDmodelIn) + '.pkl does not exist')
-                            name = re.split(r'.hdf5', self._QDmodelIn)[0] + ".pkl"
-                            print('Reading normalization constants from', name)
+                            self._name = re.split(r'.hdf5', self._QDmodelIn)[0] + ".pkl"
+                            print('Reading normalization constants from', self._name)
                             print('=================================================================')
-                            f = open(name, 'rb')   # Load normalization parameters
+                            f = open(self._name, 'rb')   # Load normalization parameters
                             norm_param = pickle.load(f)
                             f.close()
                             self._energyNorm = norm_param['energyNorm']
