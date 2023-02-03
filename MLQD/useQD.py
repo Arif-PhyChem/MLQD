@@ -1,3 +1,5 @@
+import re
+
 def loadparam(*args, **param):
     systemType = args[0]
     if param.get('XfileIn') is None:
