@@ -1,5 +1,3 @@
-import re 
-
 def loadparam(*args, **param):
     systemType = args[0]
     if param.get('XfileIn') is None:
@@ -54,8 +52,12 @@ def loadparam(*args, **param):
                 temp = 1.0
                 print('Running with the default temperature (or inverse temperature) value temp = 1.0')
         print('=================================================================')
-        name = re.split(r'.hdf5', QDmodelIn)[0] + ".pkl"
         print('Reading normalization constants from', name)
+        if param.get('QDmodelIn') is not None:
+            QDmodelIn = param.get('QDmodelIn')
+        else:
+            raise ValueError(str(QDmodelIn) + '.pkl does not exist')
+        name = re.split(r'.hdf5', QDmodelIn)[0] + ".pkl"
         print('=================================================================')
         f = open(name, 'rb')   # Load normalization parameters
         norm_param = pickle.load(f)
