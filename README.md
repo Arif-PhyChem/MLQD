@@ -15,7 +15,7 @@ In MLQD, we provide three Machine Learning (ML) methods for propagating Qauntum 
 * Optimization of the hyperparameters in CNN and KRR models [[Click here](#preparation)]
 * Auto-plotting
 
-You can also Run MLQD on the XACS cloud computing platform (https://xacs.xmu.edu.cn/) and the user manual is here (http://mlatom.com/manual/#mlqd)
+**You can also Run MLQD on the XACS cloud computing platform (https://xacs.xmu.edu.cn/) and the user manual is here (http://mlatom.com/manual/#mlqd)**
 
 ### Installation and dependencies
 
