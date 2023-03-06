@@ -50,7 +50,7 @@ MLQD provides User-Manual and to get to that, we need to import ```quant_dyn``` 
 
 ``` from evolution import quant_dyn ```
 
-and then call quant_dyn with out passing any parameters, i.e.,  ``` quant_dyn()``` 
+and then call ```quant_dyn``` with out passing any parameters, i.e.,  ``` quant_dyn()``` 
 
 ## Dynamics Propagation <a name="propagation"></a> [[Go to Top](#Top)]
 (***Go to Jupyter_Notebooks folder for ready made scripts***)
