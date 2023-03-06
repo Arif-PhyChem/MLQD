@@ -7,6 +7,8 @@ In MLQD, we provide three Machine Learning (ML) methods for propagating Qauntum 
 * **AIQD non-recursive  (non-iterative) approach:** Here is the corresponding article $\boldsymbol{\rightarrow}$ [Predicting the future of excitation energy transfer in light-harvesting complex with artificial intelligence-based quantum dynamics](https://doi.org/10.1038/s41467-022-29621-w "Named link title") 
 * **The blazingly fast OSTL non-recursive (non-iterative) approach:** Here is the corresponding article $\boldsymbol{\rightarrow}$ [One-Shot Trajectory Learning of Open Quantum Systems Dynamics]( https://doi.org/10.1021/acs.jpclett.2c01242 "Named link title")
 
+*We have also released a database with quantum dissipative dynamics datasets https://doi.org/10.48550/arXiv.2301.12096, you can use it to train your own model*
+
 **MLQD provides**
 
 * Propagation of dynamics with the existing trained models [[Click here](#propagation)]
