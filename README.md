@@ -21,8 +21,7 @@ In MLQD, we provide three Machine Learning (ML) methods for propagating Qauntum 
 
 ### Installation and dependencies
 
-Download the GitHub repository and go to Jupyter Notebooks folder to run the notebooks. 
-Do not change the name of the MLQD folder as the system will look for the MLQD folder. 
+You can install MLQD as a pip package ```pip install mlqd```, however we provide the source code here (``in the MLQD-folder``). For hands-on practice, you can run the Jupyter Notebooks (``in the Jupyter Notebooks folder``). 
 
 *Some dependencies:* 
 
@@ -48,9 +47,9 @@ Install the following required dependencies
 
 ## User-Manual
 
-MLQD provides User-Manual and to get to that, we need to import ```quant_dyn``` class from ```evolution.py``` [in MLQD folder]
+MLQD provides User-Manual and to get to that, we need to import ```quant_dyn``` class from ```evolution.py```
 
-``` from evolution import quant_dyn ```
+``` from mlqd.evolution import quant_dyn ```
 
 and then call ```quant_dyn``` with out passing any parameters, i.e.,  ``` quant_dyn()``` 
 
@@ -58,7 +57,7 @@ and then call ```quant_dyn``` with out passing any parameters, i.e.,  ``` quant_
 (***Go to Jupyter_Notebooks folder for ready made scripts***)
 We provide already trained QD models which can be found here [coming soon], you can download them and test the code. If you want to train your own model, then go to [Training on your own data](#training) section. First of all, we need to import ```quant_dyn``` class from ```evolution.py``` .
 
-``` from evolution import quant_dyn ```
+``` from mlqd.evolution import quant_dyn ```
 
 * **KRR model:**
 
