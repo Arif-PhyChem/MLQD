@@ -21,7 +21,7 @@ In MLQD, we provide three Machine Learning (ML) methods for propagating Qauntum 
 
 ### Installation and dependencies
 
-You can install MLQD as a pip package ```pip install mlqd```, however developers, we provide the source code here (in the ``MLQD`` folder). For hands-on practice, you can run the Jupyter Notebooks (in the ``Jupyter Notebooks`` folder). 
+You can install MLQD as a pip package ```pip install mlqd```, however for developers, we provide the source code here (in the ``MLQD`` folder). For hands-on practice, you can run the Jupyter Notebooks (in the ``Jupyter Notebooks`` folder). 
 
 *Some dependencies:* 
 
