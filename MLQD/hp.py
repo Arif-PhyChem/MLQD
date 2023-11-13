@@ -7,8 +7,9 @@ __QDmodelIn__='QDmodelIn (str): Pass the name of the trained QD model and MLQD w
 __QDtrajOut__='QDtrajOut (str): MLQD will save the predicted trajectory with this name. If you do not pass a name, MLQD will pick a random name'
 __QDmodelType__='QDmodelType (str): Type of QD model. You can pass "KRR" for kernel ridge regression method, "OSTL" for OSTL approach and "AIQD" for AI-QD approach. The default option is OSTL'
 __prepInput__='prepInput (str): Choose wether you wanna prepare the input X and Y files from the data. You can pass "True" or "False". Default option is "False". For OSTL and AIQD, your data files should be in the same naming and file format as in out QD3SET-1 dataset' 
-__time__='time: (float): Propagation time in picoseconds (ps) for FMO complex and in atomic units (a.u.) for spin-boson model'
-__time_step__='time_step (float): Time-step for time-propagation. Default values are 0.05 a.u. (for spin-boson model) and 5 fs for FMO complex'
+__time__='time: (float): Propagation time in the corresponding time units'
+__init_time__='init_time: (float): Starting time of the input trajectory'
+__time_step__='time_step (float): Time-step for time-propagation. Default values are 0.05 (time unit) for spin-boson model and 0.005 (time unit) for FMO complex'
 __hyperParam__='hyperParam (str): Default option is "False". You can pass "True" (to optimize the hyperparameters) or "False" to not optimize the hyperparameters and run with the default structure'
 __patience__='patience (int): Patience for early stopping in CNN training'
 __OptEpochs__='OptEpochs (int): The number of epochs for optimzation. Default value is 100'
@@ -16,6 +17,8 @@ __TrEpochs__='TrEpochs (int): The number of epochs for training. Default value i
 __max_evals='max_evals (int): The number of maximum evaluations in hyperopt optimization. Default value is 100'
 __XfileIn__='XfileIn (str): The prepared X file will be saved at the provided file name, if not provided, MLQD will use the default name. In the case of KRR-based prediction of dynamics, this option provides the input short-time dynamics'  
 __YfileIn__='YfileIn (str): The prepared Y file will be saved at the provided file name. If not provided, MLQD will use the dafault name' 
+__XvalIn__='XvalIn (str and optional): User defined validation file X.'
+__YvalIn__='YvalIn (str and optional): User defined validation file Y.'
 __datapath__='dataPath (str): MLQD will access data with this path and prepare the X and Y files'
 __numLogf__='numLogf (int): The number of Logistic functions for the normalization of time dimension. Default value is 1.0'    
 __LogCa__='LogCa (float): Coefficient "a" in the logistic function, default value is 1.0'
@@ -77,6 +80,8 @@ def help():
     i+=1; print(str(i) + ']===>', __gammaNorm__)
     i+=1; print(str(i) + ']===>', __lambNorm__)
     i+=1; print(str(i) + ']===>', __tempNorm__)
+    i+=1; print(str(i) + ']===>', __XvalIn__)
+    i+=1; print(str(i) + ']===>', __XvalIn__)
     print('\n------------------------------------------------------------------')
     print('                     Specific to AIQD approach                    ')
     print('------------------------------------------------------------------')
@@ -88,6 +93,7 @@ def help():
     print('\n------------------------------------------------------------------')
     print('                    Specific to KRR approach        ')
     print('------------------------------------------------------------------')
+    i+=1; print(str(i) + ']===>',__init_time__)
     i+=1; print(str(i) + ']===>',__xlength__)
     i+=1; print(str(i) + ']===>',__krrSigma__)
     i+=1; print(str(i) + ']===>',__krrLamb__)

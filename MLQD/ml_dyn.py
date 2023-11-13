@@ -13,25 +13,38 @@ from tensorflow.keras.layers import MaxPooling1D
 ############################################################
 def KRR(Xin: np.ndarray,
         time: float,
+        init_time: float,
         time_step: float,
         QDmodelIn: str,
         traj_output_file: str):
     
     QDmodelIn = re.split(r'.unf', QDmodelIn)[0]
     tm = Xin.shape[1]
-    tmm = (tm-1)*time_step
-    t = np.arange(0,time+tmm+ time_step, time_step)
-    nsteps = len(t)
+    if init_time != 0:
+        t = init_time + time_step
+    else:
+        t = init_time
+    tt = t
+    for i in range(0, tm + int(time/0.005)-1):
+        tt += time_step
+        t = np.append(t, tt)
     y = Xin;
     y = np.resize(y, (y.shape[1], y.shape[0]))
     a = 1;
     #
     print('ml_dyn.KRR: Running dynamics with KRR model using MLatom in the backend ......')
     print('ml_dyn.KRR: The output of MLatom will be saved as "krr_dyn_output"')
+    
+    path_to_model = str(os.getcwd()) + '/' + QDmodelIn + '.unf'
     #
-    QDmodelIn = str(os.getcwd()) + '/' + QDmodelIn + '.unf'
+    # check whether the model exists in the current directory
+    #
+    if os.path.isfile(path_to_model):
+        QDmodelIn = str(os.getcwd()) + '/' + QDmodelIn + '.unf'
+    else:
+        QDmodelIn = QDmodelIn + '.unf' 
     ti = proc_time.time()
-    for i in range(tm, len(t)):
+    for i in range(0, int(time/time_step)):
         np.savetxt('input.dat', Xin)
         arg = ['rm', '-f', 'y_est.dat']
         subprocess.run(arg, check=True)
@@ -58,18 +71,26 @@ def OSTL(Xin: np.ndarray,
         systemType: str,
         traj_output_file: str):
    
-    QDmodelIn = str(os.getcwd()) + '/' + QDmodelIn 
+    path_to_model = str(os.getcwd()) + '/' + QDmodelIn
+    #
+    # check whether the model exists in the current directory
+    #
+    if os.path.isfile(path_to_model):
+        QDmodelIn = str(os.getcwd()) + '/' + QDmodelIn
+    else:
+        QDmodelIn = QDmodelIn
+
     model = keras.models.load_model(QDmodelIn)
     #Show the model architecture
     model.summary()
     #
     print('ml_dyn.OSTL: Running dynamics with OSTL approach ......')
     #
-    if systemType == 'FMO':
-        time_range = np.arange(0,time*1000,time_step) # fs
-    elif systemType == 'SB':
-        time_range = np.arange(0,time,time_step) 
-    time_range = np.append(time_range, time_range[time_range.shape[0]-1] + time_step, axis=None)
+    time_range = 0
+    tt = time_range
+    for i in range(0, int(time/0.005)-1):
+        tt += time_step
+        time_range = np.append(time_range, tt)
     nsteps = len(time_range)
     y = np.zeros((nsteps, n_states**2), dtype=float)
     y1 = np.zeros((nsteps, n_states**2), dtype=complex)
@@ -106,6 +127,9 @@ def OSTL(Xin: np.ndarray,
             a -= 1
             b -= 1
             c += n_states + 1
+    if nsteps < y1.shape[0]:
+        t1 = time_range([0])
+            
     np.save(traj_output_file, np.c_['-1',time_range, y1])
     print('ml_dyn.OSTL: Dynamics is saved in a file  "' + traj_output_file + '"')
     print('ml_dyn.OSTL: Time taken =', proc_time.time() - ti, "sec")
@@ -127,22 +151,26 @@ def AIQD(Xin: np.ndarray,
         
         return LogCa/(1 + LogCb * np.exp(-(x-c)/LogCd)) 
     
-    QDmodelIn = str(os.getcwd()) + '/' + QDmodelIn
+    path_to_model = str(os.getcwd()) + '/' + QDmodelIn
+    #
+    # check whether the model exists in the current directory
+    #
+    if os.path.isfile(path_to_model):
+        QDmodelIn = str(os.getcwd()) + '/' + QDmodelIn
+    else:
+        QDmodelIn = QDmodelIn
+    
     model = keras.models.load_model(QDmodelIn)
     #Show the model architecture
     model.summary()
     #
     print('ml_dyn.AIQD: Running dynamics with AI-QD approach ......')
     #
-    if systemType == 'FMO':
-        time_range = np.arange(0,time*1000,time_step) # fs
-    elif systemType == 'SB':
-        time_range = np.arange(0,time,time_step) 
-    time_range = np.append(time_range, time_range[time_range.shape[0]-1] + time_step, axis=None)
-    if systemType == 'FMO':
-        time_step = time_step/1000 # convert to ps
-    t = np.arange(0,time,time_step)  
-    t = np.append(t, t[t.shape[0]-1] + time_step, axis=None) # don't use time + time_step, has a bug, sometimes gives one extra value
+    time_range = 0
+    tt = time_range
+    for i in range(0, int(time/0.005)-1):
+        tt += time_step
+        time_range = np.append(time_range, tt)
     nsteps = len(t)
     y = np.zeros((nsteps, n_states**2), dtype=float)
     y1 = np.zeros((nsteps, n_states**2), dtype=complex)

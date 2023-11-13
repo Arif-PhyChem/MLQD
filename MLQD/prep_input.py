@@ -279,7 +279,7 @@ def AIQD(Xin: str,
     xx = all_files[file_name]
     length = xx[:,0].shape[0]
     if systemType == 'FMO':
-        time_step = time_step/1000 # convert to 5 fs
+        time_step = time_step # ps
         x = np.zeros((file_count*length, 4+numLogf), dtype=float)
     if systemType == 'SB':
         x = np.zeros((file_count*length, 5+numLogf), dtype=float)

@@ -7,9 +7,9 @@ import numpy as np
 import datetime
 from pathlib import Path
 import ml_dyn as mld
-import lic
-import plot
-import hp
+import lic as lic
+import plot as plot
+import hp  as hp
 import train_ml as train_ml
 import createQD as createQD
 import useQD as useQD
@@ -53,10 +53,10 @@ class quant_dyn:
                else:
                    if self._systemType == 'FMO':
                        self._time = 50 # ps 
-                       print('Running with the dafault propagation time; time: 50 ps')
+                       print('Running with the dafault propagation time; time: 50 ')
                    elif self._systemType == 'SB':
                        self._time = 20  # a. u.
-                       print('Running with the the dafault propagation time:', self._time, '(a.u.)')                
+                       print('Running with the the dafault propagation time:', self._time)                
                    else:
                        raise Exception('Provide propagation time using parameter "time"')
 
@@ -65,14 +65,23 @@ class quant_dyn:
                    print('Setting time_step to ' + str(self._time_step))
                else:
                    if self._systemType == 'FMO':
-                       self._time_step = 5.0 # fs
-                       print('Running with the dafault time-step: time_step: 5.0 fs ')
+                       self._time_step = 0.005 # ps
+                       print('Running with the dafault time-step: time_step: 0.005')
                    elif self._systemType == 'SB':
-                       self._time_step = 0.05  # (a.u.)
+                       self._time_step = 0.05  # 
                        print('Running with the dafault time-step:', self._time_step)
+               
+               if self._QDmodelType == 'KRR': 
+                    if param.get('init_time') is not None:
+                        self.init_time = param.get('init_time')
+                        print('Setting starting time of input trajectory "init_time" to ' + str(self.init_time))
+                    else:
+                        self.init_time = 0.0 # ps 
+                        print('Setting starting time of input trajectory "init_time" to its default value 0')
             else:
                 self._time = None
                 self._time_step = None
+                self._init_time = None
 ###############################################################################################
             if self._QDmodel == 'useQDmodel':
                 if param.get('QDmodelIn') is not None:
@@ -102,6 +111,17 @@ class quant_dyn:
                 	        print('Running with the default value of initial state; initState = 1')
 #################################################################################################
                 if self._QDmodelType == 'OSTL' or self._QDmodelType == 'AIQD':
+                    if param.get('XvalIn') is not None:
+                        self._x_val = param.get('XvalIn')
+                        print('X file for validation to be used is ' + str(self._x_val))
+                    else:
+                        self._x_val = None
+                    if param.get('YvalIn') is not None:
+                        self._y_val = param.get('YvalIn')
+                        print('Y file for validation to be used is ' + str(self._y_val))
+                    else:
+                        self._y_val = None
+
                     if self._QDmodel == 'useQDmodel':
                         if param.get('XfileIn') is None:
                             if self._systemType == 'SB':
@@ -201,7 +221,7 @@ class quant_dyn:
                         print('The input is =', X)
                 else:
                     if self._QDmodelType == 'KRR':
-                        raise ValueError('please the input shot trajectory through XfileIn')
+                        raise ValueError('please provide the input shot trajectory through XfileIn')
                     if self._QDmodelType == 'OSTL' or self._QDmodelType == 'AIQD': 
                         if self._systemType == 'FMO':
                             X = np.zeros((1,4), dtype = float)
@@ -248,6 +268,7 @@ class quant_dyn:
                     mld.KRR(
                             self._Xin,
                             self._time,
+                            self.init_time,
                             self._time_step,
                             self._QDmodelIn,
                             self._traj_output_file
@@ -289,6 +310,8 @@ class quant_dyn:
                     train_ml.OSTL(
                                 self._Xin,
                                 self._Yin, 
+                                self._x_val, 
+                                self._y_val,
                                 self._systemType,
                                 self._n_states,
                                 self._energyNorm,
@@ -348,6 +371,8 @@ class quant_dyn:
                     train_ml.AIQD(
                         self._Xin,
                         self._Yin,
+                        self._x_val,
+                        self._y_val,
                         self._systemType,
                     	self._n_states,
                     	self._time,

@@ -2,7 +2,7 @@ import os
 import tensorflow.keras as keras
 import pickle
 import numpy as np
-import data
+import data as data
 from tensorflow.keras.layers import Dense
 from tensorflow.keras.layers import Flatten
 from tensorflow.keras.models import Sequential

@@ -56,7 +56,9 @@ def KRR(Xin: str,
     print('Train_ml.KRR: Time taken =', proc_time.time() - ti, "sec")
 
 def OSTL(Xin: str,
-        Yin: str, 
+        Yin: str,
+        x_val: str,
+        y_val: str,
         systemType: str,
         n_states: int,
         energyNorm: float,
@@ -74,6 +76,7 @@ def OSTL(Xin: str,
         prepInput: str):
 
     if prepInput == 'True':
+        print('I am here')
         print('train_ml.OSTL: preparing training data for OSTL model')
         prep_input.OSTL(Xin,
                         Yin,
@@ -91,12 +94,12 @@ def OSTL(Xin: str,
         print('Train_ml.AIQD: Going for hyperopt optimization of CNN')
         print('=================================================================')
         t1 = proc_time.time()
-        optim.optimize(Xin, Yin, OptEpochs, max_evals)
+        optim.optimize(Xin, Yin, x_val, y_val, OptEpochs, max_evals)
         print('Train_ml.OSTL: Time taken for optimization =', proc_time.time() - t1, "sec")
         print('Train_ml.OSTL: Training CNN model with the optimized hyper_parameters')
         print('=================================================================')
         t2 = proc_time.time()
-        cnn.CNN_optim(Xin, Yin, QDmodelOut, TrEpochs, patience)
+        cnn.CNN_optim(Xin, Yin, x_val, y_val, QDmodelOut, TrEpochs, patience)
         print('Train_ml.OSTL: Time taken for training =', proc_time.time() - t2, "sec")
         print('Train_ml.OSTL: Total Time (optimization + training) =', proc_time.time() - t1 , "sec")
     else:
@@ -107,17 +110,19 @@ def OSTL(Xin: str,
         t1 = proc_time.time()
         if os.path.isfile(optim_param_file):
             print('Train.ml_OSTL: loading hyperparameters from', optim_param_file)
-            cnn.CNN_optim(Xin, Yin, QDmodelOut, TrEpochs, patience)
+            cnn.CNN_optim(Xin, Yin, x_val, y_val, QDmodelOut, TrEpochs, patience)
             print('Train_ml.OSTL: Time taken for training =', proc_time.time() - t1 , "sec")
         else:
             print('=================================================================')
             print('Train.ml_OSTL: '+ str(optim_param_file) +  ' not found, thus training CNN model with the default structure')
             print('=================================================================')
-            cnn.OSTL_default(Xin, Yin, QDmodelOut, TrEpochs, patience)
+            cnn.OSTL_default(Xin, Yin, x_val, y_val, QDmodelOut, TrEpochs, patience)
             print('Train_ml.OSTL: Time taken for training =', proc_time.time() - t1 , "sec")
 
 def AIQD(Xin: str,
         Yin: str,
+        x_val: str, 
+        y_val: str,
         systemType: str, 
         n_states: int, 
         time: float, 
@@ -168,12 +173,12 @@ def AIQD(Xin: str,
         print('Train_ml.AIQD: Going for hyperopt optimization of CNN')
         print('=================================================================')
         t1 = proc_time.time()
-        optim.optimize(Xin, Yin, OptEpochs, max_evals)
+        optim.optimize(Xin, Yin, x_val, y_val, OptEpochs, max_evals)
         print('Train_ml.OSTL: Time taken for optimization =', proc_time.time() - t1, "sec")
         print('Train_ml.AIQD: Training CNN model with the optimized hyper_parameters')
         print('=================================================================')
         t2 = proc_time.time()
-        cnn.CNN_optim(Xin, Yin, QDmodelOut, TrEpochs, patience)
+        cnn.CNN_optim(Xin, Yin, x_val, y_val, QDmodelOut, TrEpochs, patience)
         print('Train_ml.AIQD: Time taken for training =', proc_time.time() - t2, "sec")
         print('Train_ml.AIQD: Total Time (optimization + training) =', proc_time.time() - t1 , "sec")
 
@@ -185,11 +190,11 @@ def AIQD(Xin: str,
         t1 = proc_time.time()
         if os.path.isfile(optim_param_file):
             print('Train.ml_AIQD: loading hyperparameters from', optim_param_file)
-            cnn.CNN_optim(Xin, Yin, QDmodelOut, TrEpochs, patience)
+            cnn.CNN_optim(Xin, Yin, x_val, y_val, QDmodelOut, TrEpochs, patience)
             print('Train_ml.AIQD: Time taken for training =', proc_time.time() - t1, "sec")
         else:
             print('=================================================================')
             print('Train.ml_OSTL: '+ str(optim_param_file) +  ' not found, thus training CNN model with the default structure')
             print('=================================================================')
-            cnn.AIQD_default(Xin, Yin, QDmodelOut, TrEpochs,  patience)
+            cnn.AIQD_default(Xin, Yin, x_val, y_val, QDmodelOut, TrEpochs,  patience)
             print('Train_ml.AIQD: Time taken for training =', proc_time.time() - t1, "sec")

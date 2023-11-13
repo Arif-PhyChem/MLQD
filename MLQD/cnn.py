@@ -72,7 +72,7 @@ def CNN_optim(Xin: str,
           epochs=epochs,
           verbose=2,
           validation_data=(x_val, y_val), callbacks=[es]) 
-    QDmodelOut =QDmodelOut + '.hdf5'
+    QDmodelOut =QDmodelOut + '.keras'
     model.save(QDmodelOut)
     print('=================================================================')
     print('cnn.CNN_optim: OSTL model is saved as "', QDmodelOut ,'"') 
@@ -116,7 +116,7 @@ def OSTL_default(Xin: str,
           verbose=2,
           validation_data=(x_val, y_val), callbacks=[es])
 
-    QDmodelOut = QDmodelOut + '.hdf5'
+    QDmodelOut = QDmodelOut + '.keras'
     model.save(QDmodelOut)
     print('=================================================================')
     print('cnn.OSTL_default: OSTL model is saved as "', QDmodelOut, '"') 
@@ -159,7 +159,7 @@ def AIQD_default(Xin: str,
           verbose=2,
           validation_data=(x_val, y_val), callbacks=[es])
     
-    QDmodelOut = QDmodelOut + '.hdf5'
+    QDmodelOut = QDmodelOut + '.keras'
     model.save(QDmodelOut)
     print('=================================================================')
     print('cnn.AIQD_default: AIQD model is saved as "', QDmodelOut, '"')

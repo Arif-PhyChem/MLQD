@@ -86,5 +86,4 @@ def loadparam(*args, **param):
         lambNorm = None
         gammaNorm = None
         tempNorm = None
-        
     return energyDiff, Delta, gamma, lamb, temp, energyNorm, DeltaNorm, gammaNorm, lambNorm, tempNorm 
