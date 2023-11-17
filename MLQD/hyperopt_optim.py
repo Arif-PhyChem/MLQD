@@ -13,11 +13,13 @@ from hyperopt import fmin, hp, Trials, STATUS_OK, tpe
 from sklearn.model_selection import train_test_split
 
 def optimize(Xin: str, 
-            Yin: str, 
+            Yin: str,
+            x_val: str, 
+            y_val: str,
             epochs: int, 
             max_evals: int):
 
-    x_train, y_train, x_val, y_val, kernel_choice = data.data(Xin, Yin)
+    x_train, y_train, x_val, y_val, kernel_choice = data.data(Xin, Yin, x_val, y_val)
     ######################################################
     print('hyperopt_optim: Optimizing the Neural Network with hyperopt library')
     print('hyperopt_optim: Setting Optimizer to Adam and loss to mean square error (mse)')

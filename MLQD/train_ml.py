@@ -76,7 +76,6 @@ def OSTL(Xin: str,
         prepInput: str):
 
     if prepInput == 'True':
-        print('I am here')
         print('train_ml.OSTL: preparing training data for OSTL model')
         prep_input.OSTL(Xin,
                         Yin,
