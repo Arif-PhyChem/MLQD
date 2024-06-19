@@ -39,12 +39,11 @@ def optimize(Xin: str,
             'Dense': hp.choice('Dense', [8, 16,32,64,128,256,512]),
             'Dense_1': hp.choice('Dense_1', [8, 16,32,64,128,256,512]),
             'Dense_2': hp.choice('Dense_2', [8, 16,32,64,128,256,512]),
-            'lstm': hp.choice('lstm', [32,64,128,256,512]),
             'if': hp.choice('if', [{'layers': 'two', }, {'layers': 'three'}]), 
             'if_1': hp.choice('if_1', [{'layers': 'two', }, {'layers': 'three'}]),
-            'kernel_size': hp.choice('kernel_size', kernel_choice),
-            'kernel_size_1': hp.choice('kernel_size_1', kernel_choice),
-            'kernel_size_2': hp.choice('kernel_size_2', kernel_choice),
+            'kernel_size': hp.uniform('kernel_size', 1, kernel_choice),
+            'kernel_size_1': hp.uniform('kernel_size_1', 1, kernel_choice),
+            'kernel_size_2': hp.uniform('kernel_size_2', 1, kernel_choice),
             'learning_rate': hp.choice('learning_rate', [10**-5, 10**-4, 10**-3, 10**-2, 10**-1]),
             'batch_size': hp.choice('batch_size', [8, 16,32,64,128,256,512]),
             'activation': 'relu'
@@ -52,12 +51,12 @@ def optimize(Xin: str,
 
     def optimize_model(params):
         model = Sequential()
-        model.add(Conv1D(params['Conv1D'], kernel_size=params['kernel_size'], input_shape=(x_train.shape[1],1)))
+        model.add(Conv1D(params['Conv1D'], kernel_size=int(params['kernel_size']), input_shape=(x_train.shape[1],1)))
         model.add(Activation(params['activation']))
-        model.add(Conv1D(params['Conv1D_1'], kernel_size=params['kernel_size_1'], padding='same'))
+        model.add(Conv1D(params['Conv1D_1'], kernel_size=int(params['kernel_size_1']), padding='same'))
         model.add(Activation(params['activation']))    
         if params['if']['layers'] == 'three':
-            model.add(Conv1D(params['Conv1D_2'], kernel_size=params['kernel_size_2'], padding='same'))
+            model.add(Conv1D(params['Conv1D_2'], kernel_size=int(params['kernel_size_2']), padding='same'))
             model.add(Activation(params['activation']))
         model.add(MaxPooling1D(pool_size=2))
         model.add(Flatten())

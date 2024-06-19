@@ -290,7 +290,9 @@ class quant_dyn:
                             print('Setting data column "dataCol" to default value ', self._dataCol)
                         if self._QDmodelType == 'RCDYN':
                             self._dataCol = None
-                            print('Setting data column "dataCol" to None, full reduced density matrix will be considered')
+                            if self._prepInput == 'True':
+                                print('Setting data column "dataCol" to None, full reduced density matrix will be considered')
+
             else:
                 self._dataCol = None
             

@@ -26,7 +26,7 @@ def CNN_optim(Xin: str,
     f = open('best_param.pkl', 'rb')
     hyper_param = pickle.load(f)
     f.close()
-    filter_choice = [10,30,50,70,90,110]
+    filter_choice = [10,30,50,70,90,110,130,150,170,190]
     dense_choice = [8,16,32,64,128,256,512]
     lr_choice = [10**-5, 10**-4, 10**-3, 10**-2, 10**-1]
     batch_size = [8,16,32,64,128,256,512]
@@ -40,9 +40,9 @@ def CNN_optim(Xin: str,
     Batch_size = batch_size[hyper_param['batch_size']] 
     If_0 = hyper_param['if']
     If_1 = hyper_param['if_1']
-    Kernel_0 = kernel_choice[hyper_param['kernel_size']]
-    Kernel_1 = kernel_choice[hyper_param['kernel_size_1']]
-    Kernel_2 = kernel_choice[hyper_param['kernel_size_2']]
+    Kernel_0 = int(hyper_param['kernel_size'])
+    Kernel_1 = int(hyper_param['kernel_size_1'])
+    Kernel_2 = int(hyper_param['kernel_size_2'])
     Lr_rate = lr_choice[hyper_param['learning_rate']]
 
     model = Sequential()
