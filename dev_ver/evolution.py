@@ -34,10 +34,10 @@ class quant_dyn:
             [self._systemType, self._QDmodel, self._QDmodelType, self._n_states] = essparam.loadparam(**param)   
 ############################################################################################
             if self._QDmodel == 'createQDmodel':
-                [self._prepInput, self._QDmodelOut, self._energyNorm, self._DeltaNorm,
+                [self._MLmodel, self._prepInput, self._energyNorm, self._DeltaNorm,
                 self._gammaNorm, self._lambNorm, self._tempNorm, self._Xin, self._Yin, 
-                self._hyperParam, self._patience, self._OptEpochs, self._TrEpochs, 
-                self._max_evals, self._dataPath, self._xlength, self._krrSigma, 
+                self._Xval, self._Yval, self._hyperParam, self._patience, self._OptEpochs, 
+                self._TrEpochs, self._max_evals, self._dataPath, self._xlength, self._krrSigma, 
                 self._krrLamb, self._numLogf, self._LogCa, self._LogCb,
                 self._LogCc, self._LogCd] = createQD.loadparam(self._mlqdDr, 
                                                             self._systemType, 
@@ -99,109 +99,114 @@ class quant_dyn:
                     self._traj_output_file = str(self._systemType) + "_" + str(self._QDmodelType) + "_QD_" + str(random.random()) + ".npy"
                     print('Trajectory will be save as', str(self._traj_output_file))
 ########    ######################################################################################
-            if self._QDmodelType != 'KRR':
-                if self._QDmodel == 'useQDmodel':
-                    if self._systemType == 'FMO':
+                if self._QDmodelType != 'KRR':
+                    if self._systemType == 'FMO' and QDmodel == 'RCDYN':
                         if param.get('initState') is not None:
                             self._initState = param.get('initState')
                             if type(self._initState) != int:
                                 raise Exception('Initial state "initState" shoul be integer')
                             print('Setting initial state "initState" to ' + str(self._initState))
                         else:
-                	        self._initState = 1
-                	        print('Running with the default value of initial state; initState = 1')
-#################################################################################################
-                if self._QDmodelType != 'KRR':
-                    if param.get('XvalIn') is not None:
-                        self._x_val = param.get('XvalIn')
-                        print('X file for validation to be used is ' + str(self._x_val))
-                    else:
-                        self._x_val = None
-                    if param.get('YvalIn') is not None:
-                        self._y_val = param.get('YvalIn')
-                        print('Y file for validation to be used is ' + str(self._y_val))
-                    else:
-                        self._y_val = None
-                if self._QDmodelType == 'OSTL' or self._QDmodelType == 'AIQD':
-                    if self._QDmodel == 'useQDmodel':
-                        if param.get('XfileIn') is None:
-                            if self._systemType == 'SB':
-                                if param.get('energyDiff') is not None:
-                                    self._energyDiff = param.get('energyDiff')
-                                    print('Setting energy difference between two states "energyDiff" to ' + str(self._energyDiff))
-                                else:
-                                    self._energyDiff = 0.0
-                                    print('As energy difference is not provided, the ML-QD is running with the dafault option energyDiff = 0.0')
-                                if param.get('Delta') is not None:
-                                    self._Delta = param.get('Delta')
-                                    print('Setting tunneling matrix element of the two states "Delta" to ' + str(self._Delta))
-                                else:
-                                    self._Delta = 1.0
-                                    print('As tunneling is not provided, the ML-QD is running with the dafault option Delta = 1.0')
-                            else:
-                                self._energyDiff = None
-                                self._Delta = None
-                        
-                            if param.get('gamma') is not None:
-                                self._gamma = param.get('gamma')
-                                print('Setting cutt-off frequency "gamma" to ' + str(self._gamma))
-                            else:
-                                if self._systemType == 'FMO':
-                            	    self._gamma = 500
-                            	    print('Running with the default value of cutt-off frequency; gamma = 500')
-                                if self._systemType == 'SB':
-                            	    self._gamma = 10
-                            	    print('Running with the default value of cutt-off frequency; gamma = 10')
-                            
-                            if param.get('lamb') is not None:
-                                self._lamb = param.get('lamb')
-                                print('Setting system-bath coupling strength "lambda" to ' + str(self._lamb))
-                            else:
-                                if self._systemType == 'FMO':
-                                    self._lamb = 520
-                                    print('Running with the default value of system-bath coupling strength; lamb = 520')
-                                if self._systemType == 'SB':
-                                    self._lamb = 1.0
-                                    print('Running with the default value of system-bath coupling strength; lamb = 0.1')
-                            if param.get('temp') is not None:
-                                self._temp = param.get('temp')
-                                print('Setting temperature (or inverse temperature) value "temp" to ' + str(self._temp))
-                            else:
-                                if self._systemType == 'FMO':
-                                    self._temp = 510
-                                    print('Running with the default temperature (or inverse temperature) value temp = 510')
-                                if self._systemType == 'SB':
-                                    self._temp = 1.0
-                                    print('Running with the default temperature (or inverse temperature) value temp = 1.0')
-                                print('=================================================================')
-                            if param.get('QDmodelIn') is not None:
-                                self._QDmodelIn = param.get('QDmodelIn')
-                            else:
-                                raise ValueError(str(self._QDmodelIn) + '.pkl does not exist')
-                            self._name = re.split(r'.keras', self._QDmodelIn)[0] + ".pkl"
-                            print('Reading normalization constants from', self._name)
-                            print('=================================================================')
-                            f = open(self._name, 'rb')   # Load normalization parameters
-                            norm_param = pickle.load(f)
-                            f.close()
-                            self._energyNorm = norm_param['energyNorm']
-                            self._DeltaNorm = norm_param['DeltaNorm']
-                            self._lambNorm = norm_param['lambNorm']
-                            self._gammaNorm = norm_param['gammaNorm']
-                            self._tempNorm = norm_param['tempNorm']
-                            print('Setting energy difference normalizer "energyNorm" to ' + str(self._energyNorm))
-                            print('Setting tunneling matrix element normalizer "DeltaNorm" to ' + str(self._DeltaNorm))
-                            print('Setting gamma normalizeer "gammaNorm" to ' + str(self._gammaNorm))
-                            print('Setting lambda normalizer "lambNormalizer" to ' + str(self._lambNorm))
-                            print('Setting temperature (or inverse temperature) normalizer "tempNorm" to ' + str(self._tempNorm))
-                    if self._QDmodel == 'useQDmodel':
+                    	    self._initState = 1
+                    	    print('Running with the default value of initial state; initState = 1')
+                    
                         if self._systemType == 'FMO':
                             if self._n_states == 7:
                 	            if self._initState not in fmo_7_init_sites:
-                	    	        raise ValueError('The initial State initState for FMO should be 1 or 6')
+                	        	    raise ValueError('The initial State initState for FMO should be 1 or 6')
                             if self._n_states == 8:
                                 if self._initState not in fmo_8_init_sites:
                                     raise ValueError('The initial State initState for FMO should be 1, 6 or 8')
+
+#################################################################################################
+                   
+                    if self._systemType == 'SB':
+                        if param.get('energyDiff') is not None:
+                            self._energyDiff = param.get('energyDiff')
+                            print('Setting energy difference between two states "energyDiff" to ' + str(self._energyDiff))
+                        else:
+                            self._energyDiff = 0.0
+                            print('As energy difference is not provided, the ML-QD is running with the dafault option energyDiff = 0.0')
+                        if param.get('Delta') is not None:
+                            self._Delta = param.get('Delta')
+                            print('Setting tunneling matrix element of the two states "Delta" to ' + str(self._Delta))
+                        else:
+                            self._Delta = 1.0
+                            print('As tunneling is not provided, the ML-QD is running with the dafault option Delta = 1.0')
+                    else:
+                        self._energyDiff = None
+                        self._Delta = None
+                    
+                    if param.get('gamma') is not None:
+                        self._gamma = param.get('gamma')
+                        print('Setting cutt-off frequency "gamma" to ' + str(self._gamma))
+                    else:
+                        if self._systemType == 'FMO':
+                    	    self._gamma = 500
+                    	    print('Running with the default value of cutt-off frequency; gamma = ', self_gamma)
+                        elif self._systemType == 'SB':
+                    	    self._gamma = 10
+                    	    print('Running with the default value of cutt-off frequency; gamma = ', self._gamma)
+                        else:
+                    	    self._gamma = 1.0
+                    	    print('Running with the default value of cutt-off frequency; gamma = ', self._gamma)
+                    
+                    if param.get('lamb') is not None:
+                        self._lamb = param.get('lamb')
+                        print('Setting system-bath coupling strength "lambda" to ' + str(self._lamb))
+                    else:
+                        if self._systemType == 'FMO':
+                            self._lamb = 520
+                            print('Running with the default value of system-bath coupling strength; lamb = ', self._lamb)
+                        else:
+                            self._lamb = 1.0
+                            print('Running with the default value of system-bath coupling strength; lamb = ', self._lamb)
+
+                    if param.get('temp') is not None:
+                        self._temp = param.get('temp')
+                        print('Setting temperature (or inverse temperature) value "temp" to ' + str(self._temp))
+                    else:
+                        if self._systemType == 'FMO':
+                            self._temp = 510
+                            print('Running with the default temperature (or inverse temperature) value temp = ', self._temp)
+                        else:
+                            self._temp = 1.0
+                            print('Running with the default temperature (or inverse temperature) value temp = ', self._temp)
+                        print('=================================================================')
+                        
+
+                    norm_const_file = "norm_const.pkl"
+    
+                    print('=================================================================')
+                    print('evolution: Looking for', norm_const_file)
+    
+                    if os.path.isfile(norm_const_file):
+                        print('Reading normalization constants from', norm_const_file)
+                        print('=================================================================')
+                        f = open(norm_const_file, 'rb')
+                        norm_const = pickle.load(f)
+                        f.close()
+                        if self._QDmodelType != 'RCDYN' and self._systemType == 'SB':
+                            self._energyNorm = norm_const['energyNorm']
+                            self._DeltaNorm = norm_const['DeltaNorm']
+                        self._lambNorm = norm_const['lambNorm']
+                        self._gammaNorm = norm_const['gammaNorm']
+                        self._tempNorm = norm_const['tempNorm']
+                    else:
+                        self._energyNorm = 1.0
+                        self._DeltaNorm = 1.0
+                        self._lambNorm = 1.0
+                        self._gammaNorm = 1.0
+                        self._tempNorm = 1.0
+                    
+                    if self._QDmodelType != 'RCDYN' and self._systemType == 'SB':
+                        print('Setting energy difference normalizer "energyNorm" to ' + str(self._energyNorm))
+                        print('Setting tunneling matrix element normalizer "DeltaNorm" to ' + str(self._DeltaNorm))
+
+                    print('Setting gamma normalizeer "gammaNorm" to ' + str(self._gammaNorm))
+                    print('Setting lambda normalizer "lambNormalizer" to ' + str(self._lambNorm))
+                    print('Setting temperature (or inverse temperature) normalizer "tempNorm" to ' + str(self._tempNorm))
+                    
 ######################################################################################################
 #                                        Run or Train QD
 ######################################################################################################
@@ -225,20 +230,28 @@ class quant_dyn:
                 else:
                     if self._QDmodelType == 'KRR' or self._QDmodelType == 'RCDYN':
                         raise ValueError('please provide the input shot trajectory through XfileIn')
-                    if self._QDmodelType == 'OSTL' or self._QDmodelType == 'AIQD': 
+                    if self._QDmodelType == 'OSTL' or self._QDmodelType == 'AIQD':
+
                         if self._systemType == 'FMO':
                             X = np.zeros((1,4), dtype = float)
                             X[0,0] = self._initState/10
                             X[0,1] = self._gamma/self._gammaNorm
                             X[0,2] = self._lamb/self._lambNorm
                             X[0,3] = self._temp/self._tempNorm
-                        if self._systemType == 'SB':
+                        elif self._systemType == 'SB':
                             X = np.zeros((1,5), dtype = float)
                             X[0,0] = self._energyDiff/self._energyNorm
                             X[0,1] = self._Delta/self._DeltaNorm
                             X[0,2] = self._gamma/self._gammaNorm
                             X[0,3] = self._lamb/self._lambNorm
                             X[0,4] = self._temp/self._tempNorm
+                        else:
+                            X = np.zeros((1,4), dtype = float)
+                            X[0,0] = self._initState/10
+                            X[0,1] = self._gamma/self._gammaNorm
+                            X[0,2] = self._lamb/self._lambNorm
+                            X[0,3] = self._temp/self._tempNorm
+
                         self._Xin = X
 
             if self._QDmodel == 'useQDmodel':
@@ -339,32 +352,60 @@ class quant_dyn:
                                 self._krrLamb
                                 )
             if self._QDmodelType == 'RCDYN':
+                if param.get('ostl_steps') is not None:
+                    self._ostl_steps = param.get('ostl_steps')
+                    print('Running with ostl_steps = ', self._ostl_steps)
+
+                else: 
+                    self._ostl_steps = 1
+                    print('Running with default option: ostl_steps = ', self._ostl_steps)
+
                 if self._QDmodel == 'useQDmodel':
                     mld.RCDYN(
                         self._n_states,
                         self._Xin,
                         self._time,
                         self._time_step,
+                        self._ostl_steps,
                         self._cons_trace,
                         self._QDmodelIn,
                         self._traj_output_file,
-                        self._prior
+                        self._prior,
+                        self._gamma,
+                        self._lamb, 
+                        self._temp,
+                        self._gammaNorm,
+                        self._lambNorm,
+                        self._tempNorm
                         )
                 if self._QDmodel == 'createQDmodel':
+                    self._name = "norm_const.pkl"
+                    norm_param = {'gammaNorm': self._gammaNorm, 'lambNorm': self._lambNorm, 'tempNorm': self._tempNorm}
+                    f = open(self._name, "wb")
+                    pickle.dump(norm_param, f)
+                    f.close()
+                    print('Normalization constants are dumped at', self._name)
+                    print('=================================================================')
+
                     train_ml.RCDYN(
                             self._Xin,
                             self._Yin, 
-                            self._x_val, 
-                            self._y_val,
+                            self._Xval, 
+                            self._Yval,
+                            self._systemType,
                             self._n_states,
                             self._dataCol, 
                             self._xlength,
                             self._time,
                             self._time_step,
+                            self._ostl_steps,
+                            self._gammaNorm,
+                            self._lambNorm, 
+                            self._tempNorm,
                             self._dataPath,
                             self._prior,
                             self._pinn,
-                            self._QDmodelOut,
+                            self._MLmodel, 
                             self._hyperParam,
                             self._OptEpochs, 
                             self._TrEpochs,
@@ -384,7 +425,7 @@ class quant_dyn:
                         self._traj_output_file,
                         )
                 if self._QDmodel == 'createQDmodel':
-                    self._name = self._QDmodelOut + ".pkl"
+                    self._name = "norm_const.pkl"
                     norm_param = {'energyNorm': self._energyNorm, 'DeltaNorm': self._DeltaNorm, 
                                 'gammaNorm': self._gammaNorm, 'lambNorm': self._lambNorm, 'tempNorm': self._tempNorm}
                     f = open(self._name, "wb")
@@ -395,8 +436,8 @@ class quant_dyn:
                     train_ml.OSTL(
                                 self._Xin,
                                 self._Yin, 
-                                self._x_val, 
-                                self._y_val,
+                                self._Xval, 
+                                self._Yval,
                                 self._systemType,
                                 self._n_states,
                                 self._time,
@@ -445,7 +486,7 @@ class quant_dyn:
                         self._traj_output_file 
                         )
                 if self._QDmodel == 'createQDmodel':
-                    self._name = self._QDmodelOut + ".pkl"
+                    self._name = "norm_const.pkl"
                     norm_param = {'energyNorm': self._energyNorm, 'DeltaNorm': self._DeltaNorm, 
                             'gammaNorm': self._gammaNorm, 'lambNorm': self._lambNorm, 
                             'tempNorm': self._tempNorm, 'numLogf': self._numLogf, 
@@ -460,8 +501,8 @@ class quant_dyn:
                     train_ml.AIQD(
                         self._Xin,
                         self._Yin,
-                        self._x_val,
-                        self._y_val,
+                        self._Xval,
+                        self._Yval,
                         self._systemType,
                     	self._n_states,
                     	self._time,

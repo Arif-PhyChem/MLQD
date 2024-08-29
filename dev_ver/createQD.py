@@ -16,14 +16,16 @@ def loadparam(*args, **param):
     else:
         prepInput = 'False'
         print('The is running with default "prepInput" option', prepInput)
-    if param.get('QDmodelOut') is not None:
-        QDmodelOut = param.get('QDmodelOut')
-        if type(QDmodelOut) != str:
-            raise Exception('QDmodelOut should be string')
-        print('Model will be saved as ' + str(QDmodelOut))
+    
+    if param.get('MLmodel') is not None:
+        MLmodel = param.get('MLmodel')
+        if type(MLmodel) != str:
+            raise Exception('MLmodel should be string')
+        print('Setting "MLmodel" to ' +  str(MLmodel))
     else:
-        QDmodelOut = str(QDmodelType) + "_" + "model_for_" + str(systemType) + "_" + str(random.random())
-        print('The model will be saved as', QDmodelOut)
+        MLmodel = 'cnn'
+        print('Setting "MLmodel" to default option ' +  str(MLmodel))
+
     if param.get('XfileIn') is not None:
         Xin = param.get('XfileIn')
         if type(Xin) != str:
@@ -40,6 +42,22 @@ def loadparam(*args, **param):
     else:
         Yin = "y_data_" + str(random.random())
         print('Setting Yfilein to dafault name', Yin)
+    
+    if QDmodelType != 'KRR':
+        if param.get('XvalIn') is not None:
+            Xval = param.get('XvalIn')
+            print('X file for validation to be used is ' + str(Xval))
+        else:
+            Xval = None
+        if param.get('YvalIn') is not None:
+            Yval = param.get('YvalIn')
+            print('Y file for validation to be used is ' + str(Yval))
+        else:
+            Yval = None
+    else:
+        Xval = None
+        Yval = None
+
     if param.get('hyperParam') is not None:
         hyperParam = param.get('hyperParam')
         if type(hyperParam) != str: 
@@ -97,20 +115,24 @@ def loadparam(*args, **param):
         TrEpochs = None
         max_evals = None
 
-    if QDmodelType == 'OSTL' or QDmodelType == 'AIQD':
-        if systemType == 'SB':
-            if param.get('energyNorm') is not None:
-                energyNorm = param.get('energyNorm')
-                print('Setting energy difference normalizer "energyNorm" to ' + str(energyNorm))
+    if QDmodelType == 'RCDYN' or QDmodelType == 'OSTL' or QDmodelType == 'AIQD':
+        if QDmodelType != 'RCDYN': 
+            if systemType == 'SB':
+                if param.get('energyNorm') is not None:
+                    energyNorm = param.get('energyNorm')
+                    print('Setting energy difference normalizer "energyNorm" to ' + str(energyNorm))
+                else:
+            	    energyNorm = 1.0
+            	    print('Running with the default value of energy difference normalizer; energyNorm = 1.0 ')
+                if param.get('DeltaNorm') is not None:
+                    DeltaNorm = param.get('DeltaNorm')
+                    print('Setting tunneling matrix element normalizer "DeltaNorm" to ' + str(DeltaNorm))
+                else:
+            	    DeltaNorm = 1.0
+            	    print('Running with the default value of tunneling matrix element normalizer; DeltaNorm = 1.0 ')
             else:
-        	    energyNorm = 1.0
-        	    print('Running with the default value of energy difference normalizer; energyNorm = 1.0 ')
-            if param.get('DeltaNorm') is not None:
-                DeltaNorm = param.get('DeltaNorm')
-                print('Setting tunneling matrix element normalizer "DeltaNorm" to ' + str(DeltaNorm))
-            else:
-        	    DeltaNorm = 1.0
-        	    print('Running with the default value of tunneling matrix element normalizer; DeltaNorm = 1.0 ')
+                energyNorm = None
+                DeltaNorm = None
         else:
             energyNorm = None
             DeltaNorm = None
@@ -126,7 +148,7 @@ def loadparam(*args, **param):
                 print('Running with the default value of gamma normalizeer; gammaNorm = 500 ')
         if param.get('lambNorm') is not None:
             lambNorm = param.get('lambNorm')
-            print('Setting lambda normalizer "lambNormalizer" to ' + str(lambNorm))
+            print('Setting lambda normalizer "lambNorm" to ' + str(lambNorm))
         else:
             if systemType == 'SB':
         	    lambNorm = 1.0
@@ -239,4 +261,4 @@ def loadparam(*args, **param):
         LogCc = None
         LogCd = None
 
-    return prepInput, QDmodelOut, energyNorm, DeltaNorm, gammaNorm, lambNorm, tempNorm, Xin, Yin, hyperParam, patience, OptEpochs, TrEpochs, max_evals, dataPath, xlength, krrSigma, krrLamb, numLogf, LogCa, LogCb, LogCc, LogCd 
+    return MLmodel, prepInput, energyNorm, DeltaNorm, gammaNorm, lambNorm, tempNorm, Xin, Yin, Xval, Yval, hyperParam, patience, OptEpochs, TrEpochs, max_evals, dataPath, xlength, krrSigma, krrLamb, numLogf, LogCa, LogCb, LogCc, LogCd 

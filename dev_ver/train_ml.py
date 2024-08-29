@@ -1,10 +1,10 @@
 import os
 import subprocess
 import numpy as np
-import cnn as cnn
+import ml_models as ml_models
 import hyperopt_optim as optim
 import time as proc_time
-import tensorflow.keras as keras
+import keras as keras
 import prep_input as prep_input
 ############################################################
 def KRR(Xin: str,
@@ -59,15 +59,20 @@ def RCDYN(Xin: str,
         Yin: str,
         x_val: str,
         y_val: str,
+        systemType: str,
         n_states: int,
         dataCol: int, 
         xlength: int,
         time: float,
         time_step: float,
+        ostl_steps: int, 
+        gammaNorm: float,
+        lambNorm: float, 
+        tempNorm: float,
         dataPath: str,  # optional if prepInput is False
         prior: float,
         pinn: str,
-        QDmodelOut: str,
+        MLmodel: str,
         hyperParam: str,
         OptEpochs: int,
         TrEpochs: int,
@@ -79,44 +84,36 @@ def RCDYN(Xin: str,
         print('train_ml.RCDYN: preparing training data for RCDYN model')
         prep_input.RCDYN(Xin,
                         Yin,
+                        systemType,
                         n_states,
                         dataCol,
                         xlength,
                         time,
                         time_step,
+                        ostl_steps, 
+                        gammaNorm,
+                        lambNorm, 
+                        tempNorm,
                         dataPath,
                         prior)
-
     if hyperParam == 'True':
         print('=================================================================')
-        print('Train_ml.RCDYN: Going for hyperopt optimization of CNN')
+        print('Train_ml.RCDYN: Going for hyperopt optimization of ' + str(MLmodel))
         print('=================================================================')
         t1 = proc_time.time()
-        optim.optimize(Xin, Yin, x_val, y_val, OptEpochs, max_evals, n_states, prior, pinn)
+        optim.optimize(Xin, Yin, x_val, y_val, OptEpochs, max_evals, systemType, n_states, prior, pinn, MLmodel)
         print('Train_ml.RCDYN: Time taken for optimization =', proc_time.time() - t1, "sec")
-        print('Train_ml.RCDYN: Training CNN model with the optimized hyper_parameters')
+        print('Train_ml.RCDYN: Training model with the optimized hyper_parameters')
         print('=================================================================')
-        t2 = proc_time.time()
-        cnn.CNN_optim(Xin, Yin, x_val, y_val, QDmodelOut, TrEpochs, patience, n_states, prior, pinn)
-        print('Train_ml.RCDYN: Time taken for training =', proc_time.time() - t2, "sec")
-        print('Train_ml.RCDYN: Total Time (optimization + training) =', proc_time.time() - t1 , "sec")
-    else:
-        optim_param_file = "best_param.pkl"
-        print('=================================================================')
-        print('Train.ml_RCDYN: Looking for',optim_param_file)
-        t1 = proc_time.time()
-        if os.path.isfile(optim_param_file):
-            print('Train.ml_RCDYN: loading hyperparameters from', optim_param_file)
-            print('=================================================================')
-            cnn.CNN_optim(Xin, Yin, x_val, y_val, QDmodelOut, TrEpochs, patience, n_states,  prior, pinn)
-            print('Train_ml.OSTL: Time taken for training =', proc_time.time() - t1 , "sec")
-        else:
-            print('=================================================================')
-            print('Train.ml_RCDYN: '+ str(optim_param_file) +  ' not found, thus training CNN model with the default structure')
-            print('=================================================================')
-            cnn.OSTL_default(Xin, Yin, x_val, y_val, QDmodelOut, TrEpochs, patience, n_states, prior, pinn)
-            print('Train_ml.RCDYN: Time taken for training =', proc_time.time() - t1 , "sec")
+    
+    t1 = proc_time.time()
+    if MLmodel == 'cnn':
+        ml_models.CNN(Xin, Yin, x_val, y_val, TrEpochs, patience, systemType, n_states, prior, pinn)
+    if MLmodel == 'lstm':
+        ml_models.LSTM(Xin, Yin, x_val, y_val, TrEpochs, patience, systemType, n_states, prior, pinn)
 
+    print('Train_ml.RCDYN: Time taken for training =', proc_time.time() - t1 , "sec")
+            
 def OSTL(Xin: str,
         Yin: str,
         x_val: str,
@@ -158,33 +155,21 @@ def OSTL(Xin: str,
 
     if hyperParam == 'True':
         print('=================================================================')
-        print('Train_ml.OSTL: Going for hyperopt optimization of CNN')
+        print('Train_ml.OSTL: Going for hyperopt optimization')
         print('=================================================================')
         t1 = proc_time.time()
         optim.optimize(Xin, Yin, x_val, y_val, OptEpochs, max_evals, n_states, prior, pinn)
         print('Train_ml.OSTL: Time taken for optimization =', proc_time.time() - t1, "sec")
         print('Train_ml.OSTL: Training CNN model with the optimized hyper_parameters')
         print('=================================================================')
-        t2 = proc_time.time()
-        cnn.CNN_optim(Xin, Yin, x_val, y_val, QDmodelOut, TrEpochs, patience, n_states, prior, pinn)
-        print('Train_ml.OSTL: Time taken for training =', proc_time.time() - t2, "sec")
-        print('Train_ml.OSTL: Total Time (optimization + training) =', proc_time.time() - t1 , "sec")
-    else:
-        optim_param_file = "best_param.pkl"
-        print('=================================================================')
-        print('Train.ml_OSTL: Looking for',optim_param_file)
-        print('=================================================================')
-        t1 = proc_time.time()
-        if os.path.isfile(optim_param_file):
-            print('Train.ml_OSTL: loading hyperparameters from', optim_param_file)
-            cnn.CNN_optim(Xin, Yin, x_val, y_val, QDmodelOut, TrEpochs, patience, n_states, prior, pinn)
-            print('Train_ml.OSTL: Time taken for training =', proc_time.time() - t1 , "sec")
-        else:
-            print('=================================================================')
-            print('Train.ml_OSTL: '+ str(optim_param_file) +  ' not found, thus training CNN model with the default structure')
-            print('=================================================================')
-            cnn.OSTL_default(Xin, Yin, x_val, y_val, QDmodelOut, TrEpochs, patience, n_states, prior, pinn)
-            print('Train_ml.OSTL: Time taken for training =', proc_time.time() - t1 , "sec")
+    
+    t1 = proc_time.time()
+    if MLmodel == 'cnn':
+        ml_models.CNN(Xin, Yin, x_val, y_val, TrEpochs, patience, n_states, prior)
+    if MLmodel == 'lstm':
+        ml_models.LSTM(Xin, Yin, x_val, y_val, TrEpochs, patience, n_states, prior)
+
+    print('Train_ml.OSTL: Time taken for training =', proc_time.time() - t1 , "sec")
 
 def AIQD(Xin: str,
         Yin: str,
@@ -246,24 +231,10 @@ def AIQD(Xin: str,
         print('Train_ml.OSTL: Time taken for optimization =', proc_time.time() - t1, "sec")
         print('Train_ml.AIQD: Training CNN model with the optimized hyper_parameters')
         print('=================================================================')
-        t2 = proc_time.time()
-        cnn.CNN_optim(Xin, Yin, x_val, y_val, QDmodelOut, TrEpochs, patience, n_states, prior, pinn)
-        print('Train_ml.AIQD: Time taken for training =', proc_time.time() - t2, "sec")
-        print('Train_ml.AIQD: Total Time (optimization + training) =', proc_time.time() - t1 , "sec")
+    t1 = proc_time.time()
+    if MLmodel == 'cnn':
+        ml_models.CNN(Xin, Yin, x_val, y_val, TrEpochs, patience, n_states, prior, pinn)
+    if MLmodel == 'lstm':
+        ml_models.LSTM(Xin, Yin, x_val, y_val, TrEpochs, patience, n_states, prior, pinn)
 
-    else:
-        optim_param_file = "best_param.pkl"
-        print('=================================================================')
-        print('Train.ml_AIQD: Looking for',optim_param_file)
-        print('=================================================================')
-        t1 = proc_time.time()
-        if os.path.isfile(optim_param_file):
-            print('Train.ml_AIQD: loading hyperparameters from', optim_param_file)
-            cnn.CNN_optim(Xin, Yin, x_val, y_val, QDmodelOut, TrEpochs, patience, n_states, prior, pinn)
-            print('Train_ml.AIQD: Time taken for training =', proc_time.time() - t1, "sec")
-        else:
-            print('=================================================================')
-            print('Train.ml_OSTL: '+ str(optim_param_file) +  ' not found, thus training CNN model with the default structure')
-            print('=================================================================')
-            cnn.AIQD_default(Xin, Yin, x_val, y_val, QDmodelOut, TrEpochs,  patience, n_states, prior, pinn)
-            print('Train_ml.AIQD: Time taken for training =', proc_time.time() - t1, "sec")
+    print('Train_ml.AIQD: Time taken for training =', proc_time.time() - t1 , "sec")

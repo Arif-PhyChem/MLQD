@@ -6,6 +6,8 @@ def loadparam(**param):
         print('Setting "systemType" to ' +  str(systemType))
     else:
         raise Exception('Please provide system type "systemType = FMO or SB"')
+
+
     if param.get('QDmodel') is not None:
         QDmodel = param.get('QDmodel')
         if type(QDmodel) != str:

@@ -42,13 +42,19 @@ def KRR(Xin: str,
 
 def RCDYN(Xin: str,
         Yin: str,
+        systemType: str,
         n_states: int,
         dataCol: int, 
         xlength: int,
         time: float,
         time_step: float,
+        ostl_steps: int,
+        gammaNorm: float, 
+        lambNorm: float, 
+        tempNorm: float, 
         dataPath: str,
         prior: float):
+
     all_files = {}
     j = 0
     print('=================================================================')
@@ -57,54 +63,98 @@ def RCDYN(Xin: str,
         file_name = os.path.basename(files)
         all_files[file_name] = np.load(files)
         j += 1
+    
+    file_count = j
+    
+    print('prep_input.OSTL: Normalizing gamma, lambda and temperature using the following',
+            'normalizing factors in their respective order:', gammaNorm, lambNorm, tempNorm)
+
     xx = all_files[file_name]
     tot_length = xx[0:int(round((time+time_step)/time_step) + xlength),:].shape[0]
     file_count = j
     print('prep_input.RCDYN: Number of trajectories =', file_count)
-    m = (tot_length - xlength) * file_count
-    
+    nsp = 3
+    num = 0
+    for i in range(0, len(np.arange(0, tot_length - xlength, ostl_steps))):
+        num += 1  
+            
+    m = num * file_count
+    print(m)
+
+    nsp = 3 # number of simulation parameters
     labels = []
     a = 0; b = n_states
+    
     for i in range(0, n_states):
         for j in range(a, b):
             labels.append(j)
         a += n_states + 1 
         b += n_states
     divider = n_states + 1
-   
-    if dataCol == None:
-        x = np.zeros((int(m), xlength*n_states**2), dtype=float)
-        y = np.zeros((int(m), n_states**2), dtype=float)
-        yy = np.zeros((xlength+1, n_states**2), dtype=complex)
+    
+    if dataCol == None: 
+        x = np.zeros((int(m), nsp + xlength*n_states**2), dtype=float)
+        y = np.zeros((int(m), n_states**2*ostl_steps), dtype=float)
     else:
         if (dataCol-1)%divider == 0:                # for diagonal terms, only real terms are considered
-            x = np.zeros((int(m), xlength), dtype=float)  
-            y = np.zeros((int(m), 1), dtype=float)
+            x = np.zeros((int(m), nsp+xlength), dtype=float)  
+            y = np.zeros((int(m), ostl_steps), dtype=float)
         else:
-            x = np.zeros((int(m), xlength * 2), dtype=float)  # off-diagonal terms, real and imag 
-            y = np.zeros((int(m), 2), dtype=float)
+            x = np.zeros((int(m), nsp+xlength * 2), dtype=float)  # off-diagonal terms, real and imag 
+            y = np.zeros((int(m), 2*ostl_steps), dtype=float)
+
     m = 0
+
     for files in glob.glob(dataPath+'/*'):
         file_name = os.path.basename(files)
         df = all_files[file_name]
+        if systemType == 'SB': 
+            pr = re.split(r'-', file_name)
+            pp = re.split(r'_', pr[1])
+            epsilon = pp[0]
+            pp = re.split(r'_', pr[2])
+            Delta = pp[0]
+            pp = re.split(r'_', pr[3])
+            lamb = float(pp[0])/lambNorm
+            pp = re.split(r'_', pr[4])
+            gamma = float(pp[0])/gammaNorm
+            pp = re.split(r'.n', pr[5])
+            temp = float(pp[0])/tempNorm
+        else:
+            pr = re.split(r'_', file_name)
+            pp = re.split(r'-', pr[2]) # extracting value of gamma
+            gamma = float(pp[1])/gammaNorm
+            pp = re.split(r'-', pr[3]) # extract value of lambda 
+            lamb = float(pp[1])/lambNorm
+            pp = re.split(r'-', pr[4])
+            pr = re.split(r'.npy', pp[1]) # extract value of temperature
+            temp = float(pr[0])/tempNorm
         if dataCol != None:
-            for i in range(0, (tot_length - xlength)):
-                yy = df[:, dataCol]
+            for i in range(0, len(np.arange(0, tot_length - xlength, ostl_steps))):
+                yy = df[i*ostl_steps:xlength + (i+1) * ostl_steps, dataCol] # excluding the 1st column of time
+                q = nsp
+                x[m, 0] = gamma
+                x[m, 1] = lamb
+                x[m, 2] = temp
                 if (dataCol -1)%divider == 0:
-                    x[m,:] = yy[i:xlength+i].real
-                    y[m,0] = yy[i+xlength].real
+                    x[m,q:] = yy[0:xlength].real
+                    y[m,:] = yy[xlength:].real
                 else:
-                    x[m,0:xlength] = yy[i:xlength+i].real
-                    y[m,0] = yy[i+xlength].real
-                    x[m,xlength:] = yy[i:xlength+i].imag
-                    y[m,1] = yy[i+xlength].imag
+                    x[m,q:xlength+q] = yy[0:xlength].real
+                    y[m,0:ostl_steps] = yy[xlength:].real
+                    x[m,xlength+q:] = yy[0:xlength].imag
+                    y[m,ostl_steps:] = yy[xlength:].imag
+
                 m += 1
-        if dataCol == None:
-            for i in range(0, (tot_length - xlength)):
-                yy[:,:] = df[i:xlength+i+1, 1:n_states**2+1] # excluding the 1st column of time
+        else:
+            for i in range(0, len(np.arange(0, tot_length - xlength, ostl_steps))):
+                yy = df[i*ostl_steps:xlength + (i+1) * ostl_steps, 1:n_states**2+1] # excluding the 1st column of time
                 k = 0
                 for j in range(0, xlength):
-                    q = 0
+                    q = nsp
+                    x[m, 0] = gamma
+                    x[m, 1] = lamb
+                    x[m, 2] = temp
                     for p in labels:
                         if p%divider == 0:
                             x[m,q+k] = yy[j,p].real
@@ -115,19 +165,24 @@ def RCDYN(Xin: str,
                             x[m,q+k] = yy[j,p].imag
                             q += 1
                     k += n_states**2
-                q = 0
-                for p in labels:
-                    if p%divider == 0:
-                        y[m,q] = yy[j+1,p].real
-                        q += 1
-                    else:
-                        y[m,q] = yy[j+1,p].real
-                        q += 1
-                        y[m,q] = yy[j+1,p].imag
-                        q += 1
+                
+                k = 0
+                for l in range(j+1, yy.shape[0]):
+                    q = 0
+                    for p in labels:
+                        if p%divider == 0:
+                            y[m,q+k] = yy[l,p].real
+                            q += 1
+                        else:
+                            y[m,q+k] = yy[l,p].real
+                            q += 1
+                            y[m,q+k] = yy[l,p].imag
+                            q += 1
+                    k += n_states**2
                 m += 1
+
     np.save(Xin, x) # the input is saved as Xin
-    np.save(Yin, y - prior) # the target values are saved as Yin
+    np.save(Yin, y + prior) # the target values are saved as Yin
 
 def OSTL(Xin: str,
         Yin: str,

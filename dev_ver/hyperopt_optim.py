@@ -1,15 +1,15 @@
 import os
 import tensorflow as tf
-import tensorflow.keras as keras
+import keras as keras
 import pickle
 import numpy as np
 import data as data
-from tensorflow.keras.layers import Dense
-from tensorflow.keras.layers import Flatten
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import Activation
-from tensorflow.keras.layers import MaxPooling1D
-from tensorflow.keras.layers import Conv1D
+from keras.layers import Dense
+from keras.layers import Flatten
+from keras.models import Sequential
+from keras.layers import Activation
+from keras.layers import MaxPooling1D
+from keras.layers import Conv1D, LSTM
 from hyperopt import fmin, hp, Trials, STATUS_OK, tpe
 from sklearn.model_selection import train_test_split
 
@@ -19,9 +19,11 @@ def optimize(Xin: str,
             y_val: str,
             epochs: int, 
             max_evals: int,
+            systemType: str,
             n_states: int,
             prior: float,
-            pinn: str
+            pinn: str,
+            MLmodel: str
             ):
 
     x_train, y_train, x_val, y_val, kernel_choice = data.data(Xin, Yin, x_val, y_val)
@@ -33,7 +35,9 @@ def optimize(Xin: str,
     print('hyperopt_optim: Each evaluation runs for ' + str(epochs) + ' epochs')
     print('=================================================================')
     #####################################################
-    space = {'Conv1D': hp.choice('Conv1D', [10,30,50,70,90,110,130,150,170,190]),
+
+    if MLmodel == 'cnn':
+        space = {'Conv1D': hp.choice('Conv1D', [10,30,50,70,90,110,130,150,170,190]),
             'Conv1D_1': hp.choice('Conv1D_1', [10,30,50,70,90,110,130,150,170,190]),
             'Conv1D_2': hp.choice('Conv1D_2', [10,30,50,70,90,110,130,150,170,190]),
             'Dense': hp.choice('Dense', [8, 16,32,64,128,256,512]),
@@ -49,17 +53,46 @@ def optimize(Xin: str,
             'activation': 'relu'
         } 
 
+    if MLmodel == 'lstm':
+        space = {'Dense': hp.choice('Dense', [8, 16,32,64,128,256,512]),
+            'Dense_1': hp.choice('Dense_1', [8, 16,32,64,128,256,512]),
+            'Dense_2': hp.choice('Dense_2', [8, 16,32,64,128,256,512]),
+            'lstm_units': hp.choice('lstm_units', np.arange(16, 512, 32)),
+            'lstm_units_1': hp.choice('lstm_units_1', np.arange(16, 512, 32)),
+            'lstm_units_2': hp.choice('lstm_units_2', np.arange(16, 512, 32)),
+            'if_1': hp.choice('if_1', [{'layers': 'two', }, {'layers': 'three'}]),
+            'if_lstm': hp.choice('if_lstm', [{'layers': 'one'}, {'layers': 'two'}, {'layers': 'three'}]),
+            'learning_rate': hp.choice('learning_rate', [10**-5, 10**-4, 10**-3, 10**-2, 10**-1]),
+            'batch_size': hp.choice('batch_size', [32, 64,128,256,512]),
+            'activation': 'relu'
+        } 
+
     def optimize_model(params):
         model = Sequential()
-        model.add(Conv1D(params['Conv1D'], kernel_size=int(params['kernel_size']), input_shape=(x_train.shape[1],1)))
-        model.add(Activation(params['activation']))
-        model.add(Conv1D(params['Conv1D_1'], kernel_size=int(params['kernel_size_1']), padding='same'))
-        model.add(Activation(params['activation']))    
-        if params['if']['layers'] == 'three':
-            model.add(Conv1D(params['Conv1D_2'], kernel_size=int(params['kernel_size_2']), padding='same'))
+        if MLmodel == 'cnn':
+            model.add(Conv1D(params['Conv1D'], kernel_size=int(params['kernel_size']), input_shape=(x_train.shape[1],1)))
             model.add(Activation(params['activation']))
-        model.add(MaxPooling1D(pool_size=2))
-        model.add(Flatten())
+            model.add(Conv1D(params['Conv1D_1'], kernel_size=int(params['kernel_size_1']), padding='same'))
+            model.add(Activation(params['activation']))    
+            if params['if']['layers'] == 'three':
+                model.add(Conv1D(params['Conv1D_2'], kernel_size=int(params['kernel_size_2']), padding='same'))
+                model.add(Activation(params['activation']))
+            model.add(MaxPooling1D(pool_size=2))
+            model.add(Flatten())
+
+        if MLmodel == 'lstm':
+            if params['if_lstm']['layers'] == 'one':
+                model.add(LSTM(int(params['lstm_units']), return_sequences=False, input_shape=(x_train.shape[1],1)))
+
+            if params['if_lstm']['layers']  == 'two':
+                model.add(LSTM(int(params['lstm_units']), return_sequences=True, input_shape=(x_train.shape[1],1)))
+                model.add(LSTM(int(params['lstm_units_1']), return_sequences=False))
+
+            if params['if_lstm']['layers']  == 'three':
+                model.add(LSTM(int(params['lstm_units']), return_sequences=True, input_shape=(x_train.shape[1],1)))
+                model.add(LSTM(int(params['lstm_units_1']), return_sequences=True))
+                model.add(LSTM(int(params['lstm_units_2']), return_sequences=False))
+        
         model.add(Dense(params['Dense']))
         model.add(Activation(params['activation']))
         model.add(Dense(params['Dense_1']))
@@ -74,21 +107,26 @@ def optimize(Xin: str,
 
         def custom_loss(y_true, y_pred):
             if pinn == 'True':
-               mse_loss = tf.reduce_mean(tf.square(y_true - y_pred))
-               a = n_states; b = n_states - 1
-               c = 0
-               # grab diagonal terms
-               y_pred -= prior
-               trace = 0.0
-               for j in range(0,n_states): 
-                   trace += y_pred[0,c]
-                   c += a + b
-                   a -= 1
-                   b -= 1
-               tot_loss = mse_loss + 0.8*tf.reduce_mean(tf.square(1- trace))
+                mse_loss = tf.reduce_mean(tf.square(y_true - y_pred))
+                y_pred -= prior
+                trace_penalty = 0.0
+                diagonal_idx = [i * (n_states * 2 - i) for i in range(n_states)]
+                for kk in range(0, y_pred.shape[-1]//n_states**2):
+                    trace_t = 0.0
+                    # calculate trace for each time step
+                    for idx in diagonal_idx: 
+                        trace_t += y_pred[:, kk * n_states**2 + idx]
+                    trace_penalty += tf.reduce_mean(tf.square(1- trace_t))
+                trace_penalty /= y_pred.shape[-1]//n_states**2
+                
+                if systemType == 'SB':
+                    tot_loss = 2.0*mse_loss + 1.0*trace_penalty
+                else:
+                    tot_loss = 1.0*mse_loss + 0.5*trace_penalty
             else:
-               tot_loss = tf.reduce_mean(tf.square(y_true - y_pred))
+                tot_loss = tf.reduce_mean(tf.square(y_true - y_pred))
             return tot_loss
+        
         model.compile(loss=custom_loss, optimizer=adam)
         model.fit(x_train, y_train,
                   batch_size=params['batch_size'],
@@ -104,7 +142,10 @@ def optimize(Xin: str,
                         space,
                         algo=tpe.suggest,
                         max_evals=max_evals,
-                        trials=trials) 
-    f = open("best_param.pkl", "wb")
+                        trials=trials)
+    if MLmodel == 'cnn':
+        f = open("best_cnn_params.pkl", "wb")
+    if MLmodel == 'lstm':
+        f = open("best_lstm_params.pkl", "wb")
     pickle.dump(best_run, f)
     f.close()
