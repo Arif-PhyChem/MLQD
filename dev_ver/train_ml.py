@@ -228,7 +228,7 @@ def AIQD(Xin: str,
         print('=================================================================')
         t1 = proc_time.time()
         optim.optimize(Xin, Yin, x_val, y_val, OptEpochs, max_evals, n_states, prior, pinn)
-        print('Train_ml.OSTL: Time taken for optimization =', proc_time.time() - t1, "sec")
+        print('Train_ml.AIQD: Time taken for optimization =', proc_time.time() - t1, "sec")
         print('Train_ml.AIQD: Training CNN model with the optimized hyper_parameters')
         print('=================================================================')
     t1 = proc_time.time()
