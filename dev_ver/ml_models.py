@@ -135,7 +135,7 @@ def CNN(Xin: str,
     else:
         print("Directory",  models_dir, "already exists where the trained models will be saved")
 
-    filepath=models_dir+"/"+ str(system_type) + "_cnn_model-{epoch:02d}-tloss-{loss:.3e}-vloss-{val_loss:.3e}.keras"
+    filepath=models_dir+"/"+ str(systemType) + "_cnn_model-{epoch:02d}-tloss-{loss:.3e}-vloss-{val_loss:.3e}.keras"
     checkpoint = ModelCheckpoint(filepath, monitor='val_loss', verbose=2, save_best_only=True, mode='min')
     callbacks_list = [checkpoint]
 
@@ -289,7 +289,7 @@ def LSTM(Xin: str,
     else:
         print("Directory",  models_dir, "already exists where the trained models will be saved")
 
-    filepath=models_dir+"/"+ str(system_type)+"_lstm_model-{epoch:02d}-tloss-{loss:.3e}-vloss-{val_loss:.3e}.keras"
+    filepath=models_dir+"/"+ str(systemType)+"_lstm_model-{epoch:02d}-tloss-{loss:.3e}-vloss-{val_loss:.3e}.keras"
     checkpoint = ModelCheckpoint(filepath, monitor='val_loss', verbose=2, save_best_only=True, mode='min')
     callbacks_list = [checkpoint]
   
